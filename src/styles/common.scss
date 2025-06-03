@@ -1,0 +1,27 @@
+* {
+	box-sizing: border-box;
+}
+
+html {
+	font-size: vars.$font-size-base;
+	font-family: vars.$font-family;
+}
+
+body {
+	display: flex;
+	justify-content: center;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	min-height: 100vh;
+	color: vars.$color-white;
+}
+
+h1,
+h2,
+h3,
+button,
+span {
+	font-family: vars.$font-family;
+	margin: 0;
+}

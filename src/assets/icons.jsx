@@ -73,3 +73,71 @@ export const SettingsIcon = () => (
 		</defs>
 	</svg>
 )
+
+export const LoupeIcon = () => (
+	<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
+		<path
+			d='M11.1111 18.2222C15.0385 18.2222 18.2222 15.0385 18.2222 11.1111C18.2222 7.18375 15.0385 4 11.1111 4C7.18375 4 4 7.18375 4 11.1111C4 15.0385 7.18375 18.2222 11.1111 18.2222Z'
+			stroke='#707070'
+			stroke-width='1.5'
+			stroke-linecap='round'
+			stroke-linejoin='round'
+		/>
+		<path
+			d='M20 20L16.1333 16.1334'
+			stroke='#707070'
+			stroke-width='1.5'
+			stroke-linecap='round'
+			stroke-linejoin='round'
+		/>
+	</svg>
+)
+
+export const BellIcon = () => (
+	<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
+		<path
+			d='M18 8.00177C18 6.41047 17.3679 4.88435 16.2426 3.75913C15.1174 2.63391 13.5913 2.00177 12 2.00177C10.4087 2.00177 8.88258 2.63391 7.75736 3.75913C6.63214 4.88435 6 6.41047 6 8.00177C6 15.0018 3 17.0018 3 17.0018H21C21 17.0018 18 15.0018 18 8.00177Z'
+			stroke='#131313'
+			stroke-width='1.5'
+			stroke-linecap='round'
+			stroke-linejoin='round'
+		/>
+		<path
+			d='M13.73 21.0018C13.5542 21.3048 13.3019 21.5564 12.9982 21.7313C12.6946 21.9062 12.3504 21.9982 12 21.9982C11.6496 21.9982 11.3054 21.9062 11.0018 21.7313C10.6982 21.5564 10.4458 21.3048 10.27 21.0018'
+			stroke='#131313'
+			stroke-width='1.5'
+			stroke-linecap='round'
+			stroke-linejoin='round'
+		/>
+	</svg>
+)
+
+export const HelpIcon = () => (
+	<svg width='26' height='26' viewBox='0 0 26 26' fill='none' xmlns='http://www.w3.org/2000/svg'>
+		<rect
+			x='1'
+			y='1'
+			width='24'
+			height='24'
+			rx='12'
+			stroke='#131313'
+			stroke-width='1.5'
+			stroke-linecap='round'
+			stroke-linejoin='round'
+		/>
+		<path
+			d='M9.50195 9.30268C9.78408 8.50068 10.3409 7.82441 11.0739 7.39364C11.8069 6.96287 12.6686 6.80541 13.5066 6.94913C14.3445 7.09286 15.1045 7.52851 15.652 8.17891C16.1996 8.82932 16.4992 9.65251 16.498 10.5027C16.498 12.9027 12.898 14.1027 12.898 14.1027'
+			stroke='#131313'
+			stroke-width='1.5'
+			stroke-linecap='round'
+			stroke-linejoin='round'
+		/>
+		<path
+			d='M12.9939 19.1027H13.0059'
+			stroke='#131313'
+			stroke-width='1.5'
+			stroke-linecap='round'
+			stroke-linejoin='round'
+		/>
+	</svg>
+)

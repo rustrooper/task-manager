@@ -1,0 +1,11 @@
+.search {
+	display: flex;
+	gap: 1rem;
+
+	&__input {
+		width: 20rem;
+		font-size: vars.$size-h3;
+		color: vars.$color-grey;
+		font-weight: vars.$weight-regular;
+	}
+}

@@ -1,6 +1,6 @@
 import Board from './pages/Board'
 import Sidebar from './components/SideBar'
-// import './App.scss'
+import './styles/common.scss'
 
 const App = () => {
 	return (
