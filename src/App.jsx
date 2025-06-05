@@ -1,6 +1,7 @@
 import Board from './pages/Board'
-import Sidebar from './components/SideBar'
+import Sidebar from './components/Sidebar'
 import './styles/common.scss'
+import 'antd/dist/reset.css'
 
 const App = () => {
 	return (
