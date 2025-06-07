@@ -1,3 +1,4 @@
+@use './reset.scss';
 @use './variables.scss' as vars;
 @use './fonts.scss';
 
@@ -11,12 +12,22 @@ html {
 }
 
 body {
-	display: flex;
-	justify-content: center;
+	// display: flex;
+	// justify-content: center;
+	// margin: 0;
+	// padding: 0;
+	// width: 100%;
+	// min-height: 100vh;
+	// color: vars.$color-black;
+}
+
+html,
+body,
+#root {
+	height: 100%;
 	margin: 0;
 	padding: 0;
-	width: 100%;
-	min-height: 100vh;
+	overflow: hidden;
 	color: vars.$color-black;
 }
 
@@ -27,4 +38,11 @@ button,
 span {
 	font-family: vars.$font-family;
 	margin: 0;
+}
+
+.app {
+	display: flex;
+	height: 100vh;
+	width: 100vw;
+	font-family: vars.$font-family;
 }

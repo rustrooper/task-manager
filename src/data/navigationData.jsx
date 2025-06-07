@@ -1,6 +1,6 @@
 // navigationData.js
 import React from 'react'
-import {BoardIcon, DashboardIcon, AnalysticIcon, SettingsIcon} from '../assets/icons.jsx'
+import {BoardIcon, DashboardIcon, AnalysticIcon, SettingsIcon, LogOutIcon} from '../assets/icons.jsx'
 
 export const navigationData = [
 	{
@@ -22,5 +22,11 @@ export const navigationData = [
 		id: 4,
 		icon: <SettingsIcon />,
 		title: 'Settings',
+	},
+
+	{
+		id: 5,
+		icon: <LogOutIcon />,
+		title: 'Log out',
 	},
 ]
