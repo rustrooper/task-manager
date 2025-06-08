@@ -1,15 +1,16 @@
 import './styles.scss'
 import Search from '../Search'
 import {HelpIcon, BellIcon} from '../../assets/icons'
+import avatar from '../../assets/icons/avatar.jpg'
 
 const TopBar = () => {
 	return (
-		<div className='topBar'>
+		<div className='topbar'>
 			<Search />
-			<div className='topBar__actions'>
+			<div className='topbar__actions'>
 				<HelpIcon />
 				<BellIcon />
-				<img src='../../assets/icons/avatar.jpg' alt='' />
+				<img className='avatar' src={avatar} alt='avatar' />
 			</div>
 		</div>
 	)

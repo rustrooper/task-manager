@@ -6,20 +6,29 @@
 	flex-direction: column;
 
 	&__item {
+		&:last-child {
+			margin-top: auto;
+			margin-bottom: 2.4rem;
+		}
+	}
+
+	&__link {
 		display: flex;
 		align-items: center;
 		gap: 1.5rem;
 		cursor: pointer;
 		padding: 1rem 3rem;
 		transition: background-color 0.2s;
+		color: inherit;
+		text-decoration: none;
+		outline: none;
 
 		&:hover {
 			background-color: vars.$color-blue-pale;
 		}
 
-		&:last-child {
-			margin-top: auto;
-			margin-bottom: 2.4rem;
+		&_active {
+			background-color: vars.$color-blue-pale;
 		}
 	}
 
