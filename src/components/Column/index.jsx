@@ -1,5 +1,6 @@
 import {useState} from 'react'
 import TaskCard from '../TaskCard'
+import {DotsIcon, PlusIcon} from '../../assets/icons'
 import './styles.scss'
 
 const Column = ({column, onAddTask, onEditTask, onDeleteTask}) => {
@@ -23,9 +24,16 @@ const Column = ({column, onAddTask, onEditTask, onDeleteTask}) => {
 
 	return (
 		<div className='column'>
-			<div className='column-header'>
-				<h3>{column.title}</h3>
-				<span className='task-count'>{column.tasks.length}</span>
+			<div className='column__header'>
+				<h3 className='column__title'>{column.title}</h3>
+				<div className='column__buttons'>
+					<button className='btn_add-task'>
+						<PlusIcon />
+					</button>
+					<button className='btn_col-actions'>
+						<DotsIcon />
+					</button>
+				</div>
 			</div>
 
 			<div className='tasks-list'>

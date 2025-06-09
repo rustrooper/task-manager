@@ -5,7 +5,7 @@ const Search = () => {
 	return (
 		<div className='search'>
 			<LoupeIcon />
-			<form>
+			<form className='search__form'>
 				<input className='search__input' type='text' placeholder='Search' />
 			</form>
 		</div>

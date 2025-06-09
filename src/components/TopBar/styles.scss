@@ -3,11 +3,14 @@
 .topbar {
 	display: flex;
 	justify-content: space-between;
+	align-items: center;
 	width: 100%;
+	margin-bottom: 3rem;
 
 	&__actions {
 		display: flex;
 		gap: 3rem;
+		align-items: center;
 
 		.avatar {
 			border-radius: 10rem;
