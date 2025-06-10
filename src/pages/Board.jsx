@@ -1,5 +1,6 @@
 import {useState} from 'react'
 import Column from '../components/Column'
+import PageTitle from '../components/PageTitle'
 import './Board.scss'
 
 const Board = () => {
@@ -40,9 +41,12 @@ const Board = () => {
 
 	return (
 		<div className='board'>
-			{columns.map(column => (
-				<Column key={column.id} column={column} onAddTask={handleAddTask} />
-			))}
+			<PageTitle textContent={'Board'} />
+			<div className='board__content'>
+				{columns.map(column => (
+					<Column key={column.id} column={column} onAddTask={handleAddTask} />
+				))}
+			</div>
 		</div>
 	)
 }

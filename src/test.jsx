@@ -3,7 +3,7 @@ import TaskCard from '../TaskCard'
 import {DotsIcon, PlusIcon} from '../../assets/icons'
 import './styles.scss'
 
-const Column = ({column, onAddTask, onEditTask, onDeleteTask}) => {
+const Column1 = ({column, onAddTask, onEditTask, onDeleteTask}) => {
 	const [showAddForm, setShowAddForm] = useState(false)
 	const [newTaskTitle, setNewTaskTitle] = useState('')
 
@@ -36,7 +36,7 @@ const Column = ({column, onAddTask, onEditTask, onDeleteTask}) => {
 				</div>
 			</div>
 
-			<div className='column__tasks'>
+			<div className='tasks-list'>
 				{column.tasks.map(task => (
 					<TaskCard key={task.id} task={task} onEdit={onEditTask} onDelete={onDeleteTask} />
 				))}
@@ -65,4 +65,4 @@ const Column = ({column, onAddTask, onEditTask, onDeleteTask}) => {
 	)
 }
 
-export default Column
+export default Column1

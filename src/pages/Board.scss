@@ -2,5 +2,12 @@
 
 .board {
 	display: flex;
-	gap: 2.4rem;
+	flex-direction: column;
+	height: 100%;
+
+	&__content {
+		display: flex;
+		gap: 2.4rem;
+		height: 100%;
+	}
 }
