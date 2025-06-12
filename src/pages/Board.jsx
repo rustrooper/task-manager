@@ -2,6 +2,9 @@ import {useState} from 'react'
 import Column from '../components/Column'
 import PageTitle from '../components/PageTitle'
 import './Board.scss'
+import '../styles/btn.scss'
+import {PlusIcon} from '../assets/icons'
+import Icon from '../components/Icon'
 
 const Board = () => {
 	const [columns, setColumns] = useState([
@@ -46,6 +49,9 @@ const Board = () => {
 				{columns.map(column => (
 					<Column key={column.id} column={column} onAddTask={handleAddTask} />
 				))}
+				<button className='btn btn_add-column'>
+					<Icon icon='plus' className='icon_color_grey' />
+				</button>
 			</div>
 		</div>
 	)

@@ -1,0 +1,17 @@
+@use './variables.scss' as vars;
+
+.btn {
+	&_add-column {
+		width: 36rem;
+		height: 7.2rem;
+		border-radius: 1rem;
+		padding: 2.4rem;
+		background-color: vars.$color-grey-pale;
+		text-align: center;
+
+		svg {
+			display: block;
+			margin: 0 auto;
+		}
+	}
+}

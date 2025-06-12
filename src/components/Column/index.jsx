@@ -2,6 +2,7 @@ import {useState} from 'react'
 import TaskCard from '../TaskCard'
 import {DotsIcon, PlusIcon} from '../../assets/icons'
 import './styles.scss'
+import Icon from '../Icon'
 
 const Column = ({column, onAddTask, onEditTask, onDeleteTask}) => {
 	const [showAddForm, setShowAddForm] = useState(false)
@@ -27,11 +28,11 @@ const Column = ({column, onAddTask, onEditTask, onDeleteTask}) => {
 			<div className='column__header'>
 				<h3 className='column__title'>{column.title}</h3>
 				<div className='column__buttons'>
-					<button className='btn_add-task'>
-						<PlusIcon />
+					<button className='btn'>
+						<Icon icon='plus' className='icon_color_black' />
 					</button>
-					<button className='btn_col-actions'>
-						<DotsIcon />
+					<button className='btn'>
+						<Icon icon='dots' className='icon_color_black' />
 					</button>
 				</div>
 			</div>

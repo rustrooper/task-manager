@@ -1,0 +1,25 @@
+@use '../../styles/variables.scss' as vars;
+
+.icon {
+	width: 2.4rem;
+	height: 2.4rem;
+
+	&_color_grey-pale {
+		stroke: vars.$color-grey-pale;
+		fill: vars.$color-grey-pale;
+	}
+
+	&_color_grey {
+		stroke: vars.$color-grey;
+		fill: vars.$color-grey;
+	}
+
+	&_stroke_grey {
+		stroke: vars.$color-grey;
+	}
+
+	&_color_black {
+		stroke: vars.$color-black;
+		fill: vars.$color-black;
+	}
+}
