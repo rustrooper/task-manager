@@ -3,7 +3,6 @@ import Column from '../components/Column'
 import PageTitle from '../components/PageTitle'
 import './Board.scss'
 import '../styles/btn.scss'
-import {PlusIcon} from '../assets/icons'
 import Icon from '../components/Icon'
 
 const Board = () => {
@@ -20,26 +19,45 @@ const Board = () => {
 		},
 	]) // Данные колонок
 
-	const handleAddTask = (columnId, newTask) => {
-		setColumns(
-			columns.map(column => {
-				if (column.id === columnId) {
-					return {
-						...column,
-						tasks: [
-							...column.tasks,
-							{
-								id: `task-${Date.now()}`, // Генерация уникального id
-								...newTask,
-								tags: [],
-								assignees: [],
-							},
-						],
-					}
-				}
-				return column
-			})
-		)
+	const addNewColumn = () => {
+		const columnTitle = prompt('Enter column title:')
+		if (columnTitle) {
+			setColumns(prev => [
+				...prev,
+				{
+					id: Date.now(),
+					title: columnTitle,
+					tasks: [],
+				},
+			])
+		}
+	}
+
+	const deleteColumn = columnId => {
+		setColumns(prev => prev.filter(column => column.id !== columnId))
+	}
+
+	const addNewTask = columnId => {
+		const taskText = prompt('Enter task text:')
+		if (taskText) {
+			setColumns(prev =>
+				prev.map(column =>
+					column.id === columnId
+						? {
+								...column,
+								tasks: [
+									...column.tasks,
+									{
+										id: Date.now(),
+										title: 'Заголовок',
+										description: taskText,
+									},
+								],
+						  }
+						: column
+				)
+			)
+		}
 	}
 
 	return (
@@ -47,9 +65,14 @@ const Board = () => {
 			<PageTitle textContent={'Board'} />
 			<div className='board__content'>
 				{columns.map(column => (
-					<Column key={column.id} column={column} onAddTask={handleAddTask} />
+					<Column
+						key={column.id}
+						column={column}
+						onAddTask={() => addNewTask(column.id)}
+						onDeleteColumn={() => deleteColumn(column.id)}
+					/>
 				))}
-				<button className='btn btn_add-column'>
+				<button onClick={addNewColumn} className='btn btn_add-column'>
 					<Icon icon='plus' className='icon_color_grey' />
 				</button>
 			</div>
