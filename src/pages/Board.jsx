@@ -4,6 +4,7 @@ import PageTitle from '../components/PageTitle'
 import './Board.scss'
 import '../styles/btn.scss'
 import Icon from '../components/Icon'
+import TaskCard from '../components/TaskCard'
 
 const Board = () => {
 	const [columns, setColumns] = useState([
@@ -60,6 +61,32 @@ const Board = () => {
 		}
 	}
 
+	const deleteTask = (columnId, taskId) => {
+		setColumns(prev =>
+			prev.map(column =>
+				column.id === columnId
+					? {
+							...column,
+							tasks: column.tasks.filter(task => task.id !== taskId),
+					  }
+					: column
+			)
+		)
+	}
+
+	const updateTask = (columnId, updatedTask) => {
+		setColumns(prev =>
+			prev.map(column =>
+				column.id === columnId
+					? {
+							...column,
+							tasks: column.tasks.map(task => (task.id === updatedTask.id ? updatedTask : task)),
+					  }
+					: column
+			)
+		)
+	}
+
 	return (
 		<div className='board'>
 			<PageTitle textContent={'Board'} />
@@ -69,8 +96,16 @@ const Board = () => {
 						key={column.id}
 						column={column}
 						onAddTask={() => addNewTask(column.id)}
-						onDeleteColumn={() => deleteColumn(column.id)}
-					/>
+						onDeleteColumn={() => deleteColumn(column.id)}>
+						{column.tasks.map(task => (
+							<TaskCard
+								key={task.id}
+								task={task}
+								onDeleteTask={() => deleteTask(column.id, task.id)}
+								onUpdateTask={updatedTask => updateTask(column.id, updatedTask)}
+							/>
+						))}{' '}
+					</Column>
 				))}
 				<button onClick={addNewColumn} className='btn btn_add-column'>
 					<Icon icon='plus' className='icon_color_grey' />

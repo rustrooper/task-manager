@@ -1,10 +1,56 @@
 import './styles.scss'
+import {useState} from 'react'
+import DropdownMenu from '../DropdownMenu.jxs'
 
-const TaskCard = ({task}) => {
+const TaskCard = ({task, onDeleteTask, onUpdateTask}) => {
+	const [isEditing, setIsEditing] = useState(false)
+	const [editedTask, setEditedTask] = useState(task)
+
+	const handleEdit = () => setIsEditing(true)
+
+	const handleSave = () => {
+		onUpdateTask(editedTask)
+		setIsEditing(false)
+	}
+
+	const handleChange = e => {
+		const {name, value} = e.target
+		setEditedTask(prev => ({...prev, [name]: value}))
+	}
+
 	return (
 		<div className='task'>
-      <h3 className=''>{task.title}</h3>
-			<p>{task.description}</p>
+			{isEditing ? (
+				<form className='edit-form'>
+					<input
+						className='edit-form__title'
+						name='title'
+						value={editedTask.title}
+						onChange={handleChange}
+						onClick={e => e.stopPropagation()}
+					/>
+					<textarea
+						className='edit-form__description'
+						name='description'
+						value={editedTask.description}
+						onChange={handleChange}
+						onClick={e => e.stopPropagation()}
+					/>
+					<button className='btn btn_edit-form' onClick={handleSave}>
+						Save
+					</button>
+				</form>
+			) : (
+				<>
+					<div className='task__header'>
+						<DropdownMenu onDelete={onDeleteTask} />
+					</div>
+					<div className='task__content' onClick={!isEditing ? handleEdit : null}>
+						<h3 className='task__title'>{task.title}</h3>
+						<p className='task__description'>{task.description}</p>
+					</div>
+				</>
+			)}
 		</div>
 	)
 }

@@ -1,5 +1,6 @@
 import {useState, useRef, useEffect} from 'react'
-import Icon from './Icon'
+import Icon from '../Icon'
+import './styles.scss'
 
 const DropdownMenu = ({onDelete}) => {
 	const [isOpen, setIsOpen] = useState(false)
@@ -31,8 +32,8 @@ const DropdownMenu = ({onDelete}) => {
 							onDelete()
 							setIsOpen(false)
 						}}
-						className='dropdown-menu__item'>
-						Delete
+						className='dropdown-menu__item btn btn_remove'>
+						Remove
 					</button>
 				</div>
 			)}

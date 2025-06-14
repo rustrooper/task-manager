@@ -1,9 +1,10 @@
-// components/TaskCard/TaskCard.scss
-.task-card {
-	background: #fff;
-	border-radius: 8px;
-	padding: 12px;
-	margin-bottom: 10px;
+@use '../../styles/variables.scss' as vars;
+
+.task {
+	background-color: vars.$color-white;
+	border-radius: 2rem;
+	padding: 1.8rem 2.4rem 2.4rem 2.4rem;
+	min-height: 16rem;
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 	transition: transform 0.2s;
 
@@ -12,98 +13,161 @@
 		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 	}
 
-	.task-header {
+	&__header {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		margin-bottom: 8px;
-
-		h4 {
-			margin: 0;
-			font-size: 16px;
-		}
-
-		.task-actions {
-			button {
-				background: none;
-				border: none;
-				cursor: pointer;
-				margin-left: 5px;
-				font-size: 14px;
-			}
-		}
+		margin-bottom: 0.8rem;
 	}
 
-	p {
-		margin: 8px 0;
-		color: #555;
-		font-size: 14px;
-	}
-
-	.task-footer {
+	&__content {
 		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		margin-top: 10px;
+		flex-direction: column;
+	}
 
-		.tags {
-			display: flex;
-			gap: 5px;
-		}
+	&__title {
+		font-weight: vars.$weight-medium;
+		font-size: vars.$size-h2;
+		color: vars.$color-black;
+	}
 
-		.tag {
-			padding: 2px 8px;
-			border-radius: 4px;
-			font-size: 12px;
-			color: white;
-		}
-
-		.assignees {
-			display: flex;
-			gap: 5px;
-
-			.assignee {
-				width: 24px;
-				height: 24px;
-				border-radius: 50%;
-				background: #e0e0e0;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				font-size: 12px;
-				overflow: hidden;
-
-				img {
-					width: 100%;
-					height: 100%;
-					object-fit: cover;
-				}
-			}
-		}
+	&__description {
+		font-weight: vars.$weight-regular;
+		font-size: vars.$size-text;
+		color: vars.$color-black;
 	}
 
 	.edit-form {
 		display: flex;
 		flex-direction: column;
 		gap: 10px;
+		font-weight: vars.$weight-regular;
+		font-size: vars.$size-text;
+		color: vars.$color-black;
+		align-items: center;
 
-		input,
-		textarea {
-			padding: 8px;
-			border: 1px solid #ddd;
-			border-radius: 4px;
+		&__title {
+			padding: 0.8rem;
+			border: 1px solid vars.$color-grey;
+			border-radius: 0.4rem;
 			width: 100%;
 		}
 
-		textarea {
-			min-height: 60px;
+		&__description {
+			padding: 0.8rem;
+			border: 1px solid vars.$color-grey;
+			border-radius: 0.4rem;
+			width: 100%;
 			resize: vertical;
-		}
-
-		button {
-			padding: 6px 12px;
-			margin-right: 5px;
-			cursor: pointer;
 		}
 	}
 }
+
+// .task-card {
+// 	background: #fff;
+// 	border-radius: 8px;
+// 	padding: 12px;
+// 	margin-bottom: 10px;
+// 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+// 	transition: transform 0.2s;
+
+// 	&:hover {
+// 		transform: translateY(-2px);
+// 		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+// 	}
+
+// 	.task-header {
+// 		display: flex;
+// 		justify-content: space-between;
+// 		align-items: center;
+// 		margin-bottom: 8px;
+
+// 		h4 {
+// 			margin: 0;
+// 			font-size: 16px;
+// 		}
+
+// 		.task-actions {
+// 			button {
+// 				background: none;
+// 				border: none;
+// 				cursor: pointer;
+// 				margin-left: 5px;
+// 				font-size: 14px;
+// 			}
+// 		}
+// 	}
+
+// 	p {
+// 		margin: 8px 0;
+// 		color: #555;
+// 		font-size: 14px;
+// 	}
+
+// 	.task-footer {
+// 		display: flex;
+// 		justify-content: space-between;
+// 		align-items: center;
+// 		margin-top: 10px;
+
+// 		.tags {
+// 			display: flex;
+// 			gap: 5px;
+// 		}
+
+// 		.tag {
+// 			padding: 2px 8px;
+// 			border-radius: 4px;
+// 			font-size: 12px;
+// 			color: white;
+// 		}
+
+// 		.assignees {
+// 			display: flex;
+// 			gap: 5px;
+
+// 			.assignee {
+// 				width: 24px;
+// 				height: 24px;
+// 				border-radius: 50%;
+// 				background: #e0e0e0;
+// 				display: flex;
+// 				align-items: center;
+// 				justify-content: center;
+// 				font-size: 12px;
+// 				overflow: hidden;
+
+// 				img {
+// 					width: 100%;
+// 					height: 100%;
+// 					object-fit: cover;
+// 				}
+// 			}
+// 		}
+// 	}
+
+// 	.edit-form {
+// 		display: flex;
+// 		flex-direction: column;
+// 		gap: 10px;
+
+// 		input,
+// 		textarea {
+// 			padding: 8px;
+// 			border: 1px solid #ddd;
+// 			border-radius: 4px;
+// 			width: 100%;
+// 		}
+
+// 		textarea {
+// 			min-height: 60px;
+// 			resize: vertical;
+// 		}
+
+// 		button {
+// 			padding: 6px 12px;
+// 			margin-right: 5px;
+// 			cursor: pointer;
+// 		}
+// 	}
+// }

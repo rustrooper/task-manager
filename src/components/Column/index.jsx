@@ -1,11 +1,8 @@
-import TaskCard from '../TaskCard'
 import './styles.scss'
 import Icon from '../Icon'
-import {useState} from 'react'
+import DropdownMenu from '../DropdownMenu.jxs'
 
-const Column = ({column, onAddTask}) => {
-	const [showMenu, setShowMenu] = useState(false)
-
+const Column = ({column, onAddTask, onDeleteColumn, children}) => {
 	return (
 		<div className='column'>
 			<div className='column__header'>
@@ -14,19 +11,11 @@ const Column = ({column, onAddTask}) => {
 					<button onClick={onAddTask} className='btn'>
 						<Icon icon='plus' className='icon_color_black' />
 					</button>
-					<div className='column__menu'>
-						<button onClick={() => setShowMenu(!showMenu)} className='btn'>
-							<Icon icon='dots' className='icon_color_black' />
-						</button>
-					</div>
+					<DropdownMenu onDelete={onDeleteColumn} />
 				</div>
 			</div>
 
-			<div className='column__tasks'>
-				{column.tasks.map(task => (
-					<TaskCard key={task.id} task={task} />
-				))}
-			</div>
+			<div className='column__tasks'>{children}</div>
 		</div>
 	)
 }

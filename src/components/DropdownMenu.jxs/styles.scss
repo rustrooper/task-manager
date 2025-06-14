@@ -1,0 +1,17 @@
+@use '../../styles/variables.scss' as vars;
+
+.dropdown-menu {
+	position: relative;
+	align-items: center;
+	max-height: 2.4rem;
+
+	&__content {
+		position: absolute;
+		top: 2rem;
+		right: 0;
+	}
+
+	&__item {
+		border-radius: 1rem;
+	}
+}

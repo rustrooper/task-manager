@@ -1,6 +1,9 @@
 @use './variables.scss' as vars;
 
 .btn {
+	font-weight: vars.$weight-regular;
+	font-size: vars.$size-h3;
+
 	&_add-column {
 		width: 36rem;
 		height: 7.2rem;
@@ -12,6 +15,26 @@
 		svg {
 			display: block;
 			margin: 0 auto;
+		}
+	}
+
+	&_remove {
+		width: 15rem;
+		padding: 0.5rem 1.5rem;
+		background-color: vars.$color-red;
+		color: vars.$color-white;
+	}
+
+	&_edit-form {
+		width: 15rem;
+		padding: 0.5rem 1.5rem;
+		color: vars.$color-black;
+		background-color: vars.$color-grey-pale;
+		border-radius: 1rem;
+		transition: background-color 0.2s;
+
+		&:hover {
+			background-color: vars.$color-blue-pale;
 		}
 	}
 }

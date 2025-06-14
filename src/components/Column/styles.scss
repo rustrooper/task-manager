@@ -13,8 +13,8 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		margin-bottom: 12px;
-		padding-bottom: 8px;
+		margin-bottom: 1.5rem;
+		// padding-bottom: 8px;
 	}
 
 	&__title {
@@ -32,6 +32,9 @@
 		flex-grow: 1;
 		min-height: 4rem;
 		overflow-y: auto;
+		display: flex;
+		flex-direction: column;
+		gap: 3rem;
 	}
 
 	.add-task-form {
