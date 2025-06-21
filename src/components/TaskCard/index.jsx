@@ -1,6 +1,7 @@
 import './styles.scss'
 import {useState} from 'react'
 import DropdownMenu from '../DropdownMenu.jxs'
+import TagSelector from '../TagSelector'
 
 const TaskCard = ({task, onDeleteTask, onUpdateTask}) => {
 	const [isEditing, setIsEditing] = useState(false)
@@ -16,6 +17,12 @@ const TaskCard = ({task, onDeleteTask, onUpdateTask}) => {
 	const handleChange = e => {
 		const {name, value} = e.target
 		setEditedTask(prev => ({...prev, [name]: value}))
+	}
+
+	const tags = ['design system', 'development', 'testing', 'analytics']
+
+	const handleTagSelect = selectedTag => {
+		onUpdateTask({...task, tag: selectedTag})
 	}
 
 	return (
@@ -43,6 +50,7 @@ const TaskCard = ({task, onDeleteTask, onUpdateTask}) => {
 			) : (
 				<>
 					<div className='task__header'>
+						<TagSelector currentTag={task.tag} onTagSelect={handleTagSelect} availableTags={tags} />
 						<DropdownMenu onDelete={onDeleteTask} />
 					</div>
 					<div className='task__content' onClick={!isEditing ? handleEdit : null}>

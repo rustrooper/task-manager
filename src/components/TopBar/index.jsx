@@ -1,6 +1,5 @@
 import './styles.scss'
 import Search from '../Search'
-import {HelpIcon, BellIcon} from '../../assets/icons'
 import avatar from '../../assets/icons/avatar.jpg'
 import Icon from '../Icon'
 

@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import Column from '../components/Column'
 import PageTitle from '../components/PageTitle'
 import './Board.scss'
@@ -7,7 +7,7 @@ import Icon from '../components/Icon'
 import TaskCard from '../components/TaskCard'
 
 const Board = () => {
-	const [columns, setColumns] = useState([
+	const initialColumns = [
 		{
 			id: 'todo',
 			title: 'To Do',
@@ -18,7 +18,16 @@ const Board = () => {
 			title: 'In Progress',
 			tasks: [{id: 'task2', title: 'API Integration', description: 'Connect backend'}],
 		},
-	]) // Данные колонок
+	] // Данные колонок
+
+	const [columns, setColumns] = useState(() => {
+		const savedColumns = localStorage.getItem('taskBoardColumns')
+		return savedColumns ? JSON.parse(savedColumns) : initialColumns
+	})
+
+	useEffect(() => {
+		localStorage.setItem('taskBoardColumns', JSON.stringify(columns))
+	}, [columns])
 
 	const addNewColumn = () => {
 		const columnTitle = prompt('Enter column title:')

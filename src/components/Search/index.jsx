@@ -1,5 +1,4 @@
 import './styles.scss'
-import {LoupeIcon} from '../../assets/icons'
 import Icon from '../Icon'
 
 const Search = () => {

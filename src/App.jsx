@@ -1,6 +1,4 @@
-import Board from './pages/Board'
 import Sidebar from './components/Sidebar'
-import {useNavigate} from 'react-router-dom'
 import AppRoutes from './routes/routes'
 import TopBar from './components/TopBar'
 
