@@ -19,7 +19,7 @@ const TaskCard = ({task, onDeleteTask, onUpdateTask}) => {
 		setEditedTask(prev => ({...prev, [name]: value}))
 	}
 
-	const tags = ['design system', 'development', 'testing', 'analytics']
+	const tags = ['DESIGN SYSTEM', 'DEVELOPMENT', 'TESTING', 'ANALYTICS']
 
 	const handleTagSelect = selectedTag => {
 		onUpdateTask({...task, tag: selectedTag})

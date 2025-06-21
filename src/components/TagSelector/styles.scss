@@ -15,7 +15,7 @@
 		// position: absolute;
 		// top: 0px;
 		// left: -1rem;
-		margin-bottom: 2px;
+		margin-bottom: 3px;
 		display: inline-block;
 		width: 1rem;
 		height: 1rem;
@@ -55,14 +55,15 @@
 			position: absolute;
 			display: flex;
 			flex-direction: column;
+			gap: 0.4rem;
 			top: 100%;
 			left: 0;
 			z-index: 10;
-			background: white;
-			border: 1px solid #ddd;
+			background: vars.$color-white;
+			border: 1px solid vars.$color-grey-pale;
 			border-radius: 4px;
-			padding: 4px 0;
-			min-width: 120px;
+			padding: 0.4rem;
+			min-width: 10rem;
 			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 		}
 
@@ -70,13 +71,12 @@
 			display: flex;
 			width: 100%;
 			text-align: left;
-			padding: 4px 12px;
 			background: none;
 			border: none;
 			cursor: pointer;
 
 			&:hover {
-				background-color: #f5f5f5;
+				background-color: vars.$color-grey-pale;
 			}
 		}
 	}
