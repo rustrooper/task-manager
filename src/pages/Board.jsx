@@ -18,7 +18,9 @@ const Board = () => {
 			title: 'In Progress',
 			tasks: [{id: 'task2', title: 'API Integration', description: 'Connect backend'}],
 		},
-	] // Данные колонок
+	]
+
+	const tags = ['design system', 'development', 'testing', 'analytics']
 
 	const [columns, setColumns] = useState(() => {
 		const savedColumns = localStorage.getItem('taskBoardColumns')
@@ -110,6 +112,7 @@ const Board = () => {
 							<TaskCard
 								key={task.id}
 								task={task}
+								tags={tags}
 								onDeleteTask={() => deleteTask(column.id, task.id)}
 								onUpdateTask={updatedTask => updateTask(column.id, updatedTask)}
 							/>

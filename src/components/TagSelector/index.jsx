@@ -17,7 +17,7 @@ const TagSelector = ({currentTag, onTagSelect, availableTags}) => {
 
 	return (
 		<div className='tag-selector' ref={dropdownRef}>
-			<button onClick={() => setIsOpen(!isOpen)} className={`tag tag_${currentTag?.replace(' ', '-') || 'default'}`}>
+			<button onClick={() => setIsOpen(!isOpen)} className={`tag tag_${currentTag?.replace(' ', '-')}`}>
 				{currentTag?.toUpperCase() || 'Choose tag'}
 			</button>
 

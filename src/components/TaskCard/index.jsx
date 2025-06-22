@@ -1,11 +1,14 @@
 import './styles.scss'
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import DropdownMenu from '../DropdownMenu.jxs'
 import TagSelector from '../TagSelector'
 
-const TaskCard = ({task, onDeleteTask, onUpdateTask}) => {
+const TaskCard = ({task, tags, onDeleteTask, onUpdateTask}) => {
 	const [isEditing, setIsEditing] = useState(false)
 	const [editedTask, setEditedTask] = useState(task)
+	useEffect(() => {
+		setEditedTask(task)
+	}, [task])
 
 	const handleEdit = () => setIsEditing(true)
 
@@ -18,8 +21,6 @@ const TaskCard = ({task, onDeleteTask, onUpdateTask}) => {
 		const {name, value} = e.target
 		setEditedTask(prev => ({...prev, [name]: value}))
 	}
-
-	const tags = ['design system', 'development', 'testing', 'analytics']
 
 	const handleTagSelect = selectedTag => {
 		onUpdateTask({...task, tag: selectedTag})
