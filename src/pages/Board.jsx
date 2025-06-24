@@ -21,6 +21,7 @@ const Board = () => {
 	]
 
 	const tags = ['design system', 'development', 'testing', 'analytics']
+	const assignees = ['daniel simonov', 'alex sigeiev']
 
 	const [columns, setColumns] = useState(() => {
 		const savedColumns = localStorage.getItem('taskBoardColumns')
@@ -113,6 +114,7 @@ const Board = () => {
 								key={task.id}
 								task={task}
 								tags={tags}
+								assignees={assignees}
 								onDeleteTask={() => deleteTask(column.id, task.id)}
 								onUpdateTask={updatedTask => updateTask(column.id, updatedTask)}
 							/>

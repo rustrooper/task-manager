@@ -1,6 +1,6 @@
 import './styles.scss'
 import Icon from '../Icon'
-import DropdownMenu from '../DropdownMenu.jxs'
+import DropdownMenu from '../DropdownMenu'
 
 const Column = ({column, onAddTask, onDeleteColumn, children}) => {
 	return (

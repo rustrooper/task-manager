@@ -1,9 +1,10 @@
 import './styles.scss'
 import {useEffect, useState} from 'react'
-import DropdownMenu from '../DropdownMenu.jxs'
+import DropdownMenu from '../DropdownMenu'
 import TagSelector from '../TagSelector'
+import AssigneesSelector from '../AssignessSelector'
 
-const TaskCard = ({task, tags, onDeleteTask, onUpdateTask}) => {
+const TaskCard = ({task, tags, assignees, onDeleteTask, onUpdateTask}) => {
 	const [isEditing, setIsEditing] = useState(false)
 	const [editedTask, setEditedTask] = useState(task)
 	useEffect(() => {
@@ -22,10 +23,11 @@ const TaskCard = ({task, tags, onDeleteTask, onUpdateTask}) => {
 		setEditedTask(prev => ({...prev, [name]: value}))
 	}
 
-	const handleTagSelect = selectedTag => {
-		onUpdateTask({...task, tag: selectedTag})
+	const handleTaskUpdate = (property, value) => {
+		onUpdateTask({...task, [property]: value})
 	}
 
+	handleTaskUpdate
 	return (
 		<div className='task'>
 			{isEditing ? (
@@ -51,13 +53,18 @@ const TaskCard = ({task, tags, onDeleteTask, onUpdateTask}) => {
 			) : (
 				<>
 					<div className='task__header'>
-						<TagSelector currentTag={task.tag} onTagSelect={handleTagSelect} availableTags={tags} />
+						<TagSelector currentTag={task.tag} onTagSelect={handleTaskUpdate} availableTags={tags} />
 						<DropdownMenu onDelete={onDeleteTask} />
 					</div>
 					<div className='task__content' onClick={!isEditing ? handleEdit : null}>
 						<h3 className='task__title'>{task.title}</h3>
 						<p className='task__description'>{task.description}</p>
 					</div>
+					<AssigneesSelector
+						currentAssignee={task.assignee}
+						onAssigneeSelect={handleTaskUpdate}
+						availableAssignees={assignees}
+					/>
 				</>
 			)}
 		</div>

@@ -2,7 +2,7 @@ import './styles.scss'
 import Dropdown from '../Dropdown'
 import Icon from '../Icon'
 
-const AssigneesSelector = ({onAssigneeSelect, availableAssignees}) => (
+const AssigneesSelector = ({currentAssignee, onAssigneeSelect, availableAssignees}) => (
 	<Dropdown
 		classNameWrapper='assignees-selector'
 		classNameContent='assignees-selector__dropdown'
