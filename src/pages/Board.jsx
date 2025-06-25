@@ -122,7 +122,7 @@ const Board = () => {
 					</Column>
 				))}
 				<button onClick={addNewColumn} className='btn btn_add-column'>
-					<Icon icon='plus' className='icon_color_grey' />
+					<Icon icon='plus' className='icon_color_grey icon_borderless' />
 				</button>
 			</div>
 		</div>

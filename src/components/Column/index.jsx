@@ -9,7 +9,7 @@ const Column = ({column, onAddTask, onDeleteColumn, children}) => {
 				<h3 className='column__title'>{column.title}</h3>
 				<div className='column__buttons'>
 					<button onClick={onAddTask} className='btn'>
-						<Icon icon='plus' className='icon_color_black' />
+						<Icon icon='plus' className='icon_color_black icon_borderless' />
 					</button>
 					<DropdownMenu onDelete={onDeleteColumn} />
 				</div>

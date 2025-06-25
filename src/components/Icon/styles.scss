@@ -22,4 +22,9 @@
 		stroke: vars.$color-black;
 		fill: vars.$color-black;
 	}
+
+	&_borderless {
+		width: 1.6rem;
+		height: 1.6rem;
+	}
 }

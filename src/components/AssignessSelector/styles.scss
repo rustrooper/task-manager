@@ -1,0 +1,24 @@
+@use '../../styles/variables.scss' as vars;
+
+.assignees-selector {
+	display: flex;
+	flex-direction: column;
+
+	&__dropdown {
+		display: flex;
+		flex-direction: column;
+		gap: 0.4rem;
+		background: vars.$color-white;
+		border: 1px solid vars.$color-grey-pale;
+		border-radius: 4px;
+		padding: 0.4rem;
+		// width: min-content;
+		align-self: flex-start;
+		min-width: 10rem;
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	}
+
+	&__option {
+		display: flex;
+	}
+}
