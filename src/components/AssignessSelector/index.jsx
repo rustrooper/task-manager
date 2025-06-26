@@ -22,10 +22,16 @@ const AssigneesSelector = ({currentAssignees, onAssigneesSelect, availableAssign
 			trigger={({isOpen, setIsOpen}) => (
 				<button onClick={() => setIsOpen(!isOpen)} className='btn btn_assignees-selector'>
 					{currentAssignees.length > 0 ? (
-						currentAssignees.join(', ')
+						currentAssignees.map(name => {
+							const initials = name
+								.split(' ')
+								.map(part => part[0].toUpperCase())
+								.join('')
+							return <Icon key={name} className='assignees-selector__initials-icon' textContent={initials}></Icon>
+						})
 					) : (
 						<>
-							<Icon icon='plus' className='icon_color_grey icon_borderless' />
+							<Icon icon='plus' className='icon_color_grey icon_indentless' />
 							<span>Assignees</span>
 						</>
 					)}
