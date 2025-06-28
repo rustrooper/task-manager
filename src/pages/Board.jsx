@@ -5,6 +5,7 @@ import './Board.scss'
 import '../styles/btn.scss'
 import Icon from '../components/Icon'
 import TaskCard from '../components/TaskCard'
+import LocalStorageService from '../utils/localStorageService'
 
 const Board = () => {
 	const initialColumns = [
@@ -22,14 +23,29 @@ const Board = () => {
 
 	const tags = ['design system', 'development', 'testing', 'analytics']
 	const assignees = ['daniel simonov', 'alex sigeiev']
+	const users = [
+		{
+			id: 'simonov',
+			name: 'daniel simonov',
+			icon: '/src/assets/icons/avatar.jpg',
+		},
+		{
+			id: 'sigeev',
+			name: 'alex sigeiev',
+		},
+		{
+			id: 'pasha',
+			name: 'pasha volya',
+		},
+	]
 
 	const [columns, setColumns] = useState(() => {
-		const savedColumns = localStorage.getItem('taskBoardColumns')
-		return savedColumns ? JSON.parse(savedColumns) : initialColumns
+		const savedColumns = LocalStorageService.get('taskBoardColumns')
+		return savedColumns || initialColumns
 	})
 
 	useEffect(() => {
-		localStorage.setItem('taskBoardColumns', JSON.stringify(columns))
+		LocalStorageService.set('taskBoardColumns', columns)
 	}, [columns])
 
 	const addNewColumn = () => {
@@ -114,7 +130,7 @@ const Board = () => {
 								key={task.id}
 								task={task}
 								tags={tags}
-								assignees={assignees}
+								assignees={users}
 								onDeleteTask={() => deleteTask(column.id, task.id)}
 								onUpdateTask={updatedTask => updateTask(column.id, updatedTask)}
 							/>

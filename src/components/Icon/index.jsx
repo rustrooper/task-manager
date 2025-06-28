@@ -1,3 +1,4 @@
+import {useMemo} from 'react'
 import sprite from '../../assets/icons/sprite.svg'
 import './styles.scss'
 
@@ -35,12 +36,14 @@ const Icon = ({icon, className = '', textContent = ''}) => {
 		return hslToHex(hue, saturation, lightness)
 	}
 
+	const color = useMemo(() => getRandomColor(), [textContent])
+
 	return icon ? (
 		<svg className={`icon ${className}`}>
 			<use xlinkHref={`${sprite}#${icon}`} />
 		</svg>
 	) : (
-		<div className={className} style={{backgroundColor: getRandomColor()}}>
+		<div className={className} style={{backgroundColor: color}}>
 			{textContent}
 		</div>
 	)
