@@ -22,7 +22,6 @@ const Board = () => {
 	]
 
 	const tags = ['design system', 'development', 'testing', 'analytics']
-	const assignees = ['daniel simonov', 'alex sigeiev']
 	const users = [
 		{
 			id: 'simonov',

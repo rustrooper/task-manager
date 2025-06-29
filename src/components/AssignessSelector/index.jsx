@@ -3,10 +3,10 @@ import Dropdown from '../Dropdown'
 import Icon from '../Icon'
 
 const AssigneesSelector = ({currentAssignees, onAssigneesSelect, availableAssignees}) => {
-	const handleAssigneeToggle = assignee => {
-		const newAssignees = currentAssignees.includes(assignee)
-			? currentAssignees.filter(a => a !== assignee) // Удаляем если уже выбран
-			: [...currentAssignees, assignee] // Добавляем если не выбран
+	const handleAssigneeToggle = assigneeId => {
+		const newAssignees = currentAssignees.includes(assigneeId)
+			? currentAssignees.filter(id => id !== assigneeId) // Удаляем если уже выбран
+			: [...currentAssignees, assigneeId] // Добавляем если не выбран
 
 		onAssigneesSelect('assignees', newAssignees)
 	}
@@ -22,12 +22,21 @@ const AssigneesSelector = ({currentAssignees, onAssigneesSelect, availableAssign
 			trigger={({isOpen, setIsOpen}) => (
 				<button onClick={() => setIsOpen(!isOpen)} className='btn btn_assignees-selector'>
 					{currentAssignees.length > 0 ? (
-						currentAssignees.map(name => {
-							const initials = name
+						currentAssignees.map(assigneeId => {
+							const assignee = availableAssignees.find(a => a.id === assigneeId)
+							if (!assignee) return null
+
+							const initials = assignee.name
 								.split(' ')
 								.map(part => part[0].toUpperCase())
 								.join('')
-							return <Icon key={name} className='assignees-selector__initials-icon' textContent={initials}></Icon>
+							return (
+								<Icon
+									key={assignee.id}
+									className='assignees-selector__user-icon'
+									textContent={initials}
+									user={assignee}></Icon>
+							)
 						})
 					) : (
 						<>
@@ -41,12 +50,12 @@ const AssigneesSelector = ({currentAssignees, onAssigneesSelect, availableAssign
 				<>
 					{availableAssignees.map(assignee => (
 						<button
-							key={assignee}
+							key={assignee.name}
 							className={`assignees-selector__option ${
 								currentAssignees.includes(assignee) ? 'assignees-selector__option_selected' : ''
 							}`}
-							onClick={() => handleAssigneeToggle(assignee)}>
-							{assignee}
+							onClick={() => handleAssigneeToggle(assignee.id)}>
+							{assignee.name}
 						</button>
 					))}
 					{currentAssignees.length > 0 && (

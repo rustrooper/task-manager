@@ -1,8 +1,8 @@
-import {useMemo} from 'react'
 import sprite from '../../assets/icons/sprite.svg'
 import './styles.scss'
+import LocalStorageService from '../../utils/localStorageService'
 
-const Icon = ({icon, className = '', textContent = ''}) => {
+const Icon = ({icon, className = '', textContent = '', user}) => {
 	const getRandomColor = () => {
 		// 1. Выбираем случайный базовый тон (Hue) от 0 до 360°
 		const baseHue = Math.floor(Math.random() * 360)
@@ -36,14 +36,40 @@ const Icon = ({icon, className = '', textContent = ''}) => {
 		return hslToHex(hue, saturation, lightness)
 	}
 
-	const color = useMemo(() => getRandomColor(), [textContent])
+	const setColor = () => {
+		if (user.color) {
+			return user.color
+		}
 
-	return icon ? (
-		<svg className={`icon ${className}`}>
-			<use xlinkHref={`${sprite}#${icon}`} />
-		</svg>
-	) : (
-		<div className={className} style={{backgroundColor: color}}>
+		const usersData = LocalStorageService.get('usersData') || []
+		const existingUser = usersData.find(u => u.id === user.id)
+
+		if (existingUser?.color) {
+			return existingUser.color
+		}
+
+		const newColor = getRandomColor()
+		const updatedUser = {...user, color: newColor}
+
+		const updatedUsersData = existingUser
+			? usersData.map(u => (u.id === user.id ? updatedUser : u))
+			: [...usersData, updatedUser]
+
+		LocalStorageService.set('usersData', updatedUsersData)
+		return newColor
+	}
+
+	if (user?.icon) return <img className={className} src={user.icon} width='100%' height='100%' />
+
+	if (icon)
+		return (
+			<svg className={`icon ${className}`}>
+				<use xlinkHref={`${sprite}#${icon}`} />
+			</svg>
+		)
+
+	return (
+		<div className={className} style={{backgroundColor: setColor()}}>
 			{textContent}
 		</div>
 	)
