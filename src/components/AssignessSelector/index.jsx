@@ -2,11 +2,11 @@ import './styles.scss'
 import Dropdown from '../Dropdown'
 import Icon from '../Icon'
 
-const AssigneesSelector = ({currentAssignees, onAssigneesSelect, availableAssignees}) => {
+const AssigneesSelector = ({currentAssigneesIds, onAssigneesSelect, availableAssignees}) => {
 	const handleAssigneeToggle = assigneeId => {
-		const newAssignees = currentAssignees.includes(assigneeId)
-			? currentAssignees.filter(id => id !== assigneeId) // Удаляем если уже выбран
-			: [...currentAssignees, assigneeId] // Добавляем если не выбран
+		const newAssignees = currentAssigneesIds.includes(assigneeId)
+			? currentAssigneesIds.filter(id => id !== assigneeId) // Удаляем если уже выбран
+			: [...currentAssigneesIds, assigneeId] // Добавляем если не выбран
 
 		onAssigneesSelect('assignees', newAssignees)
 	}
@@ -21,8 +21,8 @@ const AssigneesSelector = ({currentAssignees, onAssigneesSelect, availableAssign
 			classNameContent='assignees-selector__dropdown'
 			trigger={({isOpen, setIsOpen}) => (
 				<button onClick={() => setIsOpen(!isOpen)} className='btn btn_assignees-selector'>
-					{currentAssignees.length > 0 ? (
-						currentAssignees.map(assigneeId => {
+					{currentAssigneesIds.length > 0 ? (
+						currentAssigneesIds.map(assigneeId => {
 							const assignee = availableAssignees.find(a => a.id === assigneeId)
 							if (!assignee) return null
 
@@ -35,7 +35,8 @@ const AssigneesSelector = ({currentAssignees, onAssigneesSelect, availableAssign
 									key={assignee.id}
 									className='assignees-selector__user-icon'
 									textContent={initials}
-									user={assignee}></Icon>
+									user={assignee}
+								/>
 							)
 						})
 					) : (
@@ -52,13 +53,13 @@ const AssigneesSelector = ({currentAssignees, onAssigneesSelect, availableAssign
 						<button
 							key={assignee.name}
 							className={`assignees-selector__option ${
-								currentAssignees.includes(assignee) ? 'assignees-selector__option_selected' : ''
+								currentAssigneesIds.includes(assignee.id) ? 'assignees-selector__option_selected' : ''
 							}`}
 							onClick={() => handleAssigneeToggle(assignee.id)}>
 							{assignee.name}
 						</button>
 					))}
-					{currentAssignees.length > 0 && (
+					{currentAssigneesIds.length > 0 && (
 						<div className='assigness-selector__actions'>
 							<button
 								onClick={() => {

@@ -61,7 +61,7 @@ const TaskCard = ({task, tags, assignees, onDeleteTask, onUpdateTask}) => {
 						<p className='task__description'>{task.description}</p>
 					</div>
 					<AssigneesSelector
-						currentAssignees={task.assignees || []}
+						currentAssigneesIds={task.assignees || []}
 						onAssigneesSelect={handleTaskUpdate}
 						availableAssignees={assignees}
 					/>
