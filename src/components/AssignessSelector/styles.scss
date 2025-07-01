@@ -7,11 +7,11 @@
 	&__dropdown {
 		display: flex;
 		flex-direction: column;
-		gap: 0.4rem;
+		// gap: 0.4rem;
 		background: vars.$color-white;
 		border: 1px solid vars.$color-grey-pale;
 		border-radius: 4px;
-		padding: 0.4rem;
+		// padding: 0.4rem;
 		// width: min-content;
 		align-self: flex-start;
 		min-width: 10rem;
@@ -19,7 +19,13 @@
 	}
 
 	&__option {
+		padding: 0.4rem;
 		display: flex;
+		transition: background-color 0.5s;
+
+		&:hover {
+			background-color: vars.$color-blue-pale;
+		}
 	}
 
 	&__user-icon {

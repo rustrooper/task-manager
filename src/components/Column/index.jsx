@@ -1,8 +1,9 @@
+import {memo} from 'react'
 import './styles.scss'
 import Icon from '../Icon'
 import DropdownMenu from '../DropdownMenu'
 
-const Column = ({column, onAddTask, onDeleteColumn, children}) => {
+const Column = memo(({column, onAddTask, onDeleteColumn, children}) => {
 	return (
 		<div className='column'>
 			<div className='column__header'>
@@ -18,6 +19,6 @@ const Column = ({column, onAddTask, onDeleteColumn, children}) => {
 			<div className='column__tasks'>{children}</div>
 		</div>
 	)
-}
+})
 
 export default Column

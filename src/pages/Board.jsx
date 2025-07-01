@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import {useCallback, useEffect, useState} from 'react'
 import Column from '../components/Column'
 import PageTitle from '../components/PageTitle'
 import './Board.scss'
@@ -7,37 +7,37 @@ import Icon from '../components/Icon'
 import TaskCard from '../components/TaskCard'
 import LocalStorageService from '../utils/localStorageService'
 
+const initialColumns = [
+	{
+		id: 'todo',
+		title: 'To Do',
+		tasks: [{id: 'task1', title: 'Design Homepage', description: 'Create wireframes'}],
+	},
+	{
+		id: 'inprogress',
+		title: 'In Progress',
+		tasks: [{id: 'task2', title: 'API Integration', description: 'Connect backend'}],
+	},
+]
+
+const tags = ['design system', 'development', 'testing', 'analytics']
+const users = [
+	{
+		id: 'simonov',
+		name: 'daniel simonov',
+		icon: '/src/assets/icons/avatar.jpg',
+	},
+	{
+		id: 'sigeev',
+		name: 'alex sigeiev',
+	},
+	{
+		id: 'pasha',
+		name: 'pasha volya',
+	},
+]
+
 const Board = () => {
-	const initialColumns = [
-		{
-			id: 'todo',
-			title: 'To Do',
-			tasks: [{id: 'task1', title: 'Design Homepage', description: 'Create wireframes'}],
-		},
-		{
-			id: 'inprogress',
-			title: 'In Progress',
-			tasks: [{id: 'task2', title: 'API Integration', description: 'Connect backend'}],
-		},
-	]
-
-	const tags = ['design system', 'development', 'testing', 'analytics']
-	const users = [
-		{
-			id: 'simonov',
-			name: 'daniel simonov',
-			icon: '/src/assets/icons/avatar.jpg',
-		},
-		{
-			id: 'sigeev',
-			name: 'alex sigeiev',
-		},
-		{
-			id: 'pasha',
-			name: 'pasha volya',
-		},
-	]
-
 	const [columns, setColumns] = useState(() => {
 		const savedColumns = LocalStorageService.get('taskBoardColumns')
 		return savedColumns || initialColumns
@@ -47,7 +47,7 @@ const Board = () => {
 		LocalStorageService.set('taskBoardColumns', columns)
 	}, [columns])
 
-	const addNewColumn = () => {
+	const addNewColumn = useCallback(() => {
 		const columnTitle = prompt('Enter column title:')
 		if (columnTitle) {
 			setColumns(prev => [
@@ -59,13 +59,13 @@ const Board = () => {
 				},
 			])
 		}
-	}
+	}, [])
 
-	const deleteColumn = columnId => {
+	const deleteColumn = useCallback(columnId => {
 		setColumns(prev => prev.filter(column => column.id !== columnId))
-	}
+	}, [])
 
-	const addNewTask = columnId => {
+	const addNewTask = useCallback(columnId => {
 		const taskText = prompt('Enter task text:')
 		if (taskText) {
 			setColumns(prev =>
@@ -86,9 +86,9 @@ const Board = () => {
 				)
 			)
 		}
-	}
+	}, [])
 
-	const deleteTask = (columnId, taskId) => {
+	const deleteTask = useCallback((columnId, taskId) => {
 		setColumns(prev =>
 			prev.map(column =>
 				column.id === columnId
@@ -99,9 +99,9 @@ const Board = () => {
 					: column
 			)
 		)
-	}
+	}, [])
 
-	const updateTask = (columnId, updatedTask) => {
+	const updateTask = useCallback((columnId, updatedTask) => {
 		setColumns(prev =>
 			prev.map(column =>
 				column.id === columnId
@@ -112,7 +112,7 @@ const Board = () => {
 					: column
 			)
 		)
-	}
+	}, [])
 
 	return (
 		<div className='board'>

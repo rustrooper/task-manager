@@ -1,31 +1,34 @@
 import './styles.scss'
-import {useEffect, useState} from 'react'
+import {useEffect, useState, useCallback, memo} from 'react'
 import DropdownMenu from '../DropdownMenu'
 import TagSelector from '../TagSelector'
 import AssigneesSelector from '../AssignessSelector'
 
-const TaskCard = ({task, tags, assignees, onDeleteTask, onUpdateTask}) => {
+const TaskCard = memo(({task, tags, assignees, onDeleteTask, onUpdateTask}) => {
 	const [isEditing, setIsEditing] = useState(false)
 	const [editedTask, setEditedTask] = useState(task)
 	useEffect(() => {
 		setEditedTask(task)
 	}, [task])
 
-	const handleEdit = () => setIsEditing(true)
+	const handleEdit = useCallback(() => setIsEditing(true), [])
 
-	const handleSave = () => {
+	const handleSave = useCallback(() => {
 		onUpdateTask(editedTask)
 		setIsEditing(false)
-	}
+	}, [editedTask, onUpdateTask])
 
-	const handleChange = e => {
+	const handleChange = useCallback(e => {
 		const {name, value} = e.target
 		setEditedTask(prev => ({...prev, [name]: value}))
-	}
+	}, [])
 
-	const handleTaskUpdate = (property, value) => {
-		onUpdateTask({...task, [property]: value})
-	}
+	const handleTaskUpdate = useCallback(
+		(property, value) => {
+			onUpdateTask({...task, [property]: value})
+		},
+		[onUpdateTask, task]
+	)
 
 	handleTaskUpdate
 	return (
@@ -69,6 +72,6 @@ const TaskCard = ({task, tags, assignees, onDeleteTask, onUpdateTask}) => {
 			)}
 		</div>
 	)
-}
+})
 
 export default TaskCard

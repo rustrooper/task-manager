@@ -1,16 +1,19 @@
+import {memo, useCallback} from 'react'
 import Dropdown from '../Dropdown'
 import './styles.scss'
 
-const TagSelector = ({currentTag, onTagSelect, availableTags}) => (
-	<Dropdown
-		classNameWrapper='tag-selector'
-		classNameContent='tag-selector__dropdown'
-		trigger={({isOpen, setIsOpen}) => (
+const TagSelector = memo(({currentTag, onTagSelect, availableTags}) => {
+	const renderTrigger = useCallback(
+		({isOpen, setIsOpen}) => (
 			<button onClick={() => setIsOpen(!isOpen)} className={`tag tag_${currentTag?.replace(' ', '-')}`}>
 				{currentTag?.toUpperCase() || 'Choose tag'}
 			</button>
-		)}>
-		{({setIsOpen}) =>
+		),
+		[currentTag]
+	)
+
+	const renderContent = useCallback(
+		({setIsOpen}) =>
 			availableTags.map(tag => (
 				<button
 					key={tag}
@@ -21,9 +24,14 @@ const TagSelector = ({currentTag, onTagSelect, availableTags}) => (
 					className={`tag-selector__option tag tag_${tag.replace(' ', '-')}`}>
 					{tag.toUpperCase()}
 				</button>
-			))
-		}
-	</Dropdown>
-)
+			)),
+		[availableTags, onTagSelect]
+	)
+	return (
+		<Dropdown classNameWrapper='tag-selector' classNameContent='tag-selector__dropdown' trigger={renderTrigger}>
+			{renderContent}
+		</Dropdown>
+	)
+})
 
 export default TagSelector
