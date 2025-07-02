@@ -37,13 +37,4 @@
 			background-color: vars.$color-blue-pale;
 		}
 	}
-
-	&_assignees-selector {
-		display: flex;
-		align-items: center;
-		gap: 1rem;
-
-		font-weight: vars.$weight-regular;
-		font-size: vars.$size-text;
-	}
 }

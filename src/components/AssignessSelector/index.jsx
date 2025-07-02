@@ -21,7 +21,7 @@ const AssigneesSelector = memo(({currentAssigneesIds, onAssigneesSelect, availab
 
 	const renderTrigger = useCallback(
 		({isOpen, setIsOpen}) => (
-			<button onClick={() => setIsOpen(!isOpen)} className='btn btn_assignees-selector'>
+			<button onClick={() => setIsOpen(!isOpen)} className='btn assignees-selector__toggle'>
 				{currentAssigneesIds.length > 0 ? (
 					currentAssigneesIds.map(assigneeId => {
 						const assignee = availableAssignees.find(a => a.id === assigneeId)
@@ -65,7 +65,14 @@ const AssigneesSelector = memo(({currentAssigneesIds, onAssigneesSelect, availab
 					</button>
 				))}
 				{currentAssigneesIds.length > 0 && (
-					<div className='assigness-selector__actions'>
+					<div className='assignees-selector__actions'>
+						<button
+							onClick={() => {
+								setIsOpen(false)
+							}}
+							className='assignees-selector__accept'>
+							Accept
+						</button>
 						<button
 							onClick={() => {
 								handleClearAll()
@@ -73,13 +80,6 @@ const AssigneesSelector = memo(({currentAssigneesIds, onAssigneesSelect, availab
 							}}
 							className='assignees-selector__clear'>
 							Clear all
-						</button>
-						<button
-							onClick={() => {
-								setIsOpen(false)
-							}}
-							className='assignees-selector__accept'>
-							Accept
 						</button>
 					</div>
 				)}

@@ -2,7 +2,18 @@
 
 .assignees-selector {
 	display: flex;
+	align-self: flex-start;
 	flex-direction: column;
+	width: fit-content;
+
+	&__toggle {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		align-self: flex-start;
+		font-weight: vars.$weight-regular;
+		font-size: vars.$size-text;
+	}
 
 	&__dropdown {
 		display: flex;
@@ -21,10 +32,42 @@
 	&__option {
 		padding: 0.4rem;
 		display: flex;
-		transition: background-color 0.5s;
+		transition: background-color 0.2s;
+		white-space: nowrap;
 
 		&:hover {
 			background-color: vars.$color-blue-pale;
+		}
+
+		&_selected {
+			background-color: vars.$color-blue-pale;
+		}
+	}
+
+	&__actions {
+		display: flex;
+		// background-color: vars.$color-grey-pale;
+		font-weight: vars.$weight-medium;
+	}
+
+	&__accept {
+		flex: 1;
+		border-radius: 4px;
+		padding: 0.4rem;
+		transition: background-color 0.2s;
+		&:hover {
+			background-color: vars.$color-green;
+		}
+	}
+
+	&__clear {
+		flex: 1;
+		border-radius: 4px;
+		padding: 0.4rem;
+		transition: background-color 0.2s;
+		white-space: nowrap;
+		&:hover {
+			background-color: vars.$color-red;
 		}
 	}
 
