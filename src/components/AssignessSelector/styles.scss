@@ -13,6 +13,10 @@
 		align-self: flex-start;
 		font-weight: vars.$weight-regular;
 		font-size: vars.$size-text;
+
+		&_users-icons {
+			gap: 0;
+		}
 	}
 
 	&__dropdown {
@@ -78,5 +82,8 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		&:not(:first-child) {
+			margin-left: -0.7rem;
+		}
 	}
 }

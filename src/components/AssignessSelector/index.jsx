@@ -21,7 +21,11 @@ const AssigneesSelector = memo(({currentAssigneesIds, onAssigneesSelect, availab
 
 	const renderTrigger = useCallback(
 		({isOpen, setIsOpen}) => (
-			<button onClick={() => setIsOpen(!isOpen)} className='btn assignees-selector__toggle'>
+			<button
+				onClick={() => setIsOpen(!isOpen)}
+				className={`btn assignees-selector__toggle ${
+					currentAssigneesIds.length > 0 ? 'assignees-selector__toggle_users-icons' : ''
+				}`}>
 				{currentAssigneesIds.length > 0 ? (
 					currentAssigneesIds.map(assigneeId => {
 						const assignee = availableAssignees.find(a => a.id === assigneeId)

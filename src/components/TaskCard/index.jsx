@@ -1,6 +1,6 @@
 import './styles.scss'
 import {useEffect, useState, useCallback, memo} from 'react'
-import DropdownMenu from '../DropdownMenu'
+import ActionsSelector from '../ActionsSelector'
 import TagSelector from '../TagSelector'
 import AssigneesSelector from '../AssignessSelector'
 
@@ -30,7 +30,6 @@ const TaskCard = memo(({task, tags, assignees, onDeleteTask, onUpdateTask}) => {
 		[onUpdateTask, task]
 	)
 
-	handleTaskUpdate
 	return (
 		<div className='task'>
 			{isEditing ? (
@@ -57,7 +56,7 @@ const TaskCard = memo(({task, tags, assignees, onDeleteTask, onUpdateTask}) => {
 				<>
 					<div className='task__header'>
 						<TagSelector currentTag={task.tag} onTagSelect={handleTaskUpdate} availableTags={tags} />
-						<DropdownMenu onDelete={onDeleteTask} />
+						<ActionsSelector onDelete={onDeleteTask} />
 					</div>
 					<div className='task__content' onClick={!isEditing ? handleEdit : null}>
 						<h3 className='task__title'>{task.title}</h3>

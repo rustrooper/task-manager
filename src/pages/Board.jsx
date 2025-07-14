@@ -114,6 +114,14 @@ const Board = () => {
 		)
 	}, [])
 
+	// const updateColumn = (columnId, updatedColumn) => {
+	//   setColumns(prev => prev.map(column =>
+	//     column.id === columnId ? {
+
+	//     }
+	//   ))
+	// }
+
 	return (
 		<div className='board'>
 			<PageTitle textContent={'Board'} />
@@ -123,7 +131,9 @@ const Board = () => {
 						key={column.id}
 						column={column}
 						onAddTask={() => addNewTask(column.id)}
-						onDeleteColumn={() => deleteColumn(column.id)}>
+						onDeleteColumn={() => deleteColumn(column.id)}
+						// onUpdateColumn={() => updateColumn(column.id)}
+					>
 						{column.tasks.map(task => (
 							<TaskCard
 								key={task.id}

@@ -1,9 +1,18 @@
-import {memo} from 'react'
+import {useEffect, useState, useCallback, memo} from 'react'
 import './styles.scss'
 import Icon from '../Icon'
-import DropdownMenu from '../DropdownMenu'
+import ActionsSelector from '../ActionsSelector'
 
 const Column = memo(({column, onAddTask, onDeleteColumn, children}) => {
+	// const [isEditing, setIsEditing] = useState(false)
+	// const [editedColumn, setEditedColumn] = useState(column)
+	// useEffect(() => {
+	// 	setEditedColumn(column)
+	// }, [column])
+
+	// const handleEditMode = () => setIsEditing(true)
+
+	// const handleEditSave = () => {}
 	return (
 		<div className='column'>
 			<div className='column__header'>
@@ -12,7 +21,7 @@ const Column = memo(({column, onAddTask, onDeleteColumn, children}) => {
 					<button onClick={onAddTask} className='btn'>
 						<Icon icon='plus' className='icon_color_black icon_indentless' />
 					</button>
-					<DropdownMenu onDelete={onDeleteColumn} />
+					<ActionsSelector onDelete={onDeleteColumn} />
 				</div>
 			</div>
 
