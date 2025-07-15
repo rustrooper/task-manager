@@ -13,7 +13,7 @@ const TaskCard = memo(({task, tags, assignees, onDeleteTask, onUpdateTask}) => {
 
 	const handleEdit = useCallback(() => setIsEditing(true), [])
 
-	const handleSave = useCallback(() => {
+	const handleEditSave = useCallback(() => {
 		onUpdateTask(editedTask)
 		setIsEditing(false)
 	}, [editedTask, onUpdateTask])
@@ -48,7 +48,7 @@ const TaskCard = memo(({task, tags, assignees, onDeleteTask, onUpdateTask}) => {
 						onChange={handleChange}
 						onClick={e => e.stopPropagation()}
 					/>
-					<button className='btn btn_edit-form' onClick={handleSave}>
+					<button className='btn btn_edit-form' onClick={handleEditSave}>
 						Save
 					</button>
 				</form>

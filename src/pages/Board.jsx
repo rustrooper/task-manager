@@ -11,12 +11,16 @@ const initialColumns = [
 	{
 		id: 'todo',
 		title: 'To Do',
-		tasks: [{id: 'task1', title: 'Design Homepage', description: 'Create wireframes'}],
+		tasks: [
+			{id: 'task1', title: 'Design Homepage', description: 'Create wireframes', createdAt: '2025-07-01T14:30:22.124Z'},
+		],
 	},
 	{
 		id: 'inprogress',
 		title: 'In Progress',
-		tasks: [{id: 'task2', title: 'API Integration', description: 'Connect backend'}],
+		tasks: [
+			{id: 'task2', title: 'API Integration', description: 'Connect backend', createdAt: '2025-07-14T14:30:22.124Z'},
+		],
 	},
 ]
 
@@ -66,8 +70,8 @@ const Board = () => {
 	}, [])
 
 	const addNewTask = useCallback(columnId => {
-		const taskText = prompt('Enter task text:')
-		if (taskText) {
+		const taskTitle = prompt('Enter task title:')
+		if (taskTitle) {
 			setColumns(prev =>
 				prev.map(column =>
 					column.id === columnId
@@ -77,8 +81,9 @@ const Board = () => {
 									...column.tasks,
 									{
 										id: Date.now(),
-										title: 'Заголовок',
-										description: taskText,
+										title: taskTitle,
+										description: 'Описание задачи',
+										createdAt: new Date().toISOString(),
 									},
 								],
 						  }
@@ -114,13 +119,9 @@ const Board = () => {
 		)
 	}, [])
 
-	// const updateColumn = (columnId, updatedColumn) => {
-	//   setColumns(prev => prev.map(column =>
-	//     column.id === columnId ? {
-
-	//     }
-	//   ))
-	// }
+	const updateColumn = useCallback(updatedColumn => {
+		setColumns(prev => prev.map(column => (column.id === updatedColumn.id ? updatedColumn : column)))
+	}, [])
 
 	return (
 		<div className='board'>
@@ -132,8 +133,7 @@ const Board = () => {
 						column={column}
 						onAddTask={() => addNewTask(column.id)}
 						onDeleteColumn={() => deleteColumn(column.id)}
-						// onUpdateColumn={() => updateColumn(column.id)}
-					>
+						onUpdateColumn={updateColumn}>
 						{column.tasks.map(task => (
 							<TaskCard
 								key={task.id}

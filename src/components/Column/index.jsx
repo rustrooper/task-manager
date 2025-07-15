@@ -3,20 +3,53 @@ import './styles.scss'
 import Icon from '../Icon'
 import ActionsSelector from '../ActionsSelector'
 
-const Column = memo(({column, onAddTask, onDeleteColumn, children}) => {
-	// const [isEditing, setIsEditing] = useState(false)
-	// const [editedColumn, setEditedColumn] = useState(column)
-	// useEffect(() => {
-	// 	setEditedColumn(column)
-	// }, [column])
+const Column = memo(({column, onAddTask, onDeleteColumn, onUpdateColumn, children}) => {
+	const [isEditing, setIsEditing] = useState(false)
+	const [editedTitle, setEditedTitle] = useState(column.title)
 
-	// const handleEditMode = () => setIsEditing(true)
+	useEffect(() => {
+		setEditedTitle(column.title)
+	}, [column.title])
 
-	// const handleEditSave = () => {}
+	const handleEditStart = useCallback(() => {
+		setIsEditing(true)
+	}, [])
+
+	const handleEditSave = useCallback(() => {
+		onUpdateColumn({...column, title: editedTitle})
+		setIsEditing(false)
+	}, [column, editedTitle, onUpdateColumn])
+
+	const handleChange = useCallback(e => {
+		setEditedTitle(e.target.value)
+	}, [])
+
+	const handleKeyDown = useCallback(
+		e => {
+			if (e.key === 'Enter') {
+				handleEditSave()
+			}
+		},
+		[handleEditSave]
+	)
 	return (
 		<div className='column'>
 			<div className='column__header'>
-				<h3 className='column__title'>{column.title}</h3>
+				{isEditing ? (
+					<input
+						className='column__title-edit'
+						value={editedTitle}
+						onChange={handleChange}
+						onBlur={handleEditSave}
+						onKeyDown={handleKeyDown}
+						autoFocus
+					/>
+				) : (
+					<h3 className='column__title' onClick={handleEditStart}>
+						{column.title}
+					</h3>
+				)}
+
 				<div className='column__buttons'>
 					<button onClick={onAddTask} className='btn'>
 						<Icon icon='plus' className='icon_color_black icon_indentless' />
