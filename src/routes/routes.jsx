@@ -5,9 +5,9 @@ import Analytics from '../pages/Analytics'
 import Settings from '../pages/Settings'
 import NoMatchPage from '../pages/NoMatchPage'
 
-const AppRoutes = () => {
+const AppRoutes = ({searchTerm}) => {
 	const navigationRoutes = [
-		{path: '/', element: <Board></Board>},
+		{path: '/', element: <Board searchTerm={searchTerm}></Board>},
 		{path: '/dashboard', element: <Dashboard></Dashboard>},
 		{path: '/analytics', element: <Analytics></Analytics>},
 		{path: '/settings', element: <Settings></Settings>},

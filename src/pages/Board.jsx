@@ -41,7 +41,7 @@ const users = [
 	},
 ]
 
-const Board = () => {
+const Board = ({searchTerm = ''}) => {
 	const [columns, setColumns] = useState(() => {
 		const savedColumns = LocalStorageService.get('taskBoardColumns')
 		return savedColumns || initialColumns
@@ -123,11 +123,26 @@ const Board = () => {
 		setColumns(prev => prev.map(column => (column.id === updatedColumn.id ? updatedColumn : column)))
 	}, [])
 
+	const textFilterTasks = useCallback(() => {
+		if (!searchTerm.trim()) return columns
+
+		return columns.map(column => ({
+			...column,
+			tasks: column.tasks.filter(
+				task =>
+					task.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+					task.description.toLowerCase().includes(searchTerm.toLowerCase())
+			),
+		}))
+	}, [columns, searchTerm])
+
+	const filteredColumns = textFilterTasks()
+
 	return (
 		<div className='board'>
 			<PageTitle textContent={'Board'} />
 			<div className='board__content'>
-				{columns.map(column => (
+				{filteredColumns.map(column => (
 					<Column
 						key={column.id}
 						column={column}

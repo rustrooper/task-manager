@@ -3,10 +3,10 @@ import Search from '../Search'
 import avatar from '../../assets/icons/avatar.jpg'
 import Icon from '../Icon'
 
-const TopBar = () => {
+const TopBar = ({searchTerm, onSearchChange}) => {
 	return (
 		<div className='topbar'>
-			<Search />
+			<Search searchTerm={searchTerm} onSearchChange={onSearchChange} />
 			<div className='topbar__actions'>
 				<Icon icon='help' className='icon_color_black' />
 				<Icon icon='bell' className='icon_color_black' />
