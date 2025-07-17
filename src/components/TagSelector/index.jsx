@@ -14,17 +14,19 @@ const TagSelector = memo(({currentTag, onTagSelect, availableTags}) => {
 
 	const renderContent = useCallback(
 		({setIsOpen}) =>
-			availableTags.map(tag => (
-				<button
-					key={tag}
-					onClick={() => {
-						onTagSelect('tag', tag)
-						setIsOpen(false)
-					}}
-					className={`tag-selector__option tag tag_${tag.replace(' ', '-')}`}>
-					{tag.toUpperCase()}
-				</button>
-			)),
+			availableTags
+				.filter(tag => tag !== currentTag)
+				.map(tag => (
+					<button
+						key={tag}
+						onClick={() => {
+							onTagSelect('tag', tag)
+							setIsOpen(false)
+						}}
+						className={`tag-selector__option tag tag_${tag.replace(' ', '-')}`}>
+						{tag.toUpperCase()}
+					</button>
+				)),
 		[availableTags, onTagSelect]
 	)
 	return (

@@ -5,6 +5,7 @@
 	align-self: flex-start;
 	flex-direction: column;
 	width: fit-content;
+	position: relative;
 
 	&__toggle {
 		display: flex;
@@ -22,7 +23,10 @@
 	&__dropdown {
 		display: flex;
 		flex-direction: column;
-		// gap: 0.4rem;
+		position: absolute;
+		top: 100%;
+		left: 0;
+		z-index: 20;
 		background: vars.$color-white;
 		border: 1px solid vars.$color-grey-pale;
 		border-radius: 4px;

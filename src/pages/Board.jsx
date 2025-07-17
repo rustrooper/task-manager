@@ -6,6 +6,7 @@ import '../styles/btn.scss'
 import Icon from '../components/Icon'
 import TaskCard from '../components/TaskCard'
 import LocalStorageService from '../utils/localStorageService'
+import PeriodSelector from '../components/PeriodSelector'
 
 const initialColumns = [
 	{
@@ -41,6 +42,14 @@ const users = [
 	},
 ]
 
+const periodOptions = [
+	{id: 'today', label: 'Today'},
+	{id: 'yesterday', label: 'Yesterday'},
+	{id: 'thisWeek', label: 'This Week'},
+	{id: 'lastWeek', label: 'Last Week'},
+	{id: 'thisMonth', label: 'This Month'},
+]
+
 const Board = ({searchTerm = ''}) => {
 	const [columns, setColumns] = useState(() => {
 		const savedColumns = LocalStorageService.get('taskBoardColumns')
@@ -50,6 +59,8 @@ const Board = ({searchTerm = ''}) => {
 	useEffect(() => {
 		LocalStorageService.set('taskBoardColumns', columns)
 	}, [columns])
+
+	const [tasksPeriod, setTasksPeriod] = useState(periodOptions[2])
 
 	const addNewColumn = useCallback(() => {
 		const columnTitle = prompt('Enter column title:')
@@ -123,24 +134,68 @@ const Board = ({searchTerm = ''}) => {
 		setColumns(prev => prev.map(column => (column.id === updatedColumn.id ? updatedColumn : column)))
 	}, [])
 
-	const textFilterTasks = useCallback(() => {
-		if (!searchTerm.trim()) return columns
+	const filterTasks = useCallback(() => {
+		const now = new Date()
 
 		return columns.map(column => ({
 			...column,
-			tasks: column.tasks.filter(
-				task =>
+			tasks: column.tasks.filter(task => {
+				const matchesSearch =
+					!searchTerm.trim() ||
 					task.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
 					task.description.toLowerCase().includes(searchTerm.toLowerCase())
-			),
-		}))
-	}, [columns, searchTerm])
 
-	const filteredColumns = textFilterTasks()
+				if (!matchesSearch) return false
+
+				const taskDate = new Date(task.createdAt)
+				switch (tasksPeriod.id) {
+					case 'today': {
+						return (
+							taskDate.getDate() === now.getDate() &&
+							taskDate.getMonth() === now.getMonth() &&
+							taskDate.getFullYear() === now.getFullYear()
+						)
+					}
+					case 'yesterday': {
+						const yesterday = new Date(now)
+						yesterday.setDate(now.getDate() - 1)
+						return (
+							taskDate.getDate() === yesterday.getDate() &&
+							taskDate.getMonth() === yesterday.getMonth() &&
+							taskDate.getFullYear() === yesterday.getFullYear()
+						)
+					}
+					case 'thisWeek': {
+						const startOfWeek = new Date(now)
+						startOfWeek.setDate(now.getDate() - now.getDay())
+						return taskDate >= startOfWeek
+					}
+					case 'lastWeek': {
+						const startOfLastWeek = new Date(now)
+						startOfLastWeek.setDate(now.getDate() - now.getDay() - 7)
+						const endOfLastWeek = new Date(startOfLastWeek)
+						endOfLastWeek.setDate(startOfLastWeek.getDate() + 6)
+						return taskDate >= startOfLastWeek && taskDate <= endOfLastWeek
+					}
+					case 'thisMonth': {
+						return taskDate.getMonth() === now.getMonth() && taskDate.getFullYear() === now.getFullYear()
+					}
+					default: {
+						return true
+					}
+				}
+			}),
+		}))
+	}, [columns, searchTerm, tasksPeriod])
+
+	const filteredColumns = filterTasks()
 
 	return (
 		<div className='board'>
-			<PageTitle textContent={'Board'} />
+			<div className='board__header'>
+				<PageTitle textContent={'Board'} />
+				<PeriodSelector periodOptions={periodOptions} onPeriodChange={setTasksPeriod} currentPeriod={tasksPeriod} />
+			</div>
 			<div className='board__content'>
 				{filteredColumns.map(column => (
 					<Column

@@ -1,7 +1,6 @@
 @use '../../styles/variables.scss' as vars;
 
 .tag {
-	// position: relative;
 	display: flex;
 	align-items: center;
 	gap: 0.4rem;
@@ -12,9 +11,6 @@
 
 	&::before {
 		content: '';
-		// position: absolute;
-		// top: 0px;
-		// left: -1rem;
 		margin-bottom: 3px;
 		display: inline-block;
 		width: 1rem;
@@ -55,14 +51,12 @@
 			position: absolute;
 			display: flex;
 			flex-direction: column;
-			gap: 0.4rem;
 			top: 100%;
 			left: 0;
 			z-index: 10;
 			background: vars.$color-white;
 			border: 1px solid vars.$color-grey-pale;
 			border-radius: 4px;
-			padding: 0.4rem;
 			min-width: 10rem;
 			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 		}
@@ -74,6 +68,7 @@
 			background: none;
 			border: none;
 			cursor: pointer;
+			padding: 0.4rem;
 
 			&:hover {
 				background-color: vars.$color-grey-pale;

@@ -5,6 +5,11 @@
 	flex-direction: column;
 	height: 100%;
 
+	&__header {
+		display: flex;
+		justify-content: space-between;
+	}
+
 	&__content {
 		display: flex;
 		gap: 2.4rem;
