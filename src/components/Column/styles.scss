@@ -7,7 +7,7 @@
 	border-radius: 1rem;
 	padding: 2.4rem;
 	width: 36rem;
-	min-height: 10rem;
+	height: 100%;
 
 	&__header {
 		display: flex;
@@ -50,52 +50,4 @@
 		flex-direction: column;
 		gap: 3rem;
 	}
-
-	// .add-task-form {
-	// 	input {
-	// 		width: 100%;
-	// 		padding: 8px;
-	// 		border: 1px solid #ddd;
-	// 		border-radius: 4px;
-	// 		margin-bottom: 8px;
-	// 	}
-
-	// 	.form-actions {
-	// 		display: flex;
-	// 		gap: 8px;
-
-	// 		button {
-	// 			flex: 1;
-	// 			padding: 6px 12px;
-	// 			border: none;
-	// 			border-radius: 4px;
-	// 			cursor: pointer;
-
-	// 			&:first-child {
-	// 				background: #1890ff;
-	// 				color: white;
-	// 			}
-
-	// 			&:last-child {
-	// 				background: #f5f5f5;
-	// 			}
-	// 		}
-	// 	}
-	// }
-
-	// .add-task-button {
-	// 	width: 100%;
-	// 	padding: 8px;
-	// 	background: transparent;
-	// 	border: 1px dashed #ccc;
-	// 	border-radius: 4px;
-	// 	color: #666;
-	// 	cursor: pointer;
-	// 	transition: all 0.2s;
-
-	// 	&:hover {
-	// 		background: #e8e8e8;
-	// 		border-color: #999;
-	// 	}
-	// }
 }

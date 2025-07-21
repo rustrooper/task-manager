@@ -27,7 +27,7 @@ const TagSelector = memo(({currentTag, onTagSelect, availableTags}) => {
 						{tag.toUpperCase()}
 					</button>
 				)),
-		[availableTags, onTagSelect]
+		[availableTags, onTagSelect, currentTag]
 	)
 	return (
 		<Dropdown classNameWrapper='tag-selector' classNameContent='tag-selector__dropdown' trigger={renderTrigger}>
