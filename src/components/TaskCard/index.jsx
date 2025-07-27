@@ -65,7 +65,7 @@ const TaskCard = memo(({task, tags, assignees, onDeleteTask, onUpdateTask}) => {
 					<AssigneesSelector
 						currentAssigneesIds={task.assignees || []}
 						onAssigneesSelect={handleTaskUpdate}
-						availableAssignees={assignees}
+						availableAssignees={assignees || []}
 					/>
 				</>
 			)}

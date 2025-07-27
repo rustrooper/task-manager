@@ -1,0 +1,7 @@
+@use '../../styles/variables.scss' as vars;
+
+.sortable-task {
+	&:last-child {
+		margin-bottom: 8rem;
+	}
+}

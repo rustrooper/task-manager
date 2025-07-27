@@ -11,23 +11,12 @@ html {
 	font-family: vars.$font-family;
 }
 
-body {
-	// display: flex;
-	// justify-content: center;
-	// margin: 0;
-	// padding: 0;
-	// width: 100%;
-	// min-height: 100vh;
-	// color: vars.$color-black;
-}
-
 html,
 body,
 #root {
 	height: 100%;
 	margin: 0;
 	padding: 0;
-	overflow: hidden;
 	color: vars.$color-black;
 }
 
@@ -52,4 +41,5 @@ span {
 	flex-direction: column;
 	width: 100%;
 	padding: 3rem;
+	overflow: hidden;
 }

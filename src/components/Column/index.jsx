@@ -2,6 +2,7 @@ import {useEffect, useState, useCallback, memo} from 'react'
 import './styles.scss'
 import Icon from '../Icon'
 import ActionsSelector from '../ActionsSelector'
+import {useDroppable} from '@dnd-kit/core'
 
 const Column = memo(({column, onAddTask, onDeleteColumn, onUpdateColumn, children}) => {
 	const [isEditing, setIsEditing] = useState(false)
@@ -10,6 +11,11 @@ const Column = memo(({column, onAddTask, onDeleteColumn, onUpdateColumn, childre
 	useEffect(() => {
 		setEditedTitle(column.title)
 	}, [column.title])
+
+	const {setNodeRef} = useDroppable({
+		id: column.id,
+		data: {type: 'column'},
+	})
 
 	const handleEditStart = useCallback(() => {
 		setIsEditing(true)
@@ -33,7 +39,7 @@ const Column = memo(({column, onAddTask, onDeleteColumn, onUpdateColumn, childre
 		[handleEditSave]
 	)
 	return (
-		<div className='column'>
+		<div className='column' ref={setNodeRef}>
 			<div className='column__header'>
 				{isEditing ? (
 					<input

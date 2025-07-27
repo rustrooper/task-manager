@@ -8,13 +8,18 @@
 	padding: 2.4rem;
 	width: 36rem;
 	height: 100%;
+	position: relative;
+	flex: 0 0 auto;
+	overflow: hidden;
 
 	&__header {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 		margin-bottom: 1.5rem;
-		// padding-bottom: 8px;
+		background: vars.$color-grey-pale;
+		position: relative;
+		z-index: 1;
 	}
 
 	&__title {
@@ -27,9 +32,8 @@
 		font-weight: vars.$weight-medium;
 		font-size: vars.$size-h3;
 		color: vars.$color-black;
-		border: 1px solid vars.$color-grey-pale;
-		border-radius: 4px;
-		padding: 2px 5px;
+		border: none;
+		background-color: transparent;
 		width: 80%;
 		&:focus {
 			outline: none;
@@ -49,5 +53,13 @@
 		display: flex;
 		flex-direction: column;
 		gap: 3rem;
+		padding: 0;
+		margin: 0;
+		margin-right: -1rem;
+		padding-right: -1rem;
+		scrollbar-width: none;
+		&::-webkit-scrollbar {
+			display: none;
+		}
 	}
 }

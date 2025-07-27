@@ -7,8 +7,8 @@ const AssigneesSelector = memo(({currentAssigneesIds, onAssigneesSelect, availab
 	const handleAssigneeToggle = useCallback(
 		assigneeId => {
 			const newAssignees = currentAssigneesIds.includes(assigneeId)
-				? currentAssigneesIds.filter(id => id !== assigneeId) // Удаляем если уже выбран
-				: [...currentAssigneesIds, assigneeId] // Добавляем если не выбран
+				? currentAssigneesIds.filter(id => id !== assigneeId)
+				: [...currentAssigneesIds, assigneeId]
 
 			onAssigneesSelect('assignees', newAssignees)
 		},

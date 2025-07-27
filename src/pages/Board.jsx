@@ -7,54 +7,18 @@ import Icon from '../components/Icon'
 import TaskCard from '../components/TaskCard'
 import LocalStorageService from '../utils/localStorageService'
 import PeriodSelector from '../components/PeriodSelector'
-
-const initialColumns = [
-	{
-		id: 'todo',
-		title: 'To Do',
-		tasks: [
-			{id: 'task1', title: 'Design Homepage', description: 'Create wireframes', createdAt: '2025-07-01T14:30:22.124Z'},
-		],
-	},
-	{
-		id: 'inprogress',
-		title: 'In Progress',
-		tasks: [
-			{id: 'task2', title: 'API Integration', description: 'Connect backend', createdAt: '2025-07-14T14:30:22.124Z'},
-		],
-	},
-]
-
-const tags = ['design system', 'development', 'testing', 'analytics']
-const users = [
-	{
-		id: 'simonov',
-		name: 'daniel simonov',
-		icon: '/src/assets/icons/avatar.jpg',
-	},
-	{
-		id: 'sigeev',
-		name: 'alex sigeiev',
-	},
-	{
-		id: 'pasha',
-		name: 'pasha volya',
-	},
-]
-
-const periodOptions = [
-	{id: 'today', label: 'Today'},
-	{id: 'yesterday', label: 'Yesterday'},
-	{id: 'thisWeek', label: 'This Week'},
-	{id: 'lastWeek', label: 'Last Week'},
-	{id: 'thisMonth', label: 'This Month'},
-]
+import {DndContext, closestCorners, useSensor, useSensors, DragOverlay, MouseSensor} from '@dnd-kit/core'
+import {SortableContext, verticalListSortingStrategy, arrayMove} from '@dnd-kit/sortable'
+import {SortableTaskCard} from '../components/SortableTaskCard'
+import {periodOptions, users, tags, initialColumns} from '../data/boardData'
 
 const Board = ({searchTerm = ''}) => {
 	const [columns, setColumns] = useState(() => {
 		const savedColumns = LocalStorageService.get('taskBoardColumns')
 		return savedColumns || initialColumns
 	})
+
+	const [activeTask, setActiveTask] = useState(null)
 
 	useEffect(() => {
 		LocalStorageService.set('taskBoardColumns', columns)
@@ -63,45 +27,116 @@ const Board = ({searchTerm = ''}) => {
 	const [tasksPeriod, setTasksPeriod] = useState(periodOptions[2])
 
 	const addNewColumn = useCallback(() => {
-		const columnTitle = prompt('Enter column title:')
-		if (columnTitle) {
-			setColumns(prev => [
-				...prev,
-				{
-					id: Date.now(),
-					title: columnTitle,
-					tasks: [],
-				},
-			])
-		}
+		setColumns(prev => [
+			...prev,
+			{
+				id: Date.now(),
+				title: `New Column ${prev.length + 1}`,
+				tasks: [],
+			},
+		])
 	}, [])
+
+	const sensors = useSensors(
+		useSensor(MouseSensor, {
+			activationConstraint: {
+				distance: 10,
+			},
+		})
+	)
+
+	const findColumn = taskId => {
+		const column = columns.find(column => column.tasks.some(task => task.id === taskId))
+		return column?.id
+	}
+
+	const handleDragStart = ({active}) => {
+		setActiveTask(active.id)
+	}
+
+	const handleDragOver = ({active, over}) => {
+		if (!over) return
+
+		const activeColumn = findColumn(active.id)
+		const overColumn = findColumn(over.id) || over.id
+
+		if (!activeColumn || !overColumn || activeColumn === overColumn) return
+
+		console.log('active id во время перетаскивания:', active.id)
+		console.log('over id во время перетаскивания:', over.id)
+
+		setColumns(prev => {
+			const activeCol = prev.find(col => col.id === activeColumn)
+			const activeTask = activeCol.tasks.find(task => task.id === active.id)
+
+			return prev.map(col => {
+				if (col.id === activeColumn) {
+					return {
+						...col,
+						tasks: col.tasks.filter(task => task.id !== active.id),
+					}
+				}
+				if (col.id === overColumn) {
+					return {
+						...col,
+						tasks: [...col.tasks, activeTask],
+					}
+				}
+				return col
+			})
+		})
+	}
+
+	const handleDragEnd = ({active, over}) => {
+		if (!over) return
+
+		const columnId = findColumn(active.id)
+		if (!columnId) return
+
+		console.log('active id при заверешини перетаскивания:', active.id)
+		console.log('over id при заверешини перетаскивания:', over.id)
+
+		if (active.id !== over.id) {
+			setColumns(prev =>
+				prev.map(column => {
+					if (column.id !== columnId) return column
+					const oldIndex = column.tasks.findIndex(task => task.id === active.id)
+					const newIndex = column.tasks.findIndex(task => task.id === over.id)
+
+					return {
+						...column,
+						tasks: arrayMove(column.tasks, oldIndex, newIndex),
+					}
+				})
+			)
+		}
+
+		setActiveTask(null)
+	}
 
 	const deleteColumn = useCallback(columnId => {
 		setColumns(prev => prev.filter(column => column.id !== columnId))
 	}, [])
 
 	const addNewTask = useCallback(columnId => {
-		const taskTitle = prompt('Enter task title:')
-		if (taskTitle) {
-			setColumns(prev =>
-				prev.map(column =>
-					column.id === columnId
-						? {
-								...column,
-								tasks: [
-									...column.tasks,
-									{
-										id: Date.now(),
-										title: taskTitle,
-										description: 'Описание задачи',
-										createdAt: new Date().toISOString(),
-									},
-								],
-						  }
-						: column
-				)
-			)
-		}
+		setColumns(prev =>
+			prev.map(column => {
+				return column.id === columnId
+					? {
+							...column,
+							tasks: [
+								...column.tasks,
+								{
+									id: Date.now(),
+									title: 'Заголовок задачи',
+									description: 'Описание задачи',
+									createdAt: new Date().toISOString(),
+								},
+							],
+					  }
+					: column
+			})
+		)
 	}, [])
 
 	const deleteTask = useCallback((columnId, taskId) => {
@@ -196,30 +231,45 @@ const Board = ({searchTerm = ''}) => {
 				<PageTitle textContent={'Board'} />
 				<PeriodSelector periodOptions={periodOptions} onPeriodChange={setTasksPeriod} currentPeriod={tasksPeriod} />
 			</div>
-			<div className='board__content'>
-				{filteredColumns.map(column => (
-					<Column
-						key={column.id}
-						column={column}
-						onAddTask={() => addNewTask(column.id)}
-						onDeleteColumn={() => deleteColumn(column.id)}
-						onUpdateColumn={updateColumn}>
-						{column.tasks.map(task => (
-							<TaskCard
-								key={task.id}
-								task={task}
-								tags={tags}
-								assignees={users}
-								onDeleteTask={() => deleteTask(column.id, task.id)}
-								onUpdateTask={updatedTask => updateTask(column.id, updatedTask)}
-							/>
-						))}{' '}
-					</Column>
-				))}
-				<button onClick={addNewColumn} className='btn btn_add-column'>
-					<Icon icon='plus' className='icon_color_grey icon_borderless' />
-				</button>
-			</div>
+			<DndContext
+				sensors={sensors}
+				collisionDetection={closestCorners}
+				onDragStart={handleDragStart}
+				onDragOver={handleDragOver}
+				onDragEnd={handleDragEnd}>
+				<div className='board__content'>
+					{filteredColumns.map(column => (
+						<Column
+							key={column.id}
+							column={column}
+							onAddTask={() => addNewTask(column.id)}
+							onDeleteColumn={() => deleteColumn(column.id)}
+							onUpdateColumn={updateColumn}>
+							<SortableContext items={column.tasks.map(task => task.id)} strategy={verticalListSortingStrategy}>
+								{column.tasks.map(task => (
+									<SortableTaskCard
+										key={task.id}
+										task={task}
+										assignees={users}
+										tags={tags}
+										onDeleteTask={() => deleteTask(column.id, task.id)}
+										onUpdateTask={updatedTask => updateTask(column.id, updatedTask)}
+									/>
+								))}
+							</SortableContext>
+						</Column>
+					))}
+					<button onClick={addNewColumn} className='btn btn_add-column'>
+						<Icon icon='plus' className='icon_color_grey icon_borderless' />
+					</button>
+				</div>
+
+				<DragOverlay>
+					{activeTask ? (
+						<TaskCard task={columns.flatMap(col => col.tasks).find(task => task.id === activeTask)} />
+					) : null}
+				</DragOverlay>
+			</DndContext>
 		</div>
 	)
 }
