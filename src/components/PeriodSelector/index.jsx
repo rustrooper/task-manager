@@ -1,42 +1,55 @@
-import {memo, useCallback} from 'react'
-import Icon from '../Icon'
-import Dropdown from '../Dropdown'
-import './styles.scss'
+import { memo, useCallback } from "react";
 
-const PeriodSelector = memo(({periodOptions, currentPeriod, onPeriodChange}) => {
-	const renderTrigger = useCallback(
-		({isOpen, setIsOpen}) => (
-			<button onClick={() => setIsOpen(!isOpen)} className='period-selector__toggle'>
-				<span className='period-selector__selected-period'>{currentPeriod.label}</span>
-				<Icon icon='arrow-down' className='icon_color_grey' />
-			</button>
-		),
-		[currentPeriod]
-	)
+import Dropdown from "../Dropdown";
+import Icon from "../Icon";
+import "./styles.scss";
 
-	const renderContent = useCallback(
-		({setIsOpen}) =>
-			periodOptions
-				.filter(option => option.id !== currentPeriod.id)
-				.map(option => (
-					<button
-						key={option.id}
-						onClick={() => {
-							onPeriodChange(option)
-							setIsOpen(false)
-						}}
-						className='period-selector__option'>
-						{option.label}
-					</button>
-				)),
-		[periodOptions, onPeriodChange, currentPeriod.id]
-	)
+const PeriodSelector = memo(
+  ({ periodOptions, currentPeriod, onPeriodChange }) => {
+    const renderTrigger = useCallback(
+      ({ isOpen, setIsOpen }) => (
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="period-selector__toggle"
+        >
+          <span className="period-selector__selected-period">
+            {currentPeriod.label}
+          </span>
+          <Icon icon="arrow-down" className="icon_color_grey" />
+        </button>
+      ),
+      [currentPeriod],
+    );
 
-	return (
-		<Dropdown classNameWrapper='period-selector' classNameContent='period-selector__dropdown' trigger={renderTrigger}>
-			{renderContent}
-		</Dropdown>
-	)
-})
+    const renderContent = useCallback(
+      ({ setIsOpen }) =>
+        periodOptions
+          .filter((option) => option.id !== currentPeriod.id)
+          .map((option) => (
+            <button
+              key={option.id}
+              onClick={() => {
+                onPeriodChange(option);
+                setIsOpen(false);
+              }}
+              className="period-selector__option"
+            >
+              {option.label}
+            </button>
+          )),
+      [periodOptions, onPeriodChange, currentPeriod.id],
+    );
 
-export default PeriodSelector
+    return (
+      <Dropdown
+        classNameWrapper="period-selector"
+        classNameContent="period-selector__dropdown"
+        trigger={renderTrigger}
+      >
+        {renderContent}
+      </Dropdown>
+    );
+  },
+);
+
+export default PeriodSelector;

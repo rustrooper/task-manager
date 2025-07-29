@@ -1,91 +1,91 @@
-@use '../../styles/variables.scss' as vars;
+@use "../../styles/variables.scss" as vars;
 
 .assignees-selector {
-	display: flex;
-	align-self: flex-start;
-	flex-direction: column;
-	width: fit-content;
-	position: relative;
+  display: flex;
+  align-self: flex-start;
+  flex-direction: column;
+  width: fit-content;
+  position: relative;
 
-	&__toggle {
-		display: flex;
-		align-items: center;
-		gap: 1rem;
-		align-self: flex-start;
-		font-weight: vars.$weight-regular;
-		font-size: vars.$size-text;
+  &__toggle {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    align-self: flex-start;
+    font-weight: vars.$weight-regular;
+    font-size: vars.$size-text;
 
-		&_users-icons {
-			gap: 0;
-		}
-	}
+    &_users-icons {
+      gap: 0;
+    }
+  }
 
-	&__dropdown {
-		display: flex;
-		flex-direction: column;
-		position: absolute;
-		top: 100%;
-		left: 0;
-		z-index: 20;
-		background: vars.$color-white;
-		border: 1px solid vars.$color-grey-pale;
-		border-radius: 4px;
-		align-self: flex-start;
-		min-width: 10rem;
-		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-	}
+  &__dropdown {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 20;
+    background: vars.$color-white;
+    border: 1px solid vars.$color-grey-pale;
+    border-radius: 4px;
+    align-self: flex-start;
+    min-width: 10rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
 
-	&__option {
-		padding: 0.4rem;
-		display: flex;
-		transition: background-color 0.2s;
-		white-space: nowrap;
+  &__option {
+    padding: 0.4rem;
+    display: flex;
+    transition: background-color 0.2s;
+    white-space: nowrap;
 
-		&:hover {
-			background-color: vars.$color-blue-pale;
-		}
+    &:hover {
+      background-color: vars.$color-blue-pale;
+    }
 
-		&_selected {
-			background-color: vars.$color-blue-pale;
-		}
-	}
+    &_selected {
+      background-color: vars.$color-blue-pale;
+    }
+  }
 
-	&__actions {
-		display: flex;
-		// background-color: vars.$color-grey-pale;
-		font-weight: vars.$weight-medium;
-	}
+  &__actions {
+    display: flex;
+    // background-color: vars.$color-grey-pale;
+    font-weight: vars.$weight-medium;
+  }
 
-	&__accept {
-		flex: 1;
-		border-radius: 4px;
-		padding: 0.4rem;
-		transition: background-color 0.2s;
-		&:hover {
-			background-color: vars.$color-green;
-		}
-	}
+  &__accept {
+    flex: 1;
+    border-radius: 4px;
+    padding: 0.4rem;
+    transition: background-color 0.2s;
+    &:hover {
+      background-color: vars.$color-green;
+    }
+  }
 
-	&__clear {
-		flex: 1;
-		border-radius: 4px;
-		padding: 0.4rem;
-		transition: background-color 0.2s;
-		white-space: nowrap;
-		&:hover {
-			background-color: vars.$color-red;
-		}
-	}
+  &__clear {
+    flex: 1;
+    border-radius: 4px;
+    padding: 0.4rem;
+    transition: background-color 0.2s;
+    white-space: nowrap;
+    &:hover {
+      background-color: vars.$color-red;
+    }
+  }
 
-	&__user-icon {
-		border-radius: 10rem;
-		width: 3rem;
-		height: 3rem;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		&:not(:first-child) {
-			margin-left: -0.7rem;
-		}
-	}
+  &__user-icon {
+    border-radius: 10rem;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:not(:first-child) {
+      margin-left: -0.7rem;
+    }
+  }
 }

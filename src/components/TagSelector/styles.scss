@@ -1,78 +1,78 @@
-@use '../../styles/variables.scss' as vars;
+@use "../../styles/variables.scss" as vars;
 
 .tag {
-	display: flex;
-	align-items: center;
-	gap: 0.4rem;
-	font-size: vars.$size-tag;
-	cursor: pointer;
-	border: none;
-	color: vars.$color-grey;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: vars.$size-tag;
+  cursor: pointer;
+  border: none;
+  color: vars.$color-grey;
 
-	&::before {
-		content: '';
-		margin-bottom: 3px;
-		display: inline-block;
-		width: 1rem;
-		height: 1rem;
-		background-color: vars.$color-green;
-		border-radius: 50%;
-	}
+  &::before {
+    content: "";
+    margin-bottom: 3px;
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    background-color: vars.$color-green;
+    border-radius: 50%;
+  }
 
-	&_design-system {
-		&::before {
-			background-color: vars.$color-green;
-		}
-	}
+  &_design-system {
+    &::before {
+      background-color: vars.$color-green;
+    }
+  }
 
-	&_development {
-		&::before {
-			background-color: vars.$color-blue;
-		}
-	}
+  &_development {
+    &::before {
+      background-color: vars.$color-blue;
+    }
+  }
 
-	&_testing {
-		&::before {
-			background-color: vars.$color-dark-blue;
-		}
-	}
+  &_testing {
+    &::before {
+      background-color: vars.$color-dark-blue;
+    }
+  }
 
-	&_analytics {
-		&::before {
-			background-color: vars.$color-orange;
-		}
-	}
+  &_analytics {
+    &::before {
+      background-color: vars.$color-orange;
+    }
+  }
 
-	&-selector {
-		position: relative;
-		display: inline-block;
+  &-selector {
+    position: relative;
+    display: inline-block;
 
-		&__dropdown {
-			position: absolute;
-			display: flex;
-			flex-direction: column;
-			top: 100%;
-			left: 0;
-			z-index: 10;
-			background: vars.$color-white;
-			border: 1px solid vars.$color-grey-pale;
-			border-radius: 4px;
-			min-width: 10rem;
-			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-		}
+    &__dropdown {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      top: 100%;
+      left: 0;
+      z-index: 10;
+      background: vars.$color-white;
+      border: 1px solid vars.$color-grey-pale;
+      border-radius: 4px;
+      min-width: 10rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
 
-		&__option {
-			display: flex;
-			width: 100%;
-			text-align: left;
-			background: none;
-			border: none;
-			cursor: pointer;
-			padding: 0.4rem;
+    &__option {
+      display: flex;
+      width: 100%;
+      text-align: left;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.4rem;
 
-			&:hover {
-				background-color: vars.$color-grey-pale;
-			}
-		}
-	}
+      &:hover {
+        background-color: vars.$color-grey-pale;
+      }
+    }
+  }
 }

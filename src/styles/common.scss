@@ -1,23 +1,23 @@
-@use './reset.scss';
-@use './variables.scss' as vars;
-@use './fonts.scss';
+@use "./reset.scss";
+@use "./variables.scss" as vars;
+@use "./fonts.scss";
 
 * {
-	box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 html {
-	font-size: vars.$font-size-base;
-	font-family: vars.$font-family;
+  font-size: vars.$font-size-base;
+  font-family: vars.$font-family;
 }
 
 html,
 body,
 #root {
-	height: 100%;
-	margin: 0;
-	padding: 0;
-	color: vars.$color-black;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  color: vars.$color-black;
 }
 
 h1,
@@ -25,21 +25,21 @@ h2,
 h3,
 button,
 span {
-	font-family: vars.$font-family;
-	margin: 0;
+  font-family: vars.$font-family;
+  margin: 0;
 }
 
 .app {
-	display: flex;
-	height: 100vh;
-	width: 100vw;
-	font-family: vars.$font-family;
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  font-family: vars.$font-family;
 }
 
 .main {
-	display: flex;
-	flex-direction: column;
-	width: 100%;
-	padding: 3rem;
-	overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 3rem;
+  overflow: hidden;
 }

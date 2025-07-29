@@ -1,39 +1,48 @@
-import {memo, useCallback} from 'react'
-import Dropdown from '../Dropdown'
-import './styles.scss'
+import { memo, useCallback } from "react";
 
-const TagSelector = memo(({currentTag, onTagSelect, availableTags}) => {
-	const renderTrigger = useCallback(
-		({isOpen, setIsOpen}) => (
-			<button onClick={() => setIsOpen(!isOpen)} className={`tag tag_${currentTag?.replace(' ', '-')}`}>
-				{currentTag?.toUpperCase() || 'Choose tag'}
-			</button>
-		),
-		[currentTag]
-	)
+import Dropdown from "../Dropdown";
+import "./styles.scss";
 
-	const renderContent = useCallback(
-		({setIsOpen}) =>
-			availableTags
-				.filter(tag => tag !== currentTag)
-				.map(tag => (
-					<button
-						key={tag}
-						onClick={() => {
-							onTagSelect('tag', tag)
-							setIsOpen(false)
-						}}
-						className={`tag-selector__option tag tag_${tag.replace(' ', '-')}`}>
-						{tag.toUpperCase()}
-					</button>
-				)),
-		[availableTags, onTagSelect, currentTag]
-	)
-	return (
-		<Dropdown classNameWrapper='tag-selector' classNameContent='tag-selector__dropdown' trigger={renderTrigger}>
-			{renderContent}
-		</Dropdown>
-	)
-})
+const TagSelector = memo(({ currentTag, onTagSelect, availableTags }) => {
+  const renderTrigger = useCallback(
+    ({ isOpen, setIsOpen }) => (
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className={`tag tag_${currentTag?.replace(" ", "-")}`}
+      >
+        {currentTag?.toUpperCase() || "Choose tag"}
+      </button>
+    ),
+    [currentTag],
+  );
 
-export default TagSelector
+  const renderContent = useCallback(
+    ({ setIsOpen }) =>
+      availableTags
+        .filter((tag) => tag !== currentTag)
+        .map((tag) => (
+          <button
+            key={tag}
+            onClick={() => {
+              onTagSelect("tag", tag);
+              setIsOpen(false);
+            }}
+            className={`tag-selector__option tag tag_${tag.replace(" ", "-")}`}
+          >
+            {tag.toUpperCase()}
+          </button>
+        )),
+    [availableTags, onTagSelect, currentTag],
+  );
+  return (
+    <Dropdown
+      classNameWrapper="tag-selector"
+      classNameContent="tag-selector__dropdown"
+      trigger={renderTrigger}
+    >
+      {renderContent}
+    </Dropdown>
+  );
+});
+
+export default TagSelector;

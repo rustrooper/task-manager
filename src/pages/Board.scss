@@ -1,23 +1,23 @@
 @use '../styles/variables.scss' as vars;
 
 .board {
-	display: flex;
-	flex-direction: column;
-	height: 100%;
-	overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
 
-	&__header {
-		display: flex;
-		justify-content: space-between;
-		flex-shrink: 0;
-	}
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
 
-	&__content {
-		display: flex;
-		gap: 2.4rem;
-		height: 100%;
-		overflow-x: auto;
-		overflow-y: hidden;
-		flex-shrink: 0;
-	}
+  &__content {
+    display: flex;
+    gap: 2.4rem;
+    height: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    flex-shrink: 0;
+  }
 }

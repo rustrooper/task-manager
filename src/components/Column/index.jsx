@@ -1,8 +1,9 @@
-import {useEffect, useState, useCallback, memo} from 'react'
-import './styles.scss'
-import Icon from '../Icon'
-import ActionsSelector from '../ActionsSelector'
 import {useDroppable} from '@dnd-kit/core'
+import {useEffect, useState, useCallback, memo} from 'react'
+
+import './styles.scss'
+import ActionsSelector from '../ActionsSelector'
+import Icon from '../Icon'
 
 const Column = memo(({column, onAddTask, onDeleteColumn, onUpdateColumn, children}) => {
 	const [isEditing, setIsEditing] = useState(false)

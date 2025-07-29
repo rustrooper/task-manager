@@ -1,9 +1,9 @@
 const Settings = () => {
-	return (
-		<div className='Settings'>
-			<span>Settings</span>
-		</div>
-	)
+  return (
+    <div className="Settings">
+      <span>Settings</span>
+    </div>
+  )
 }
 
 export default Settings

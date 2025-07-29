@@ -1,9 +1,9 @@
 const NoMatchPage = () => {
-	return (
-		<div className='NoMatchPage'>
-			<span>NoMatchPage</span>
-		</div>
-	)
+  return (
+    <div className="NoMatchPage">
+      <span>NoMatchPage</span>
+    </div>
+  )
 }
 
 export default NoMatchPage
