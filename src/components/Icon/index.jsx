@@ -1,8 +1,8 @@
-import sprite from "../../assets/icons/sprite.svg";
-import "./styles.scss";
-import LocalStorageService from "../../utils/localStorageService";
+import sprite from '../../assets/icons/sprite.svg';
+import './styles.scss';
+import LocalStorageService from '../../utils/localStorageService';
 
-const Icon = ({ icon, className = "", textContent = "", user }) => {
+const Icon = ({ icon, className = '', textContent = '', user }) => {
   const getRandomColor = () => {
     // 1. Выбираем случайный базовый тон (Hue) от 0 до 360°
     const baseHue = Math.floor(Math.random() * 360);
@@ -23,12 +23,12 @@ const Icon = ({ icon, className = "", textContent = "", user }) => {
     const hslToHex = (h, s, l) => {
       l /= 100;
       const a = (s * Math.min(l, 1 - l)) / 100;
-      const f = (n) => {
+      const f = n => {
         const k = (n + h / 30) % 12;
         const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
         return Math.round(255 * color)
           .toString(16)
-          .padStart(2, "0");
+          .padStart(2, '0');
       };
       return `#${f(0)}${f(8)}${f(4)}`;
     };
@@ -41,8 +41,8 @@ const Icon = ({ icon, className = "", textContent = "", user }) => {
       return user.color;
     }
 
-    const usersData = LocalStorageService.get("usersData") || [];
-    const existingUser = usersData.find((u) => u.id === user.id);
+    const usersData = LocalStorageService.get('usersData') || [];
+    const existingUser = usersData.find(u => u.id === user.id);
 
     if (existingUser?.color) {
       return existingUser.color;
@@ -52,17 +52,14 @@ const Icon = ({ icon, className = "", textContent = "", user }) => {
     const updatedUser = { ...user, color: newColor };
 
     const updatedUsersData = existingUser
-      ? usersData.map((u) => (u.id === user.id ? updatedUser : u))
+      ? usersData.map(u => (u.id === user.id ? updatedUser : u))
       : [...usersData, updatedUser];
 
-    LocalStorageService.set("usersData", updatedUsersData);
+    LocalStorageService.set('usersData', updatedUsersData);
     return newColor;
   };
 
-  if (user?.icon)
-    return (
-      <img className={className} src={user.icon} width="100%" height="100%" />
-    );
+  if (user?.icon) return <img className={className} src={user.icon} width="100%" height="100%" />;
 
   if (icon)
     return (

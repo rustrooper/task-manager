@@ -1,5 +1,5 @@
-import "./styles.scss";
-import Icon from "../Icon";
+import './styles.scss';
+import Icon from '../Icon';
 
 const Search = ({ searchTerm, onSearchChange }) => {
   return (
@@ -10,7 +10,7 @@ const Search = ({ searchTerm, onSearchChange }) => {
         type="text"
         placeholder="Search"
         value={searchTerm}
-        onChange={(e) => onSearchChange(e.target.value)}
+        onChange={e => onSearchChange(e.target.value)}
       />
     </div>
   );

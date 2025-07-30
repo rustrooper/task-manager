@@ -1,4 +1,4 @@
-@use "../../styles/variables.scss" as vars;
+@use '../../styles/variables.scss' as vars;
 
 .tag {
   display: flex;
@@ -10,7 +10,7 @@
   color: vars.$color-grey;
 
   &::before {
-    content: "";
+    content: '';
     margin-bottom: 3px;
     display: inline-block;
     width: 1rem;

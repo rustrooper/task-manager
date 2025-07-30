@@ -1,7 +1,7 @@
-import "./styles.scss";
-import avatar from "../../assets/icons/avatar.jpg";
-import Icon from "../Icon";
-import Search from "../Search";
+import './styles.scss';
+import avatar from '../../assets/icons/avatar.jpg';
+import Icon from '../Icon';
+import Search from '../Search';
 
 const TopBar = ({ searchTerm, onSearchChange }) => {
   return (

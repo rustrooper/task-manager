@@ -3,7 +3,7 @@ const Analytics = () => {
     <div className="analytics">
       <span>Аналитика</span>
     </div>
-  )
-}
+  );
+};
 
-export default Analytics
+export default Analytics;

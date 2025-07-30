@@ -3,7 +3,7 @@ const Settings = () => {
     <div className="Settings">
       <span>Settings</span>
     </div>
-  )
-}
+  );
+};
 
-export default Settings
+export default Settings;

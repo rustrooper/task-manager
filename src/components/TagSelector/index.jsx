@@ -1,16 +1,13 @@
-import { memo, useCallback } from "react";
+import { memo, useCallback } from 'react';
 
-import Dropdown from "../Dropdown";
-import "./styles.scss";
+import Dropdown from '../Dropdown';
+import './styles.scss';
 
 const TagSelector = memo(({ currentTag, onTagSelect, availableTags }) => {
   const renderTrigger = useCallback(
     ({ isOpen, setIsOpen }) => (
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className={`tag tag_${currentTag?.replace(" ", "-")}`}
-      >
-        {currentTag?.toUpperCase() || "Choose tag"}
+      <button onClick={() => setIsOpen(!isOpen)} className={`tag tag_${currentTag?.replace(' ', '-')}`}>
+        {currentTag?.toUpperCase() || 'Choose tag'}
       </button>
     ),
     [currentTag],
@@ -19,27 +16,22 @@ const TagSelector = memo(({ currentTag, onTagSelect, availableTags }) => {
   const renderContent = useCallback(
     ({ setIsOpen }) =>
       availableTags
-        .filter((tag) => tag !== currentTag)
-        .map((tag) => (
+        .filter(tag => tag !== currentTag)
+        .map(tag => (
           <button
             key={tag}
             onClick={() => {
-              onTagSelect("tag", tag);
+              onTagSelect('tag', tag);
               setIsOpen(false);
             }}
-            className={`tag-selector__option tag tag_${tag.replace(" ", "-")}`}
-          >
+            className={`tag-selector__option tag tag_${tag.replace(' ', '-')}`}>
             {tag.toUpperCase()}
           </button>
         )),
     [availableTags, onTagSelect, currentTag],
   );
   return (
-    <Dropdown
-      classNameWrapper="tag-selector"
-      classNameContent="tag-selector__dropdown"
-      trigger={renderTrigger}
-    >
+    <Dropdown classNameWrapper="tag-selector" classNameContent="tag-selector__dropdown" trigger={renderTrigger}>
       {renderContent}
     </Dropdown>
   );

@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import Sidebar from "./components/Sidebar";
-import TopBar from "./components/TopBar";
-import AppRoutes from "./routes/routes";
+import Sidebar from './components/Sidebar';
+import TopBar from './components/TopBar';
+import AppRoutes from './routes/routes';
 
 const App = () => {
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
   return (
     <div className="app">
       <Sidebar />

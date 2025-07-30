@@ -3,7 +3,7 @@ const NoMatchPage = () => {
     <div className="NoMatchPage">
       <span>NoMatchPage</span>
     </div>
-  )
-}
+  );
+};
 
-export default NoMatchPage
+export default NoMatchPage;

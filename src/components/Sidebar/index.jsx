@@ -1,7 +1,7 @@
-import "./styles.scss";
-import logo from "../../assets/icons/logo.png";
-import { navigationData } from "../../data/navigationData";
-import Navigation from "../Navigation";
+import './styles.scss';
+import logo from '../../assets/icons/logo.png';
+import { navigationData } from '../../data/navigationData';
+import Navigation from '../Navigation';
 
 const Sidebar = () => {
   return (

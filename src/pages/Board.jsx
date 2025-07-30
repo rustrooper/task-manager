@@ -1,144 +1,127 @@
-import { useCallback, useEffect, useState } from 'react'
+import { DndContext, closestCorners, useSensor, useSensors, DragOverlay, MouseSensor } from '@dnd-kit/core';
+import { SortableContext, verticalListSortingStrategy, arrayMove } from '@dnd-kit/sortable';
+import { useCallback, useEffect, useState } from 'react';
 
-import Column from '../components/Column'
-import PageTitle from '../components/PageTitle'
-import './Board.scss'
-import '../styles/btn.scss'
-import Icon from '../components/Icon'
-import PeriodSelector from '../components/PeriodSelector'
-import { SortableTaskCard } from '../components/SortableTaskCard'
-import TaskCard from '../components/TaskCard'
-import { periodOptions, users, tags, initialColumns } from '../data/boardData'
-import LocalStorageService from '../utils/localStorageService'
-
-import {
-  DndContext,
-  closestCorners,
-  useSensor,
-  useSensors,
-  DragOverlay,
-  MouseSensor,
-} from '@dnd-kit/core'
-import {
-  SortableContext,
-  verticalListSortingStrategy,
-  arrayMove,
-} from '@dnd-kit/sortable'
-
+import Column from '../components/Column';
+import Icon from '../components/Icon';
+import PageTitle from '../components/PageTitle';
+import './Board.scss';
+import '../styles/btn.scss';
+import PeriodSelector from '../components/PeriodSelector';
+import { SortableTaskCard } from '../components/SortableTaskCard';
+import TaskCard from '../components/TaskCard';
+import { periodOptions, users, tags, initialColumns } from '../data/boardData';
+import LocalStorageService from '../utils/localStorageService';
 
 const Board = ({ searchTerm = '' }) => {
   const [columns, setColumns] = useState(() => {
-    const savedColumns = LocalStorageService.get('taskBoardColumns')
-    return savedColumns || initialColumns
-  })
+    const savedColumns = LocalStorageService.get('taskBoardColumns');
+    return savedColumns || initialColumns;
+  });
 
-  const [activeTask, setActiveTask] = useState(null)
+  const [activeTask, setActiveTask] = useState(null);
 
   useEffect(() => {
-    LocalStorageService.set('taskBoardColumns', columns)
-  }, [columns])
+    LocalStorageService.set('taskBoardColumns', columns);
+  }, [columns]);
 
-  const [tasksPeriod, setTasksPeriod] = useState(periodOptions[2])
+  const [tasksPeriod, setTasksPeriod] = useState(periodOptions[2]);
 
   const addNewColumn = useCallback(() => {
-    setColumns((prev) => [
+    setColumns(prev => [
       ...prev,
       {
         id: Date.now(),
         title: `New Column ${prev.length + 1}`,
         tasks: [],
       },
-    ])
-  }, [])
+    ]);
+  }, []);
 
   const sensors = useSensors(
     useSensor(MouseSensor, {
       activationConstraint: {
         distance: 10,
       },
-    })
-  )
+    }),
+  );
 
-  const findColumn = (taskId) => {
-    const column = columns.find((column) =>
-      column.tasks.some((task) => task.id === taskId)
-    )
-    return column?.id
-  }
+  const findColumn = taskId => {
+    const column = columns.find(column => column.tasks.some(task => task.id === taskId));
+    return column?.id;
+  };
 
   const handleDragStart = ({ active }) => {
-    setActiveTask(active.id)
-  }
+    setActiveTask(active.id);
+  };
 
   const handleDragOver = ({ active, over }) => {
-    if (!over) return
+    if (!over) return;
 
-    const activeColumn = findColumn(active.id)
-    const overColumn = findColumn(over.id) || over.id
+    const activeColumn = findColumn(active.id);
+    const overColumn = findColumn(over.id) || over.id;
 
-    if (!activeColumn || !overColumn || activeColumn === overColumn) return
+    if (!activeColumn || !overColumn || activeColumn === overColumn) return;
 
-    console.log('active id во время перетаскивания:', active.id)
-    console.log('over id во время перетаскивания:', over.id)
+    console.log('active id во время перетаскивания:', active.id);
+    console.log('over id во время перетаскивания:', over.id);
 
-    setColumns((prev) => {
-      const activeCol = prev.find((col) => col.id === activeColumn)
-      const activeTask = activeCol.tasks.find((task) => task.id === active.id)
+    setColumns(prev => {
+      const activeCol = prev.find(col => col.id === activeColumn);
+      const activeTask = activeCol.tasks.find(task => task.id === active.id);
 
-      return prev.map((col) => {
+      return prev.map(col => {
         if (col.id === activeColumn) {
           return {
             ...col,
-            tasks: col.tasks.filter((task) => task.id !== active.id),
-          }
+            tasks: col.tasks.filter(task => task.id !== active.id),
+          };
         }
         if (col.id === overColumn) {
           return {
             ...col,
             tasks: [...col.tasks, activeTask],
-          }
+          };
         }
-        return col
-      })
-    })
-  }
+        return col;
+      });
+    });
+  };
 
   const handleDragEnd = ({ active, over }) => {
-    if (!over) return
+    if (!over) return;
 
-    const columnId = findColumn(active.id)
-    if (!columnId) return
+    const columnId = findColumn(active.id);
+    if (!columnId) return;
 
-    console.log('active id при заверешини перетаскивания:', active.id)
-    console.log('over id при заверешини перетаскивания:', over.id)
+    console.log('active id при заверешини перетаскивания:', active.id);
+    console.log('over id при заверешини перетаскивания:', over.id);
 
     if (active.id !== over.id) {
-      setColumns((prev) =>
-        prev.map((column) => {
-          if (column.id !== columnId) return column
-          const oldIndex = column.tasks.findIndex(
-            (task) => task.id === active.id
-          )
-          const newIndex = column.tasks.findIndex((task) => task.id === over.id)
+      setColumns(prev =>
+        prev.map(column => {
+          if (column.id !== columnId) return column;
+          const oldIndex = column.tasks.findIndex(task => task.id === active.id);
+          const newIndex = column.tasks.findIndex(task => task.id === over.id);
 
           return {
             ...column,
             tasks: arrayMove(column.tasks, oldIndex, newIndex),
-          }
-        })
-      )
+          };
+        }),
+      );
     }
 
-    setActiveTask(null)
-  }
+    setActiveTask(null);
+  };
 
-  const deleteColumn = useCallback((columnId) => {
-    setColumns((prev) => prev.filter((column) => column.id !== columnId))
-  }, [])
+  const deleteColumn = useCallback(columnId => {
+    setColumns(prev => prev.filter(column => column.id !== columnId));
+  }, []);
 
-  const addNewTask = useCallback((columnId) => {
-    setColumns((prev) =>
-      prev.map((column) => {
+  const addNewTask = useCallback(columnId => {
+    setColumns(prev =>
+      prev.map(column => {
         return column.id === columnId
           ? {
               ...column,
@@ -152,146 +135,126 @@ const Board = ({ searchTerm = '' }) => {
                 },
               ],
             }
-          : column
-      })
-    )
-  }, [])
+          : column;
+      }),
+    );
+  }, []);
 
   const deleteTask = useCallback((columnId, taskId) => {
-    setColumns((prev) =>
-      prev.map((column) =>
+    setColumns(prev =>
+      prev.map(column =>
         column.id === columnId
           ? {
               ...column,
-              tasks: column.tasks.filter((task) => task.id !== taskId),
+              tasks: column.tasks.filter(task => task.id !== taskId),
             }
-          : column
-      )
-    )
-  }, [])
+          : column,
+      ),
+    );
+  }, []);
 
   const updateTask = useCallback((columnId, updatedTask) => {
-    setColumns((prev) =>
-      prev.map((column) =>
+    setColumns(prev =>
+      prev.map(column =>
         column.id === columnId
           ? {
               ...column,
-              tasks: column.tasks.map((task) =>
-                task.id === updatedTask.id ? updatedTask : task
-              ),
+              tasks: column.tasks.map(task => (task.id === updatedTask.id ? updatedTask : task)),
             }
-          : column
-      )
-    )
-  }, [])
+          : column,
+      ),
+    );
+  }, []);
 
-  const updateColumn = useCallback((updatedColumn) => {
-    setColumns((prev) =>
-      prev.map((column) =>
-        column.id === updatedColumn.id ? updatedColumn : column
-      )
-    )
-  }, [])
+  const updateColumn = useCallback(updatedColumn => {
+    setColumns(prev => prev.map(column => (column.id === updatedColumn.id ? updatedColumn : column)));
+  }, []);
 
   const filterTasks = useCallback(() => {
-    const now = new Date()
+    const now = new Date();
 
-    return columns.map((column) => ({
+    return columns.map(column => ({
       ...column,
-      tasks: column.tasks.filter((task) => {
+      tasks: column.tasks.filter(task => {
         const matchesSearch =
           !searchTerm.trim() ||
           task.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          task.description.toLowerCase().includes(searchTerm.toLowerCase())
+          task.description.toLowerCase().includes(searchTerm.toLowerCase());
 
-        if (!matchesSearch) return false
+        if (!matchesSearch) return false;
 
-        const taskDate = new Date(task.createdAt)
+        const taskDate = new Date(task.createdAt);
         switch (tasksPeriod.id) {
           case 'today': {
             return (
               taskDate.getDate() === now.getDate() &&
               taskDate.getMonth() === now.getMonth() &&
               taskDate.getFullYear() === now.getFullYear()
-            )
+            );
           }
           case 'yesterday': {
-            const yesterday = new Date(now)
-            yesterday.setDate(now.getDate() - 1)
+            const yesterday = new Date(now);
+            yesterday.setDate(now.getDate() - 1);
             return (
               taskDate.getDate() === yesterday.getDate() &&
               taskDate.getMonth() === yesterday.getMonth() &&
               taskDate.getFullYear() === yesterday.getFullYear()
-            )
+            );
           }
           case 'thisWeek': {
-            const startOfWeek = new Date(now)
-            startOfWeek.setDate(now.getDate() - now.getDay())
-            return taskDate >= startOfWeek
+            const startOfWeek = new Date(now);
+            startOfWeek.setDate(now.getDate() - now.getDay());
+            return taskDate >= startOfWeek;
           }
           case 'lastWeek': {
-            const startOfLastWeek = new Date(now)
-            startOfLastWeek.setDate(now.getDate() - now.getDay() - 7)
-            const endOfLastWeek = new Date(startOfLastWeek)
-            endOfLastWeek.setDate(startOfLastWeek.getDate() + 6)
-            return taskDate >= startOfLastWeek && taskDate <= endOfLastWeek
+            const startOfLastWeek = new Date(now);
+            startOfLastWeek.setDate(now.getDate() - now.getDay() - 7);
+            const endOfLastWeek = new Date(startOfLastWeek);
+            endOfLastWeek.setDate(startOfLastWeek.getDate() + 6);
+            return taskDate >= startOfLastWeek && taskDate <= endOfLastWeek;
           }
           case 'thisMonth': {
-            return (
-              taskDate.getMonth() === now.getMonth() &&
-              taskDate.getFullYear() === now.getFullYear()
-            )
+            return taskDate.getMonth() === now.getMonth() && taskDate.getFullYear() === now.getFullYear();
           }
           default: {
-            return true
+            return true;
           }
         }
       }),
-    }))
-  }, [columns, searchTerm, tasksPeriod])
+    }));
+  }, [columns, searchTerm, tasksPeriod]);
 
-  const filteredColumns = filterTasks()
+  const filteredColumns = filterTasks();
 
   return (
     <div className="board">
       <div className="board__header">
         <PageTitle textContent={'Board'} />
-        <PeriodSelector
-          periodOptions={periodOptions}
-          onPeriodChange={setTasksPeriod}
-          currentPeriod={tasksPeriod}
-        />
+        <PeriodSelector periodOptions={periodOptions} onPeriodChange={setTasksPeriod} currentPeriod={tasksPeriod} />
       </div>
       <DndContext
         sensors={sensors}
         collisionDetection={closestCorners}
         onDragStart={handleDragStart}
         onDragOver={handleDragOver}
-        onDragEnd={handleDragEnd}
-      >
+        onDragEnd={handleDragEnd}>
         <div className="board__content">
-          {filteredColumns.map((column) => (
+          {filteredColumns.map(column => (
             <Column
               key={column.id}
               column={column}
               onAddTask={() => addNewTask(column.id)}
               onDeleteColumn={() => deleteColumn(column.id)}
-              onUpdateColumn={updateColumn}
-            >
-              <SortableContext
-                items={column.tasks.map((task) => task.id)}
-                strategy={verticalListSortingStrategy}
-              >
-                {column.tasks.map((task) => (
+              onUpdateColumn={updateColumn}>
+              <SortableContext items={column.tasks.map(task => task.id)} strategy={verticalListSortingStrategy}>
+                {column.tasks.map(task => (
                   <SortableTaskCard
                     key={task.id}
                     task={task}
                     assignees={users}
                     tags={tags}
                     onDeleteTask={() => deleteTask(column.id, task.id)}
-                    onUpdateTask={(updatedTask) =>
-                      updateTask(column.id, updatedTask)
-                    }
+                    onUpdateTask={updatedTask => updateTask(column.id, updatedTask)}
                   />
                 ))}
               </SortableContext>
@@ -304,16 +267,12 @@ const Board = ({ searchTerm = '' }) => {
 
         <DragOverlay>
           {activeTask ? (
-            <TaskCard
-              task={columns
-                .flatMap((col) => col.tasks)
-                .find((task) => task.id === activeTask)}
-            />
+            <TaskCard task={columns.flatMap(col => col.tasks).find(task => task.id === activeTask)} />
           ) : null}
         </DragOverlay>
       </DndContext>
     </div>
-  )
-}
+  );
+};
 
-export default Board
+export default Board;

@@ -3,7 +3,7 @@ const Dashboard = () => {
     <div className="Dashboard">
       <span>Dashboard</span>
     </div>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;
