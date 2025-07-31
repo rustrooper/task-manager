@@ -8,7 +8,7 @@ class LocalStorageService {
     localStorage.setItem(key, JSON.stringify(data));
   }
 
-  static clear(key) {
+  static removeItem(key) {
     localStorage.removeItem(key);
   }
 }

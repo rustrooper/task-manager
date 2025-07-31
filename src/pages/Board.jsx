@@ -1,8 +1,8 @@
+import Column from '@components/Column';
 import { DndContext, closestCorners, useSensor, useSensors, DragOverlay, MouseSensor } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy, arrayMove } from '@dnd-kit/sortable';
 import { useCallback, useEffect, useState } from 'react';
 
-import Column from '../components/Column';
 import Icon from '../components/Icon';
 import PageTitle from '../components/PageTitle';
 import './Board.scss';
@@ -43,7 +43,7 @@ const Board = ({ searchTerm = '' }) => {
       activationConstraint: {
         distance: 10,
       },
-    }),
+    })
   );
 
   const findColumn = taskId => {
@@ -108,7 +108,7 @@ const Board = ({ searchTerm = '' }) => {
             ...column,
             tasks: arrayMove(column.tasks, oldIndex, newIndex),
           };
-        }),
+        })
       );
     }
 
@@ -136,7 +136,7 @@ const Board = ({ searchTerm = '' }) => {
               ],
             }
           : column;
-      }),
+      })
     );
   }, []);
 
@@ -148,8 +148,8 @@ const Board = ({ searchTerm = '' }) => {
               ...column,
               tasks: column.tasks.filter(task => task.id !== taskId),
             }
-          : column,
-      ),
+          : column
+      )
     );
   }, []);
 
@@ -161,8 +161,8 @@ const Board = ({ searchTerm = '' }) => {
               ...column,
               tasks: column.tasks.map(task => (task.id === updatedTask.id ? updatedTask : task)),
             }
-          : column,
-      ),
+          : column
+      )
     );
   }, []);
 

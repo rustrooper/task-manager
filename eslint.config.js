@@ -45,6 +45,11 @@ export default [
             {
               pattern: '@/**', // Пример для алиасов (настройте под ваш проект)
               group: 'internal',
+              position: 'before',
+            },
+            {
+              pattern: '@components/**',
+              group: 'internal',
             },
           ],
           'newlines-between': 'always', // Пустые строки между группами
