@@ -1,17 +1,16 @@
 import Column from '@components/Column';
+import Icon from '@components/Icon';
+import PageTitle from '@components/PageTitle';
+import './Board.scss';
+import '@styles/btn.scss';
+import PeriodSelector from '@components/PeriodSelector';
+import { SortableTaskCard } from '@components/SortableTaskCard';
+import TaskCard from '@components/TaskCard';
+import { periodOptions, users, tags, initialColumns } from '@data/boardData';
 import { DndContext, closestCorners, useSensor, useSensors, DragOverlay, MouseSensor } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy, arrayMove } from '@dnd-kit/sortable';
+import LocalStorageService from '@utils/localStorageService';
 import { useCallback, useEffect, useState } from 'react';
-
-import Icon from '../components/Icon';
-import PageTitle from '../components/PageTitle';
-import './Board.scss';
-import '../styles/btn.scss';
-import PeriodSelector from '../components/PeriodSelector';
-import { SortableTaskCard } from '../components/SortableTaskCard';
-import TaskCard from '../components/TaskCard';
-import { periodOptions, users, tags, initialColumns } from '../data/boardData';
-import LocalStorageService from '../utils/localStorageService';
 
 const Board = ({ searchTerm = '' }) => {
   const [columns, setColumns] = useState(() => {

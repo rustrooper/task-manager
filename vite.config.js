@@ -1,12 +1,14 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 
 // Получаем __dirname в ESM
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
+  plugins: [react()],
   resolve: {
     alias: {
       // Базовый алиас для src
@@ -16,6 +18,9 @@ export default defineConfig({
       '@components': path.resolve(__dirname, './src/components'),
       '@assets': path.resolve(__dirname, './src/assets'),
       '@utils': path.resolve(__dirname, './src/utils'),
+      '@pages': path.resolve(__dirname, './src/pages'),
+      '@styles': path.resolve(__dirname, './src/styles'),
+      '@data': path.resolve(__dirname, './src/data'),
     },
   },
 });

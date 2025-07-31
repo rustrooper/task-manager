@@ -38,15 +38,8 @@ export default [
             'external', // Внешние зависимости (из node_modules)
             'internal', // Внутренние пути (алиасы, относительные пути)
             ['parent', 'sibling', 'index'], // Родительские, соседние и index-файлы
-            'object', // Импорты типов (для TypeScript)
-            'type', // Типы (если используется TypeScript)
           ],
           pathGroups: [
-            {
-              pattern: '@/**', // Пример для алиасов (настройте под ваш проект)
-              group: 'internal',
-              position: 'before',
-            },
             {
               pattern: '@components/**',
               group: 'internal',

@@ -1,8 +1,8 @@
 import './styles.scss';
+import AssigneesSelector from '@components/AssigneesSelector';
 import { useEffect, useState, useCallback, memo } from 'react';
 
 import ActionsSelector from '../ActionsSelector';
-import AssigneesSelector from '../AssignessSelector';
 import TagSelector from '../TagSelector';
 
 const TaskCard = memo(({ task, tags, assignees, onDeleteTask, onUpdateTask }) => {
@@ -28,7 +28,7 @@ const TaskCard = memo(({ task, tags, assignees, onDeleteTask, onUpdateTask }) =>
     (property, value) => {
       onUpdateTask({ ...task, [property]: value });
     },
-    [onUpdateTask, task],
+    [onUpdateTask, task]
   );
 
   return (
