@@ -1,9 +1,10 @@
-import './styles.scss';
-import AssigneesSelector from '@components/AssigneesSelector';
 import { useEffect, useState, useCallback, memo } from 'react';
+import './styles.scss';
 
-import ActionsSelector from '../ActionsSelector';
-import TagSelector from '../TagSelector';
+import ActionsSelector from '@components/ActionsSelector';
+import TagSelector from '@components/TagSelector';
+
+import AssigneesSelector from '@components/AssignessSelector';
 
 const TaskCard = memo(({ task, tags, assignees, onDeleteTask, onUpdateTask }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -28,7 +29,7 @@ const TaskCard = memo(({ task, tags, assignees, onDeleteTask, onUpdateTask }) =>
     (property, value) => {
       onUpdateTask({ ...task, [property]: value });
     },
-    [onUpdateTask, task]
+    [onUpdateTask, task],
   );
 
   return (
