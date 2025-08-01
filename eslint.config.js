@@ -1,58 +1,70 @@
 import js from '@eslint/js';
-import prettierConfig from 'eslint-config-prettier';
-import importPlugin from 'eslint-plugin-import';
-import reactHooks from 'eslint-plugin-react-hooks';
-import reactRefresh from 'eslint-plugin-react-refresh';
 import globals from 'globals';
+import eslintReact from 'eslint-plugin-react';
+import eslintReactHooks from 'eslint-plugin-react-hooks';
+import eslintReactRefresh from 'eslint-plugin-react-refresh';
+import prettierPlugin from 'eslint-plugin-prettier';
+import eslintConfigPrettier from 'eslint-config-prettier';
 
 export default [
-  { ignores: ['dist'] },
+  {
+    ignores: ['dist', 'node_modules', 'coverage', 'eslint.config.js'],
+  },
+
+  js.configs.recommended,
+
   {
     files: ['**/*.{js,jsx}'],
     languageOptions: {
-      ecmaVersion: 2020,
-      globals: { ...globals.browser, ...globals.es2020 },
+      globals: {
+        ...globals.browser,
+        ...globals.es2020,
+      },
       parserOptions: {
-        ecmaVersion: 'latest',
-        ecmaFeatures: { jsx: true },
+        ecmaFeatures: {
+          jsx: true,
+        },
         sourceType: 'module',
       },
     },
     plugins: {
-      'react-hooks': reactHooks,
-      'react-refresh': reactRefresh,
-      import: importPlugin,
+      react: eslintReact,
+      'react-hooks': eslintReactHooks,
+      'react-refresh': eslintReactRefresh,
+      prettier: prettierPlugin,
     },
     rules: {
-      ...js.configs.recommended.rules,
-      ...reactHooks.configs.recommended.rules,
-      'object-curly-spacing': 'off',
-      'import/object-curly-spacing': 'off',
-      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+      'react/jsx-uses-react': 'error',
+      'react/jsx-uses-vars': 'error',
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+      'react/jsx-curly-brace-presence': ['warn', { props: 'never', children: 'never' }],
+      'react/function-component-definition': ['warn', { namedComponents: 'arrow-function' }],
+      'react/self-closing-comp': ['error', { component: true, html: true }],
+      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/exhaustive-deps': 'warn',
+
+      'prefer-const': 'error',
+      'max-lines': ['warn', { max: 124 }],
+      'max-params': ['error', 3],
+
+      'import/no-unresolved': 'error',
+      'import/no-absolute-path': 'error',
       'import/order': [
         'error',
         {
-          groups: [
-            'builtin', // Встроенные модули (node:fs, node:path и т.д.)
-            'external', // Внешние зависимости (из node_modules)
-            'internal', // Внутренние пути (алиасы, относительные пути)
-            ['parent', 'sibling', 'index'], // Родительские, соседние и index-файлы
-          ],
-          pathGroups: [
-            {
-              pattern: '@components/**',
-              group: 'internal',
-            },
-          ],
-          'newlines-between': 'always', // Пустые строки между группами
+          groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
+          'newlines-between': 'always',
           alphabetize: {
-            order: 'asc', // Сортировка по алфавиту
-            caseInsensitive: true, // Без учета регистра
+            order: 'asc',
+            caseInsensitive: true,
           },
         },
       ],
+
+      ...prettierPlugin.configs.recommended.rules,
+      ...eslintConfigPrettier.rules,
     },
   },
-  prettierConfig,
+
+  eslintConfigPrettier,
 ];
