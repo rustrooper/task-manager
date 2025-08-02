@@ -29,7 +29,7 @@ const TaskCard = memo(({ task, tags, assignees, onDeleteTask, onUpdateTask }) =>
     (property, value) => {
       onUpdateTask({ ...task, [property]: value });
     },
-    [onUpdateTask, task],
+    [onUpdateTask, task]
   );
 
   return (

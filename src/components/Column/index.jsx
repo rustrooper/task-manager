@@ -2,8 +2,8 @@ import { useDroppable } from '@dnd-kit/core';
 import { useEffect, useState, useCallback, memo } from 'react';
 
 import './styles.scss';
-import ActionsSelector from '../ActionsSelector';
-import Icon from '../Icon';
+import ActionsSelector from '@components/ActionsSelector';
+import Icon from '@components/Icon';
 
 const Column = memo(({ column, onAddTask, onDeleteColumn, onUpdateColumn, children }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -37,7 +37,7 @@ const Column = memo(({ column, onAddTask, onDeleteColumn, onUpdateColumn, childr
         handleEditSave();
       }
     },
-    [handleEditSave],
+    [handleEditSave]
   );
   return (
     <div className="column" ref={setNodeRef}>

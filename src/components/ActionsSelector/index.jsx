@@ -1,5 +1,5 @@
-import Dropdown from '../Dropdown';
-import Icon from '../Icon';
+import Dropdown from '@components/Dropdown';
+import Icon from '@components/Icon';
 import './styles.scss';
 
 const ActionsSelector = ({ onDelete }) => {

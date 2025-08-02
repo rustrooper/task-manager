@@ -1,8 +1,8 @@
 import { memo, useCallback } from 'react';
 
 import './styles.scss';
-import Dropdown from '../Dropdown';
-import Icon from '../Icon';
+import Dropdown from '@components/Dropdown';
+import Icon from '@components/Icon';
 
 const AssigneesSelector = memo(({ currentAssigneesIds, onAssigneesSelect, availableAssignees }) => {
   const handleAssigneeToggle = useCallback(
@@ -13,7 +13,7 @@ const AssigneesSelector = memo(({ currentAssigneesIds, onAssigneesSelect, availa
 
       onAssigneesSelect('assignees', newAssignees);
     },
-    [currentAssigneesIds, onAssigneesSelect],
+    [currentAssigneesIds, onAssigneesSelect]
   );
 
   const handleClearAll = useCallback(() => {
@@ -53,7 +53,7 @@ const AssigneesSelector = memo(({ currentAssigneesIds, onAssigneesSelect, availa
         )}
       </button>
     ),
-    [availableAssignees, currentAssigneesIds],
+    [availableAssignees, currentAssigneesIds]
   );
 
   const renderContent = useCallback(
@@ -90,7 +90,7 @@ const AssigneesSelector = memo(({ currentAssigneesIds, onAssigneesSelect, availa
         )}
       </>
     ),
-    [availableAssignees, currentAssigneesIds, handleAssigneeToggle, handleClearAll],
+    [availableAssignees, currentAssigneesIds, handleAssigneeToggle, handleClearAll]
   );
 
   return (

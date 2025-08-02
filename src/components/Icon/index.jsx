@@ -1,6 +1,6 @@
-import sprite from '../../assets/icons/sprite.svg';
+import sprite from '@assets/icons/sprite.svg';
 import './styles.scss';
-import LocalStorageService from '../../utils/localStorageService';
+import LocalStorageService from '@utils/localStorageService';
 
 const Icon = ({ icon, className = '', textContent = '', user }) => {
   const getRandomColor = () => {

@@ -1,7 +1,7 @@
 import { memo, useCallback } from 'react';
 
-import Dropdown from '../Dropdown';
-import Icon from '../Icon';
+import Dropdown from '@components/Dropdown';
+import Icon from '@components/Icon';
 import './styles.scss';
 
 const PeriodSelector = memo(({ periodOptions, currentPeriod, onPeriodChange }) => {
@@ -12,7 +12,7 @@ const PeriodSelector = memo(({ periodOptions, currentPeriod, onPeriodChange }) =
         <Icon icon="arrow-down" className="icon_color_grey" />
       </button>
     ),
-    [currentPeriod],
+    [currentPeriod]
   );
 
   const renderContent = useCallback(
@@ -30,7 +30,7 @@ const PeriodSelector = memo(({ periodOptions, currentPeriod, onPeriodChange }) =
             {option.label}
           </button>
         )),
-    [periodOptions, onPeriodChange, currentPeriod.id],
+    [periodOptions, onPeriodChange, currentPeriod.id]
   );
 
   return (

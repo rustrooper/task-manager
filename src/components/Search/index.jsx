@@ -1,5 +1,5 @@
 import './styles.scss';
-import Icon from '../Icon';
+import Icon from '@components/Icon';
 
 const Search = ({ searchTerm, onSearchChange }) => {
   return (

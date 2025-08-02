@@ -1,6 +1,6 @@
 import { memo, useCallback } from 'react';
 
-import Dropdown from '../Dropdown';
+import Dropdown from '@components/Dropdown';
 import './styles.scss';
 
 const TagSelector = memo(({ currentTag, onTagSelect, availableTags }) => {
@@ -10,7 +10,7 @@ const TagSelector = memo(({ currentTag, onTagSelect, availableTags }) => {
         {currentTag?.toUpperCase() || 'Choose tag'}
       </button>
     ),
-    [currentTag],
+    [currentTag]
   );
 
   const renderContent = useCallback(
@@ -28,7 +28,7 @@ const TagSelector = memo(({ currentTag, onTagSelect, availableTags }) => {
             {tag.toUpperCase()}
           </button>
         )),
-    [availableTags, onTagSelect, currentTag],
+    [availableTags, onTagSelect, currentTag]
   );
   return (
     <Dropdown classNameWrapper="tag-selector" classNameContent="tag-selector__dropdown" trigger={renderTrigger}>
