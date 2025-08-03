@@ -2,10 +2,10 @@ import { useDroppable } from '@dnd-kit/core';
 import { useEffect, useState, useCallback, memo } from 'react';
 
 import './styles.scss';
-import ActionsSelector from '@components/ActionsSelector';
-import Icon from '@components/Icon';
+import { ActionsSelector } from '@components/ActionsSelector';
+import { Icon } from '@components/Icon';
 
-const Column = memo(({ column, onAddTask, onDeleteColumn, onUpdateColumn, children }) => {
+export const Column = memo(({ column, onAddTask, onDeleteColumn, onUpdateColumn, children }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState(column.title);
 
@@ -69,5 +69,3 @@ const Column = memo(({ column, onAddTask, onDeleteColumn, onUpdateColumn, childr
     </div>
   );
 });
-
-export default Column;

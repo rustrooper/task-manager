@@ -1,10 +1,10 @@
 import { memo, useCallback } from 'react';
 
-import Dropdown from '@components/Dropdown';
-import Icon from '@components/Icon';
+import { Dropdown } from '@components/Dropdown';
+import { Icon } from '@components/Icon';
 import './styles.scss';
 
-const PeriodSelector = memo(({ periodOptions, currentPeriod, onPeriodChange }) => {
+export const PeriodSelector = memo(({ periodOptions, currentPeriod, onPeriodChange }) => {
   const renderTrigger = useCallback(
     ({ isOpen, setIsOpen }) => (
       <button onClick={() => setIsOpen(!isOpen)} className="period-selector__toggle">
@@ -39,5 +39,3 @@ const PeriodSelector = memo(({ periodOptions, currentPeriod, onPeriodChange }) =
     </Dropdown>
   );
 });
-
-export default PeriodSelector;

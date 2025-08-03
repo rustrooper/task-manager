@@ -1,10 +1,10 @@
 import { memo, useCallback } from 'react';
 
 import './styles.scss';
-import Dropdown from '@components/Dropdown';
-import Icon from '@components/Icon';
+import { Dropdown } from '@components/Dropdown';
+import { Icon } from '@components/Icon';
 
-const AssigneesSelector = memo(({ currentAssigneesIds, onAssigneesSelect, availableAssignees }) => {
+export const AssigneesSelector = memo(({ currentAssigneesIds, onAssigneesSelect, availableAssignees }) => {
   const handleAssigneeToggle = useCallback(
     assigneeId => {
       const newAssignees = currentAssigneesIds.includes(assigneeId)
@@ -102,5 +102,3 @@ const AssigneesSelector = memo(({ currentAssigneesIds, onAssigneesSelect, availa
     </Dropdown>
   );
 });
-
-export default AssigneesSelector;

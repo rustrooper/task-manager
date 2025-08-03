@@ -1,12 +1,12 @@
 import { useEffect, useState, useCallback, memo } from 'react';
 import './styles.scss';
 
-import ActionsSelector from '@components/ActionsSelector';
-import TagSelector from '@components/TagSelector';
+import { ActionsSelector } from '@components/ActionsSelector';
+import { TagSelector } from '@components/TagSelector';
 
-import AssigneesSelector from '@components/AssignessSelector';
+import { AssigneesSelector } from '@components/AssignessSelector';
 
-const TaskCard = memo(({ task, tags, assignees, onDeleteTask, onUpdateTask }) => {
+export const TaskCard = memo(({ task, tags, assignees, onDeleteTask, onUpdateTask }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedTask, setEditedTask] = useState(task);
   useEffect(() => {
@@ -74,5 +74,3 @@ const TaskCard = memo(({ task, tags, assignees, onDeleteTask, onUpdateTask }) =>
     </div>
   );
 });
-
-export default TaskCard;

@@ -1,8 +1,8 @@
-import Dropdown from '@components/Dropdown';
-import Icon from '@components/Icon';
+import { Dropdown } from '@components/Dropdown';
+import { Icon } from '@components/Icon';
 import './styles.scss';
 
-const ActionsSelector = ({ onDelete }) => {
+export const ActionsSelector = ({ onDelete }) => {
   const renderTrigger = ({ isOpen, setIsOpen }) => (
     <button onClick={() => setIsOpen(!isOpen)} className="btn">
       <Icon icon="dots" className="icon_color_black" />
@@ -26,5 +26,3 @@ const ActionsSelector = ({ onDelete }) => {
     </Dropdown>
   );
 };
-
-export default ActionsSelector;

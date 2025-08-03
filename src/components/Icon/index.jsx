@@ -2,7 +2,7 @@ import sprite from '@assets/icons/sprite.svg';
 import './styles.scss';
 import LocalStorageService from '@utils/localStorageService';
 
-const Icon = ({ icon, className = '', textContent = '', user }) => {
+export const Icon = ({ icon, className = '', textContent = '', user }) => {
   const getRandomColor = () => {
     // 1. Выбираем случайный базовый тон (Hue) от 0 до 360°
     const baseHue = Math.floor(Math.random() * 360);
@@ -74,5 +74,3 @@ const Icon = ({ icon, className = '', textContent = '', user }) => {
     </div>
   );
 };
-
-export default Icon;

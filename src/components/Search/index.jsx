@@ -1,7 +1,7 @@
 import './styles.scss';
-import Icon from '@components/Icon';
+import { Icon } from '@components/Icon';
 
-const Search = ({ searchTerm, onSearchChange }) => {
+export const Search = ({ searchTerm, onSearchChange }) => {
   return (
     <div className="search">
       <Icon icon="loupe" className="icon_color_grey" />
@@ -15,5 +15,3 @@ const Search = ({ searchTerm, onSearchChange }) => {
     </div>
   );
 };
-
-export default Search;

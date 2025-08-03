@@ -1,9 +1,9 @@
 import './styles.scss';
 import logo from '@assets/icons/logo.png';
 import { navigationData } from '@data/navigationData';
-import Navigation from '@components/Navigation';
+import { Navigation } from '@components/Navigation';
 
-const Sidebar = () => {
+export const Sidebar = () => {
   return (
     <aside className="sidebar">
       <div className="sidebar__top">
@@ -14,5 +14,3 @@ const Sidebar = () => {
     </aside>
   );
 };
-
-export default Sidebar;

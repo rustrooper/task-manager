@@ -1,9 +1,7 @@
-const Dashboard = () => {
+export const Dashboard = () => {
   return (
     <div className="Dashboard">
       <span>Dashboard</span>
     </div>
   );
 };
-
-export default Dashboard;

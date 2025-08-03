@@ -1,9 +1,9 @@
 import './styles.scss';
 import avatar from '../../assets/icons/avatar.jpg';
-import Icon from '../Icon';
-import Search from '../Search';
+import { Icon } from '../Icon';
+import { Search } from '../Search';
 
-const TopBar = ({ searchTerm, onSearchChange }) => {
+export const TopBar = ({ searchTerm, onSearchChange }) => {
   return (
     <div className="topbar">
       <Search searchTerm={searchTerm} onSearchChange={onSearchChange} />
@@ -15,5 +15,3 @@ const TopBar = ({ searchTerm, onSearchChange }) => {
     </div>
   );
 };
-
-export default TopBar;

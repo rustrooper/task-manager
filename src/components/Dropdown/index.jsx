@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 
-const Dropdown = ({ trigger, children, classNameWrapper, classNameContent }) => {
+export const Dropdown = ({ trigger, children, classNameWrapper, classNameContent }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -22,5 +22,3 @@ const Dropdown = ({ trigger, children, classNameWrapper, classNameContent }) => 
     </div>
   );
 };
-
-export default Dropdown;

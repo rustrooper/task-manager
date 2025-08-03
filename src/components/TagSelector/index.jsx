@@ -1,9 +1,9 @@
 import { memo, useCallback } from 'react';
 
-import Dropdown from '@components/Dropdown';
+import { Dropdown } from '@components/Dropdown';
 import './styles.scss';
 
-const TagSelector = memo(({ currentTag, onTagSelect, availableTags }) => {
+export const TagSelector = memo(({ currentTag, onTagSelect, availableTags }) => {
   const renderTrigger = useCallback(
     ({ isOpen, setIsOpen }) => (
       <button onClick={() => setIsOpen(!isOpen)} className={`tag tag_${currentTag?.replace(' ', '-')}`}>
@@ -36,5 +36,3 @@ const TagSelector = memo(({ currentTag, onTagSelect, availableTags }) => {
     </Dropdown>
   );
 });
-
-export default TagSelector;

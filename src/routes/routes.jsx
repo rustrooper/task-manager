@@ -1,12 +1,12 @@
 import { Route, Routes } from 'react-router';
 
-import Analytics from '../pages/Analytics';
-import Board from '../pages/Board';
-import Dashboard from '../pages/Dashboard';
-import NoMatchPage from '../pages/NoMatchPage';
-import Settings from '../pages/Settings';
+import { Analytics } from '@pages/Analytics';
+import { Board } from '@pages/Board';
+import { Dashboard } from '@pages/Dashboard';
+import { NoMatchPage } from '@pages/NoMatchPage';
+import { Settings } from '@pages/Settings';
 
-const AppRoutes = ({ searchTerm }) => {
+export const AppRoutes = ({ searchTerm }) => {
   const navigationRoutes = [
     { path: '/', element: <Board searchTerm={searchTerm}></Board> },
     { path: '/dashboard', element: <Dashboard></Dashboard> },
@@ -22,5 +22,3 @@ const AppRoutes = ({ searchTerm }) => {
     </Routes>
   );
 };
-
-export default AppRoutes;
