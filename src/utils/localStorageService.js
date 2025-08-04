@@ -1,4 +1,4 @@
-class LocalStorageService {
+export class LocalStorageService {
   static get(key) {
     const data = localStorage.getItem(key);
     return data ? JSON.parse(data) : null;
@@ -12,5 +12,3 @@ class LocalStorageService {
     localStorage.removeItem(key);
   }
 }
-
-export default LocalStorageService;

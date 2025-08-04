@@ -6,7 +6,7 @@ import '@styles/btn.scss';
 import { PeriodSelector } from '@components/PeriodSelector';
 import { SortableTaskCard } from '@components/SortableTaskCard';
 import { TaskCard } from '@components/TaskCard';
-import { periodOptions, users, tags, initialColumns } from '@data/boardData';
+import { periodOptions, users, tags, initialColumns } from '@data/appData';
 import { DndContext, closestCorners, useSensor, useSensors, DragOverlay, MouseSensor } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy, arrayMove } from '@dnd-kit/sortable';
 import LocalStorageService from '@utils/localStorageService';
@@ -183,7 +183,7 @@ export const Board = ({ searchTerm = '' }) => {
         if (!matchesSearch) return false;
 
         const taskDate = new Date(task.createdAt);
-        switch (tasksPeriod.id) {
+        switch (tasksPeriod.value) {
           case 'today': {
             return (
               taskDate.getDate() === now.getDate() &&

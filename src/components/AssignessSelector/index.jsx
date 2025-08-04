@@ -31,11 +31,7 @@ export const AssigneesSelector = memo(({ currentAssigneesIds, onAssigneesSelect,
           currentAssigneesIds.map(assigneeId => {
             const assignee = availableAssignees.find(a => a.id === assigneeId);
             if (!assignee) return null;
-
-            const initials = assignee.name
-              .split(' ')
-              .map(part => part[0].toUpperCase())
-              .join('');
+            const initials = [assignee.name?.[0], assignee.lastname?.[0]].join('').toUpperCase();
             return (
               <Icon
                 key={assignee.id}
@@ -66,7 +62,7 @@ export const AssigneesSelector = memo(({ currentAssigneesIds, onAssigneesSelect,
               currentAssigneesIds.includes(assignee.id) ? 'assignees-selector__option_selected' : ''
             }`}
             onClick={() => handleAssigneeToggle(assignee.id)}>
-            {assignee.name}
+            {`${assignee.name} ${assignee.lastname}`}
           </button>
         ))}
         {currentAssigneesIds.length > 0 && (

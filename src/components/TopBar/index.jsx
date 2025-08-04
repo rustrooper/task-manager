@@ -1,16 +1,16 @@
 import './styles.scss';
-import avatar from '../../assets/icons/avatar.jpg';
-import { Icon } from '../Icon';
-import { Search } from '../Search';
+import { Icon } from '@components/Icon';
+import { Search } from '@components/Search';
+import { users } from '@data/appData';
 
-export const TopBar = ({ searchTerm, onSearchChange }) => {
+export const TopBar = ({ searchTerm, onSearchChange, user }) => {
   return (
     <div className="topbar">
       <Search searchTerm={searchTerm} onSearchChange={onSearchChange} />
       <div className="topbar__actions">
         <Icon icon="help" className="icon_color_black" />
         <Icon icon="bell" className="icon_color_black" />
-        <img className="avatar" src={avatar} alt="avatar" />
+        {/* <Icon></Icon> */}
       </div>
     </div>
   );
