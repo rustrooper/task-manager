@@ -9,7 +9,7 @@ import { TaskCard } from '@components/TaskCard';
 import { periodOptions, users, tags, initialColumns } from '@data/appData';
 import { DndContext, closestCorners, useSensor, useSensors, DragOverlay, MouseSensor } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy, arrayMove } from '@dnd-kit/sortable';
-import LocalStorageService from '@utils/localStorageService';
+import { LocalStorageService } from '@utils/localStorageService';
 import { useCallback, useEffect, useState } from 'react';
 
 export const Board = ({ searchTerm = '' }) => {
