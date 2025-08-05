@@ -1,10 +1,11 @@
 import { useEffect, useState, useCallback, memo } from 'react';
 import './styles.scss';
 
-import { ActionsSelector } from '@components/ActionsSelector';
+// import { ActionsSelector } from '@components/ActionsSelector';
 import { TagSelector } from '@components/TagSelector';
-
+import { Dropdown } from '@components/Dropdown';
 import { AssigneesSelector } from '@components/AssignessSelector';
+import { Icon } from '@components/Icon';
 
 export const TaskCard = memo(({ task, tags, assignees, onDeleteTask, onUpdateTask }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -30,6 +31,23 @@ export const TaskCard = memo(({ task, tags, assignees, onDeleteTask, onUpdateTas
       onUpdateTask({ ...task, [property]: value });
     },
     [onUpdateTask, task]
+  );
+
+  const actionsTrigger = ({ isOpen, setIsOpen }) => (
+    <button onClick={() => setIsOpen(!isOpen)} className="btn">
+      <Icon spriteId="dots" className="icon icon_color_black" />
+    </button>
+  );
+
+  const actionsContent = ({ setIsOpen }) => (
+    <button
+      onClick={() => {
+        onDeleteTask();
+        setIsOpen(false);
+      }}
+      className="dropdown-menu__item btn btn_remove">
+      Remove
+    </button>
   );
 
   return (
@@ -58,7 +76,7 @@ export const TaskCard = memo(({ task, tags, assignees, onDeleteTask, onUpdateTas
         <>
           <div className="task__header">
             <TagSelector currentTag={task.tag} onTagSelect={handleTaskUpdate} availableTags={tags} />
-            <ActionsSelector onDelete={onDeleteTask} />
+            <Dropdown trigger={actionsTrigger}>{actionsContent}</Dropdown>
           </div>
           <div className="task__content" onClick={!isEditing ? handleEdit : null}>
             <h3 className="task__title">{task.title}</h3>

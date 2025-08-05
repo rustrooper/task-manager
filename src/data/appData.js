@@ -33,7 +33,7 @@ export const initialColumns = [
     title: 'To Do',
     tasks: [
       {
-        id: 1,
+        id: 11,
         title: 'Design Homepage',
         description: 'Create wireframes',
         createdAt: new Date().toISOString(),
@@ -45,7 +45,7 @@ export const initialColumns = [
     title: 'In Progress',
     tasks: [
       {
-        id: 2,
+        id: 22,
         title: 'API Integration',
         description: 'Connect backend',
         createdAt: new Date(Date.now() - 86400000).toISOString(),

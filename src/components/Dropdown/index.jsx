@@ -1,6 +1,12 @@
 import { useState, useRef, useEffect } from 'react';
+import './styles.scss';
 
-export const Dropdown = ({ trigger, children, classNameWrapper, classNameContent }) => {
+export const Dropdown = ({
+  trigger,
+  children,
+  classNameWrapper = 'dropdown-menu',
+  classNameContent = 'dropdown-menu__content',
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 

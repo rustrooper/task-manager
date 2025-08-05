@@ -4,7 +4,7 @@ import { Icon } from '@components/Icon';
 export const Search = ({ searchTerm, onSearchChange }) => {
   return (
     <div className="search">
-      <Icon icon="loupe" className="icon_color_grey" />
+      <Icon spriteId="loupe" className="icon icon_color_grey" />
       <input
         className="search__input"
         type="text"

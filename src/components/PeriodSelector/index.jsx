@@ -8,8 +8,8 @@ export const PeriodSelector = memo(({ periodOptions, currentPeriod, onPeriodChan
   const renderTrigger = useCallback(
     ({ isOpen, setIsOpen }) => (
       <button onClick={() => setIsOpen(!isOpen)} className="period-selector__toggle">
-        <span className="period-selector__selected-period">{currentPeriod.label}</span>
-        <Icon icon="arrow-down" className="icon_color_grey" />
+        {currentPeriod.label}
+        <Icon spriteId="arrow-down" className="icon icon_color_grey" />
       </button>
     ),
     [currentPeriod]

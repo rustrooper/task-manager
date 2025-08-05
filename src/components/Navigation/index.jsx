@@ -8,7 +8,7 @@ export const Navigation = ({ items }) => {
       {items.map(item => (
         <li key={item.id} className="nav__item">
           <NavLink to={item.path} className={({ isActive }) => (isActive ? 'nav__link nav__link_active' : 'nav__link')}>
-            <Icon icon={item.icon} className="icon_color_black"></Icon>
+            <Icon spriteId={item.icon} className="icon icon_color_black"></Icon>
             <span className="nav__title">{item.title}</span>
           </NavLink>
         </li>

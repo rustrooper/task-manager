@@ -1,6 +1,6 @@
 export const NoMatchPage = () => {
   return (
-    <div className="NoMatchPage">
+    <div>
       <span>NoMatchPage</span>
     </div>
   );

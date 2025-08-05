@@ -2,8 +2,8 @@ import { useDroppable } from '@dnd-kit/core';
 import { useEffect, useState, useCallback, memo } from 'react';
 
 import './styles.scss';
-import { ActionsSelector } from '@components/ActionsSelector';
 import { Icon } from '@components/Icon';
+import { Dropdown } from '@components/Dropdown';
 
 export const Column = memo(({ column, onAddTask, onDeleteColumn, onUpdateColumn, children }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -39,6 +39,23 @@ export const Column = memo(({ column, onAddTask, onDeleteColumn, onUpdateColumn,
     },
     [handleEditSave]
   );
+
+  const actionsTrigger = ({ isOpen, setIsOpen }) => (
+    <button onClick={() => setIsOpen(!isOpen)} className="btn">
+      <Icon spriteId="dots" className="icon icon_color_black" />
+    </button>
+  );
+
+  const actionsContent = ({ setIsOpen }) => (
+    <button
+      onClick={() => {
+        onDeleteColumn();
+        setIsOpen(false);
+      }}
+      className="dropdown-menu__item btn btn_remove">
+      Remove
+    </button>
+  );
   return (
     <div className="column" ref={setNodeRef}>
       <div className="column__header">
@@ -59,9 +76,11 @@ export const Column = memo(({ column, onAddTask, onDeleteColumn, onUpdateColumn,
 
         <div className="column__buttons">
           <button onClick={onAddTask} className="btn">
-            <Icon icon="plus" className="icon_color_black icon_indentless" />
+            <Icon spriteId="plus" className="icon icon_color_black icon_indentless" />
           </button>
-          <ActionsSelector onDelete={onDeleteColumn} />
+          <Dropdown classNameWrapper="dropdown-menu" classNameContent="dropdown-menu__content" trigger={actionsTrigger}>
+            {actionsContent}
+          </Dropdown>
         </div>
       </div>
 

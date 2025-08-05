@@ -260,7 +260,7 @@ export const Board = ({ searchTerm = '' }) => {
             </Column>
           ))}
           <button onClick={addNewColumn} className="btn btn_add-column">
-            <Icon icon="plus" className="icon_color_grey icon_borderless" />
+            <Icon spriteId="plus" className="icon icon_color_grey" />
           </button>
         </div>
 

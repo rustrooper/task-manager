@@ -3,6 +3,7 @@ import { memo, useCallback } from 'react';
 import './styles.scss';
 import { Dropdown } from '@components/Dropdown';
 import { Icon } from '@components/Icon';
+import { Avatar } from '@components/Avatar';
 
 export const AssigneesSelector = memo(({ currentAssigneesIds, onAssigneesSelect, availableAssignees }) => {
   const handleAssigneeToggle = useCallback(
@@ -31,19 +32,11 @@ export const AssigneesSelector = memo(({ currentAssigneesIds, onAssigneesSelect,
           currentAssigneesIds.map(assigneeId => {
             const assignee = availableAssignees.find(a => a.id === assigneeId);
             if (!assignee) return null;
-            const initials = [assignee.name?.[0], assignee.lastname?.[0]].join('').toUpperCase();
-            return (
-              <Icon
-                key={assignee.id}
-                className="assignees-selector__user-icon"
-                textContent={initials}
-                user={assignee}
-              />
-            );
+            return <Avatar key={assignee.id} className="assignees-selector__user-icon" user={assignee} />;
           })
         ) : (
           <>
-            <Icon icon="plus" className="icon_color_grey icon_indentless" />
+            <Icon spriteId="plus" className="icon_color_grey icon_indentless" />
             <span>Assignees</span>
           </>
         )}
