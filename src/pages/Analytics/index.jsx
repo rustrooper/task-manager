@@ -1,6 +1,6 @@
 export const Analytics = () => {
   return (
-    <div className="analytics">
+    <div>
       <span>Аналитика</span>
     </div>
   );

@@ -1,6 +1,5 @@
 import { Column } from '@components/Column';
 import { Icon } from '@components/Icon';
-import PageTitle from '@components/PageTitle';
 import './Board.scss';
 import '@styles/btn.scss';
 import { PeriodSelector } from '@components/PeriodSelector';
@@ -228,7 +227,7 @@ export const Board = ({ searchTerm = '' }) => {
   return (
     <div className="board">
       <div className="board__header">
-        <PageTitle textContent={'Board'} />
+        <h1 className="page__title">Board</h1>;
         <PeriodSelector periodOptions={periodOptions} onPeriodChange={setTasksPeriod} currentPeriod={tasksPeriod} />
       </div>
       <DndContext

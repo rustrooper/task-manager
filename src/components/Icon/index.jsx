@@ -1,4 +1,4 @@
-import {memo} from react
+import { memo } from 'react';
 import sprite from '@assets/icons/sprite.svg';
 import './styles.scss';
 

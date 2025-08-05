@@ -6,7 +6,7 @@ import './styles.scss';
 export const TagSelector = memo(({ currentTag, onTagSelect, availableTags }) => {
   const renderTrigger = useCallback(
     ({ isOpen, setIsOpen }) => (
-      <button onClick={() => setIsOpen(!isOpen)} className={`tag tag_${currentTag?.replace(' ', '-')}`}>
+      <button onClick={() => setIsOpen(!isOpen)} className={`tag tag_${currentTag?.replaceAll(' ', '-')}`}>
         {currentTag?.toUpperCase() || 'Choose tag'}
       </button>
     ),
@@ -24,7 +24,7 @@ export const TagSelector = memo(({ currentTag, onTagSelect, availableTags }) => 
               onTagSelect('tag', tag);
               setIsOpen(false);
             }}
-            className={`tag-selector__option tag tag_${tag.replace(' ', '-')}`}>
+            className={`tag-selector__option tag tag_${tag.replaceAll(' ', '-')}`}>
             {tag.toUpperCase()}
           </button>
         )),

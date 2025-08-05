@@ -18,18 +18,18 @@ export const Column = memo(({ column, onAddTask, onDeleteColumn, onUpdateColumn,
     data: { type: 'column' },
   });
 
-  const handleEditStart = useCallback(() => {
+  const handleEditStart = () => {
     setIsEditing(true);
-  }, []);
+  };
 
   const handleEditSave = useCallback(() => {
     onUpdateColumn({ ...column, title: editedTitle });
     setIsEditing(false);
   }, [column, editedTitle, onUpdateColumn]);
 
-  const handleChange = useCallback(e => {
+  const handleChange = e => {
     setEditedTitle(e.target.value);
-  }, []);
+  };
 
   const handleKeyDown = useCallback(
     e => {

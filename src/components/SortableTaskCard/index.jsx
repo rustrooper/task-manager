@@ -2,7 +2,6 @@ import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
 import { TaskCard } from '@components/TaskCard';
-import './styles.scss';
 
 export const SortableTaskCard = ({ task, assignees, tags, onDeleteTask, onUpdateTask }) => {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
@@ -18,7 +17,7 @@ export const SortableTaskCard = ({ task, assignees, tags, onDeleteTask, onUpdate
   };
 
   return (
-    <div ref={setNodeRef} className="sortable-task" style={style} {...attributes} {...listeners}>
+    <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
       <TaskCard task={task} assignees={assignees} tags={tags} onDeleteTask={onDeleteTask} onUpdateTask={onUpdateTask} />
     </div>
   );

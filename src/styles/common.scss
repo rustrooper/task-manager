@@ -43,3 +43,10 @@ span {
   padding: 3rem;
   overflow: hidden;
 }
+
+.page__title {
+  font-weight: vars.$weight-medium;
+  color: vars.$color-black;
+  font-size: vars.$size-h1;
+  margin-bottom: 3.2rem;
+}

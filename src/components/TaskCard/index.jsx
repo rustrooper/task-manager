@@ -1,7 +1,6 @@
 import { useEffect, useState, useCallback, memo } from 'react';
 import './styles.scss';
 
-// import { ActionsSelector } from '@components/ActionsSelector';
 import { TagSelector } from '@components/TagSelector';
 import { Dropdown } from '@components/Dropdown';
 import { AssigneesSelector } from '@components/AssignessSelector';
