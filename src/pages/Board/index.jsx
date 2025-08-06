@@ -61,9 +61,6 @@ export const Board = ({ searchTerm = '' }) => {
 
     if (!activeColumn || !overColumn || activeColumn === overColumn) return;
 
-    console.log('active id во время перетаскивания:', active.id);
-    console.log('over id во время перетаскивания:', over.id);
-
     setColumns(prev => {
       const activeCol = prev.find(col => col.id === activeColumn);
       const activeTask = activeCol.tasks.find(task => task.id === active.id);
@@ -91,9 +88,6 @@ export const Board = ({ searchTerm = '' }) => {
 
     const columnId = findColumn(active.id);
     if (!columnId) return;
-
-    console.log('active id при заверешини перетаскивания:', active.id);
-    console.log('over id при заверешини перетаскивания:', over.id);
 
     if (active.id !== over.id) {
       setColumns(prev =>

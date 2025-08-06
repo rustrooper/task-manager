@@ -21,14 +21,14 @@ export const AssigneesSelector = memo(({ currentAssigneesIds, onAssigneesSelect,
     onAssigneesSelect('assignees', []);
   }, [onAssigneesSelect]);
 
+  const hasCurrentAssignees = currentAssigneesIds.length > 0;
+
   const renderTrigger = useCallback(
     ({ isOpen, setIsOpen }) => (
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`btn assignees-selector__toggle ${
-          currentAssigneesIds.length > 0 ? 'assignees-selector__toggle_users-icons' : ''
-        }`}>
-        {currentAssigneesIds.length > 0 ? (
+        className={`btn assignees-selector__toggle ${hasCurrentAssignees && 'assignees-selector__toggle_users-icons'}`}>
+        {hasCurrentAssignees ? (
           currentAssigneesIds.map(assigneeId => {
             const assignee = availableAssignees.find(a => a.id === assigneeId);
             if (!assignee) return null;
@@ -42,23 +42,24 @@ export const AssigneesSelector = memo(({ currentAssigneesIds, onAssigneesSelect,
         )}
       </button>
     ),
-    [availableAssignees, currentAssigneesIds]
+    [availableAssignees, currentAssigneesIds, hasCurrentAssignees]
   );
 
   const renderContent = useCallback(
     ({ setIsOpen }) => (
       <>
-        {availableAssignees.map(assignee => (
-          <button
-            key={assignee.name}
-            className={`assignees-selector__option ${
-              currentAssigneesIds.includes(assignee.id) ? 'assignees-selector__option_selected' : ''
-            }`}
-            onClick={() => handleAssigneeToggle(assignee.id)}>
-            {`${assignee.name} ${assignee.lastname}`}
-          </button>
-        ))}
-        {currentAssigneesIds.length > 0 && (
+        {availableAssignees.map(assignee => {
+          const isCurrenAssignee = currentAssigneesIds.includes(assignee.id);
+          return (
+            <button
+              key={assignee.id}
+              className={`assignees-selector__option ${isCurrenAssignee && 'assignees-selector__option_selected'}`}
+              onClick={() => handleAssigneeToggle(assignee.id)}>
+              {`${assignee.name} ${assignee.lastname}`}
+            </button>
+          );
+        })}
+        {hasCurrentAssignees && (
           <div className="assignees-selector__actions">
             <button
               onClick={() => {
@@ -79,7 +80,7 @@ export const AssigneesSelector = memo(({ currentAssigneesIds, onAssigneesSelect,
         )}
       </>
     ),
-    [availableAssignees, currentAssigneesIds, handleAssigneeToggle, handleClearAll]
+    [availableAssignees, currentAssigneesIds, handleAssigneeToggle, handleClearAll, hasCurrentAssignees]
   );
 
   return (
