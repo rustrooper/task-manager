@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback, memo } from 'react';
+import { useEffect, useState, useCallback, memo, useRef } from 'react';
 import './styles.scss';
 
 import { TagSelector } from '@components/TagSelector';
@@ -13,7 +13,9 @@ export const TaskCard = memo(({ task, tags, assignees, onDeleteTask, onUpdateTas
     setEditedTask(task);
   }, [task]);
 
-  const handleEdit = useCallback(() => setIsEditing(true), []);
+  const handleEdit = useCallback(() => {
+    if (!isEditing) setIsEditing(true);
+  }, [isEditing]);
 
   const handleEditSave = useCallback(() => {
     onUpdateTask(editedTask);
@@ -31,6 +33,37 @@ export const TaskCard = memo(({ task, tags, assignees, onDeleteTask, onUpdateTas
     },
     [onUpdateTask, task]
   );
+
+  const dropdownRef = useRef(null);
+
+  const handleClickOutside = useCallback(
+    event => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        handleEditSave();
+      }
+    },
+    [handleEditSave]
+  );
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [handleClickOutside]);
+
+  const handleKeyDown = useCallback(
+    e => {
+      if (e.key === 'Escape') {
+        setIsEditing(false);
+        setEditedTask(task);
+      }
+    },
+    [task]
+  );
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isEditing, handleKeyDown]);
 
   const actionsTrigger = ({ isOpen, setIsOpen }) => (
     <button onClick={() => setIsOpen(!isOpen)} className="btn">
@@ -52,20 +85,19 @@ export const TaskCard = memo(({ task, tags, assignees, onDeleteTask, onUpdateTas
   return (
     <div className="task">
       {isEditing ? (
-        <form className="edit-form">
-          <input
-            className="edit-form__title"
-            name="title"
-            value={editedTask.title}
-            onChange={handleChange}
-            onClick={e => e.stopPropagation()}
-          />
+        <form
+          className="edit-form"
+          ref={dropdownRef}
+          onSubmit={e => {
+            e.preventDefault();
+            handleEditSave();
+          }}>
+          <input className="edit-form__title" name="title" value={editedTask.title} onChange={handleChange} />
           <textarea
             className="edit-form__description"
             name="description"
             value={editedTask.description}
             onChange={handleChange}
-            onClick={e => e.stopPropagation()}
           />
           <button className="btn btn_edit-form" onClick={handleEditSave}>
             Save
@@ -77,7 +109,7 @@ export const TaskCard = memo(({ task, tags, assignees, onDeleteTask, onUpdateTas
             <TagSelector currentTag={task.tag} onTagSelect={handleTaskUpdate} availableTags={tags} />
             <Dropdown trigger={actionsTrigger}>{actionsContent}</Dropdown>
           </div>
-          <div className="task__content" onClick={!isEditing ? handleEdit : null}>
+          <div className="task__content" onClick={handleEdit}>
             <h3 className="task__title">{task.title}</h3>
             <p className="task__description">{task.description}</p>
           </div>
