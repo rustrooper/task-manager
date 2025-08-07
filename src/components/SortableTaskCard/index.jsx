@@ -14,6 +14,7 @@ export const SortableTaskCard = ({ task, assignees, tags, onDeleteTask, onUpdate
     transition,
     opacity: isDragging ? 0.5 : 1,
     cursor: 'pointer',
+    outline: 'none',
   };
 
   return (
