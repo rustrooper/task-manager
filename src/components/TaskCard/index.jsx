@@ -9,6 +9,7 @@ import { Icon } from '@components/Icon';
 export const TaskCard = memo(({ task, tags, assignees, onDeleteTask, onUpdateTask }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedTask, setEditedTask] = useState(task);
+  const [isElevated, setIsElevated] = useState(false);
   useEffect(() => {
     setEditedTask(task);
   }, [task]);

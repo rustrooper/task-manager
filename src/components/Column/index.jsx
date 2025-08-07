@@ -76,7 +76,7 @@ export const Column = memo(({ column, onAddTask, onDeleteColumn, onUpdateColumn,
 
         <div className="column__buttons">
           <button onClick={onAddTask} className="btn">
-            <Icon spriteId="plus" className="icon icon_color_black icon_indentless" />
+            <Icon spriteId="plus" size="16" className="icon icon_color_black icon_indentless" />
           </button>
           <Dropdown classNameWrapper="dropdown-menu" classNameContent="dropdown-menu__content" trigger={actionsTrigger}>
             {actionsContent}

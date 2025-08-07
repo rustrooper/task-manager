@@ -36,7 +36,7 @@ export const AssigneesSelector = memo(({ currentAssigneesIds, onAssigneesSelect,
           })
         ) : (
           <>
-            <Icon spriteId="plus" className="icon_color_grey icon_indentless" />
+            <Icon spriteId="plus" size={16} className="icon_color_grey icon_indentless" />
             <span>Assignees</span>
           </>
         )}

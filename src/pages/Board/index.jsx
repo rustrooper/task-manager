@@ -10,6 +10,7 @@ import { DndContext, closestCorners, useSensor, useSensors, DragOverlay, MouseSe
 import { SortableContext, verticalListSortingStrategy, arrayMove } from '@dnd-kit/sortable';
 import { LocalStorageService } from '@utils/localStorageService';
 import { useCallback, useEffect, useState } from 'react';
+import { filterTasks } from './helpers/helpers.js';
 
 export const Board = ({ searchTerm = '' }) => {
   const [columns, setColumns] = useState(() => {
@@ -162,66 +163,17 @@ export const Board = ({ searchTerm = '' }) => {
     setColumns(prev => prev.map(column => (column.id === updatedColumn.id ? updatedColumn : column)));
   }, []);
 
-  const filterTasks = useCallback(() => {
-    const now = new Date();
+  const memoizedFilterTasks = useCallback(
+    () => filterTasks(columns, searchTerm, tasksPeriod),
+    [columns, searchTerm, tasksPeriod]
+  );
 
-    return columns.map(column => ({
-      ...column,
-      tasks: column.tasks.filter(task => {
-        const matchesSearch =
-          !searchTerm.trim() ||
-          task.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          task.description.toLowerCase().includes(searchTerm.toLowerCase());
-
-        if (!matchesSearch) return false;
-
-        const taskDate = new Date(task.createdAt);
-        switch (tasksPeriod.value) {
-          case 'today': {
-            return (
-              taskDate.getDate() === now.getDate() &&
-              taskDate.getMonth() === now.getMonth() &&
-              taskDate.getFullYear() === now.getFullYear()
-            );
-          }
-          case 'yesterday': {
-            const yesterday = new Date(now);
-            yesterday.setDate(now.getDate() - 1);
-            return (
-              taskDate.getDate() === yesterday.getDate() &&
-              taskDate.getMonth() === yesterday.getMonth() &&
-              taskDate.getFullYear() === yesterday.getFullYear()
-            );
-          }
-          case 'thisWeek': {
-            const startOfWeek = new Date(now);
-            startOfWeek.setDate(now.getDate() - now.getDay());
-            return taskDate >= startOfWeek;
-          }
-          case 'lastWeek': {
-            const startOfLastWeek = new Date(now);
-            startOfLastWeek.setDate(now.getDate() - now.getDay() - 7);
-            const endOfLastWeek = new Date(startOfLastWeek);
-            endOfLastWeek.setDate(startOfLastWeek.getDate() + 6);
-            return taskDate >= startOfLastWeek && taskDate <= endOfLastWeek;
-          }
-          case 'thisMonth': {
-            return taskDate.getMonth() === now.getMonth() && taskDate.getFullYear() === now.getFullYear();
-          }
-          default: {
-            return true;
-          }
-        }
-      }),
-    }));
-  }, [columns, searchTerm, tasksPeriod]);
-
-  const filteredColumns = filterTasks();
+  const filteredColumns = memoizedFilterTasks();
 
   return (
     <div className="board">
       <div className="board__header">
-        <h1 className="page__title">Board</h1>;
+        <h1 className="page__title">Board</h1>
         <PeriodSelector periodOptions={periodOptions} onPeriodChange={setTasksPeriod} currentPeriod={tasksPeriod} />
       </div>
       <DndContext
@@ -253,7 +205,7 @@ export const Board = ({ searchTerm = '' }) => {
             </Column>
           ))}
           <button onClick={addNewColumn} className="btn btn_add-column">
-            <Icon spriteId="plus" className="icon icon_color_grey" />
+            <Icon spriteId="plus" size={24} className="icon icon_color_grey" />
           </button>
         </div>
 
