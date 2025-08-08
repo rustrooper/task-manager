@@ -14,6 +14,10 @@ export const TaskCard = memo(({ task, tags, assignees, onDeleteTask, onUpdateTas
     setEditedTask(task);
   }, [task]);
 
+  console.log('task', task);
+  console.log('Id задачи', task.id);
+  console.log('Теги задачи', task.tag);
+
   const handleEdit = useCallback(() => {
     if (!isEditing) setIsEditing(true);
   }, [isEditing]);
