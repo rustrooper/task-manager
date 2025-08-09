@@ -1,5 +1,4 @@
-// useColumnsState.js
-import { useCallback, useState, useEffect } from 'react';
+import { useCallback, useState } from 'react';
 import { LocalStorageService } from '@utils/localStorageService';
 import { arrayMove } from '@dnd-kit/sortable';
 import { initialColumns } from '@data/appData';
@@ -10,12 +9,6 @@ export const useColumnsState = initialValue => {
     return savedColumns || initialValue || initialColumns;
   });
 
-  // Сохраняем колонки в localStorage при изменении
-  useEffect(() => {
-    LocalStorageService.set('taskBoardColumns', columns);
-  }, [columns]);
-
-  // Находим колонку по id задачи
   const findColumn = useCallback(
     taskId => {
       const column = columns.find(column => column.tasks.some(task => task.id === taskId));
@@ -24,7 +17,6 @@ export const useColumnsState = initialValue => {
     [columns]
   );
 
-  // Добавление новой колонки
   const addNewColumn = useCallback(() => {
     setColumns(prev => [
       ...prev,
@@ -36,17 +28,14 @@ export const useColumnsState = initialValue => {
     ]);
   }, []);
 
-  // Удаление колонки
   const deleteColumn = useCallback(columnId => {
     setColumns(prev => prev.filter(column => column.id !== columnId));
   }, []);
 
-  // Обновление колонки
   const updateColumn = useCallback(updatedColumn => {
     setColumns(prev => prev.map(column => (column.id === updatedColumn.id ? updatedColumn : column)));
   }, []);
 
-  // Добавление новой задачи
   const addNewTask = useCallback(columnId => {
     setColumns(prev =>
       prev.map(column => {
@@ -68,7 +57,6 @@ export const useColumnsState = initialValue => {
     );
   }, []);
 
-  // Удаление задачи
   const deleteTask = useCallback((columnId, taskId) => {
     setColumns(prev =>
       prev.map(column =>
@@ -82,7 +70,6 @@ export const useColumnsState = initialValue => {
     );
   }, []);
 
-  // Обновление задачи
   const updateTask = useCallback((columnId, updatedTask) => {
     setColumns(prev =>
       prev.map(column =>
@@ -96,20 +83,47 @@ export const useColumnsState = initialValue => {
     );
   }, []);
 
-  // Обработчик перемещения задачи между колонками
-  const handleTaskMoveBetweenColumns = useCallback(
-    (active, over) => {
+  const handleDragEnd = useCallback(
+    ({ active, over }) => {
+      if (!over) return;
+
+      const columnId = findColumn(active.id);
+      if (!columnId) return;
+
+      if (active.id !== over.id) {
+        setColumns(prev =>
+          prev.map(column => {
+            if (column.id !== columnId) return column;
+            const oldIndex = column.tasks.findIndex(task => task.id === active.id);
+            const newIndex = column.tasks.findIndex(task => task.id === over.id);
+
+            return {
+              ...column,
+              tasks: arrayMove(column.tasks, oldIndex, newIndex),
+            };
+          })
+        );
+      }
+    },
+    [findColumn]
+  );
+
+  const handleDragOver = useCallback(
+    ({ active, over }) => {
+      if (!over) return;
       const activeColumn = findColumn(active.id);
       const overColumn = findColumn(over.id) || over.id;
 
-      if (!activeColumn || !overColumn || activeColumn.id === overColumn) return;
+      if (!activeColumn || !overColumn || activeColumn === overColumn) return;
 
       setColumns(prev => {
-        const activeCol = prev.find(col => col.id === activeColumn.id);
+        const activeCol = prev.find(col => col.id === activeColumn);
+        if (!activeCol) return prev;
         const activeTask = activeCol.tasks.find(task => task.id === active.id);
+        if (!activeTask) return prev;
 
         return prev.map(col => {
-          if (col.id === activeColumn.id) {
+          if (col.id === activeColumn) {
             return {
               ...col,
               tasks: col.tasks.filter(task => task.id !== active.id),
@@ -128,22 +142,6 @@ export const useColumnsState = initialValue => {
     [findColumn]
   );
 
-  // Обработчик изменения порядка задач внутри колонки
-  const handleTaskReorderInColumn = useCallback((columnId, active, over) => {
-    setColumns(prev =>
-      prev.map(column => {
-        if (column.id !== columnId) return column;
-        const oldIndex = column.tasks.findIndex(task => task.id === active.id);
-        const newIndex = column.tasks.findIndex(task => task.id === over.id);
-
-        return {
-          ...column,
-          tasks: arrayMove(column.tasks, oldIndex, newIndex),
-        };
-      })
-    );
-  }, []);
-
   return {
     columns,
     setColumns,
@@ -154,7 +152,7 @@ export const useColumnsState = initialValue => {
     deleteTask,
     updateTask,
     findColumn,
-    handleTaskMoveBetweenColumns,
-    handleTaskReorderInColumn,
+    handleDragEnd,
+    handleDragOver,
   };
 };

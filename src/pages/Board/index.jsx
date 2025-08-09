@@ -22,12 +22,16 @@ export const Board = ({ searchTerm = '' }) => {
     addNewTask,
     deleteTask,
     updateTask,
-    findColumn,
-    handleTaskMoveBetweenColumns,
-    handleTaskReorderInColumn,
+    handleDragEnd,
+    handleDragOver,
   } = useColumnsState();
 
   const [activeTask, setActiveTask] = useState(null);
+
+  useEffect(() => {
+    LocalStorageService.set('taskBoardColumns', columns);
+  }, [columns]);
+
   const [tasksPeriod, setTasksPeriod] = useState(periodOptions[2]);
 
   const sensors = useSensors(
@@ -40,24 +44,6 @@ export const Board = ({ searchTerm = '' }) => {
 
   const handleDragStart = ({ active }) => {
     setActiveTask(active.id);
-  };
-
-  const handleDragOver = ({ active, over }) => {
-    if (!over) return;
-    handleTaskMoveBetweenColumns(active, over);
-  };
-
-  const handleDragEnd = ({ active, over }) => {
-    if (!over) return;
-
-    const column = findColumn(active.id);
-    if (!column) return;
-
-    if (active.id !== over.id) {
-      handleTaskReorderInColumn(column.id, active, over);
-    }
-
-    setActiveTask(null);
   };
 
   const memoizedFilterTasks = useCallback(
@@ -78,7 +64,10 @@ export const Board = ({ searchTerm = '' }) => {
         collisionDetection={closestCorners}
         onDragStart={handleDragStart}
         onDragOver={handleDragOver}
-        onDragEnd={handleDragEnd}>
+        onDragEnd={({ active, over }) => {
+          handleDragEnd({ active, over });
+          setActiveTask(null);
+        }}>
         <div className="board__content">
           {filteredColumns.map(column => (
             <Column
