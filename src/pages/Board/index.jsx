@@ -10,7 +10,7 @@ import { DndContext, closestCorners, useSensor, useSensors, DragOverlay, MouseSe
 import { SortableContext, verticalListSortingStrategy, arrayMove } from '@dnd-kit/sortable';
 import { LocalStorageService } from '@utils/localStorageService';
 import { useCallback, useEffect, useState } from 'react';
-import { filterTasks } from './helpers/helpers.js';
+import { filterTasks } from './helpers/filterTasks.js';
 import { useColumnsState } from './helpers/useColumnsState';
 
 export const Board = ({ searchTerm = '' }) => {
