@@ -1,13 +1,38 @@
 export const filterTasks = (columns, searchTerm, tasksPeriod) => {
   const now = new Date();
+  const nowDay = now.getDate();
+  const dayOfWeek = now.getDay();
+  const nowMonth = now.getMonth();
+  const nowYear = now.getFullYear();
+
+  const yesterday = new Date(now);
+  yesterday.setDate(nowDay - 1);
+
+  const yesterdayDate = yesterday.getDate();
+  const yesterdayMonth = yesterday.getMonth();
+  const yesterdayYear = yesterday.getFullYear();
+
+  const startOfWeek = new Date(now);
+  startOfWeek.setDate(nowDay - (dayOfWeek === 0 ? 6 : dayOfWeek - 1));
+  startOfWeek.setHours(0, 0, 0, 0);
+
+  const startOfLastWeek = new Date(now);
+  startOfLastWeek.setDate(nowDay - (dayOfWeek === 0 ? 13 : dayOfWeek + 6));
+  startOfLastWeek.setHours(0, 0, 0, 0);
+
+  const endOfLastWeek = new Date(startOfLastWeek);
+  endOfLastWeek.setDate(startOfLastWeek.getDate() + 6);
+  endOfLastWeek.setHours(23, 59, 59, 999);
+
+  const trimmedSearchTerm = searchTerm.trim().toLowerCase();
 
   return columns.map(column => ({
     ...column,
     tasks: column.tasks.filter(task => {
       const matchesSearch =
-        !searchTerm.trim() ||
-        task.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        task.description.toLowerCase().includes(searchTerm.toLowerCase());
+        !trimmedSearchTerm ||
+        task.title.toLowerCase().includes(trimmedSearchTerm) ||
+        task.description.toLowerCase().includes(trimmedSearchTerm);
 
       if (!matchesSearch) return false;
 
@@ -15,34 +40,24 @@ export const filterTasks = (columns, searchTerm, tasksPeriod) => {
       switch (tasksPeriod.value) {
         case 'today': {
           return (
-            taskDate.getDate() === now.getDate() &&
-            taskDate.getMonth() === now.getMonth() &&
-            taskDate.getFullYear() === now.getFullYear()
+            taskDate.getDate() === nowDay && taskDate.getMonth() === nowMonth && taskDate.getFullYear() === nowYear
           );
         }
         case 'yesterday': {
-          const yesterday = new Date(now);
-          yesterday.setDate(now.getDate() - 1);
           return (
-            taskDate.getDate() === yesterday.getDate() &&
-            taskDate.getMonth() === yesterday.getMonth() &&
-            taskDate.getFullYear() === yesterday.getFullYear()
+            taskDate.getDate() === yesterdayDate &&
+            taskDate.getMonth() === yesterdayMonth &&
+            taskDate.getFullYear() === yesterdayYear
           );
         }
         case 'thisWeek': {
-          const startOfWeek = new Date(now);
-          startOfWeek.setDate(now.getDate() - now.getDay());
           return taskDate >= startOfWeek;
         }
         case 'lastWeek': {
-          const startOfLastWeek = new Date(now);
-          startOfLastWeek.setDate(now.getDate() - now.getDay() - 7);
-          const endOfLastWeek = new Date(startOfLastWeek);
-          endOfLastWeek.setDate(startOfLastWeek.getDate() + 6);
           return taskDate >= startOfLastWeek && taskDate <= endOfLastWeek;
         }
         case 'thisMonth': {
-          return taskDate.getMonth() === now.getMonth() && taskDate.getFullYear() === now.getFullYear();
+          return taskDate.getMonth() === nowMonth && taskDate.getFullYear() === nowYear;
         }
         default: {
           return true;
