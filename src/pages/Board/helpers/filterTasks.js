@@ -37,18 +37,16 @@ export const filterTasks = (columns, searchTerm, tasksPeriod) => {
       if (!matchesSearch) return false;
 
       const taskDate = new Date(task.createdAt);
+      const taskDay = taskDate.getDate();
+      const taskMonth = taskDate.getMonth();
+      const taskYear = taskDate.getFullYear();
+
       switch (tasksPeriod.value) {
         case 'today': {
-          return (
-            taskDate.getDate() === nowDay && taskDate.getMonth() === nowMonth && taskDate.getFullYear() === nowYear
-          );
+          return taskDay === nowDay && taskMonth === nowMonth && taskYear === nowYear;
         }
         case 'yesterday': {
-          return (
-            taskDate.getDate() === yesterdayDate &&
-            taskDate.getMonth() === yesterdayMonth &&
-            taskDate.getFullYear() === yesterdayYear
-          );
+          return taskDay === yesterdayDate && taskMonth === yesterdayMonth && taskYear === yesterdayYear;
         }
         case 'thisWeek': {
           return taskDate >= startOfWeek;
@@ -57,7 +55,7 @@ export const filterTasks = (columns, searchTerm, tasksPeriod) => {
           return taskDate >= startOfLastWeek && taskDate <= endOfLastWeek;
         }
         case 'thisMonth': {
-          return taskDate.getMonth() === nowMonth && taskDate.getFullYear() === nowYear;
+          return taskMonth === nowMonth && taskYear === nowYear;
         }
         default: {
           return true;
