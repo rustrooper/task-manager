@@ -38,7 +38,7 @@ export const Column = memo(({ column, onAddTask, onDeleteColumn, onUpdateColumn,
         handleEditSave();
       }
     },
-    [handleEditSave],
+    [handleEditSave]
   );
 
   const actionsTrigger = ({ isOpen, setIsOpen }) => (
@@ -77,7 +77,7 @@ export const Column = memo(({ column, onAddTask, onDeleteColumn, onUpdateColumn,
 
         <div className="column__buttons">
           <button onClick={onAddTask} className="btn">
-            <Icon type="plus" size="16" className="icon icon_color_black icon_indentless" />
+            <Icon type="plus" size="sm" className="icon icon_color_black icon_indentless" />
           </button>
           <Dropdown classNameWrapper="dropdown-menu" classNameContent="dropdown-menu__content" trigger={actionsTrigger}>
             {actionsContent}

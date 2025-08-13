@@ -15,7 +15,7 @@ export const AssigneesSelector = memo(({ currentAssigneesIds, onAssigneesSelect,
 
       onAssigneesSelect('assignees', newAssignees);
     },
-    [currentAssigneesIds, onAssigneesSelect],
+    [currentAssigneesIds, onAssigneesSelect]
   );
 
   const handleClearAll = useCallback(() => {
@@ -37,13 +37,13 @@ export const AssigneesSelector = memo(({ currentAssigneesIds, onAssigneesSelect,
           })
         ) : (
           <>
-            <Icon type="plus" size={16} className="icon_color_grey icon_indentless" />
+            <Icon type="plus" size="sm" className="icon_color_grey" />
             <span>Assignees</span>
           </>
         )}
       </button>
     ),
-    [availableAssignees, currentAssigneesIds, hasCurrentAssignees],
+    [availableAssignees, currentAssigneesIds, hasCurrentAssignees]
   );
 
   const renderContent = useCallback(
@@ -81,7 +81,7 @@ export const AssigneesSelector = memo(({ currentAssigneesIds, onAssigneesSelect,
         )}
       </>
     ),
-    [availableAssignees, currentAssigneesIds, handleAssigneeToggle, handleClearAll, hasCurrentAssignees],
+    [availableAssignees, currentAssigneesIds, handleAssigneeToggle, handleClearAll, hasCurrentAssignees]
   );
 
   return (

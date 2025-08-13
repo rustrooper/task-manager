@@ -23,11 +23,6 @@
     fill: vars.$color-black;
   }
 
-  &_indentless {
-    width: 1.6rem;
-    height: 1.6rem;
-  }
-
   &_size_sm {
     width: 1.6rem;
     height: 1.6rem;
@@ -44,5 +39,34 @@
   }
 
   &_bg-color_red {
+    background-color: #f44336;
+  }
+
+  &_bg-color_pink {
+    background-color: #e91e63;
+  }
+
+  &_bg-color_purple {
+    background-color: #9c27b0;
+  }
+
+  &_bg-color_indigo {
+    background-color: #3f51b5;
+  }
+
+  &_bg-color_skyblue {
+    background-color: #03a9f4;
+  }
+
+  &_bg-color_green {
+    background-color: #4caf50;
+  }
+
+  &_bg-color_orange {
+    background-color: #ff9800;
+  }
+
+  &_bg-color_brown {
+    background-color: #795548;
   }
 }
