@@ -1,10 +1,11 @@
-import './styles.scss';
 import { Icon } from '@components/Icon';
+
+import './styles.scss';
 
 export const Search = ({ searchTerm, onSearchChange }) => {
   return (
     <div className="search">
-      <Icon spriteId="loupe" className="icon icon_color_grey" />
+      <Icon type="loupe" className="icon icon_color_grey" />
       <input
         className="search__input"
         type="text"

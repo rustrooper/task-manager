@@ -1,10 +1,11 @@
 import { useEffect, useState, useCallback, memo, useRef } from 'react';
-import './styles.scss';
 
 import { TagSelector } from '@components/TagSelector';
 import { Dropdown } from '@components/Dropdown';
 import { AssigneesSelector } from '@components/AssignessSelector';
 import { Icon } from '@components/Icon';
+
+import './styles.scss';
 
 export const TaskCard = memo(({ task, tags, assignees, onDeleteTask, onUpdateTask }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -36,7 +37,7 @@ export const TaskCard = memo(({ task, tags, assignees, onDeleteTask, onUpdateTas
     (property, value) => {
       onUpdateTask({ ...task, [property]: value });
     },
-    [onUpdateTask, task]
+    [onUpdateTask, task],
   );
 
   const dropdownRef = useRef(null);
@@ -47,7 +48,7 @@ export const TaskCard = memo(({ task, tags, assignees, onDeleteTask, onUpdateTas
         handleEditSave();
       }
     },
-    [handleEditSave]
+    [handleEditSave],
   );
 
   useEffect(() => {
@@ -62,7 +63,7 @@ export const TaskCard = memo(({ task, tags, assignees, onDeleteTask, onUpdateTas
         setEditedTask(task);
       }
     },
-    [task]
+    [task],
   );
 
   useEffect(() => {
@@ -72,7 +73,7 @@ export const TaskCard = memo(({ task, tags, assignees, onDeleteTask, onUpdateTas
 
   const actionsTrigger = ({ isOpen, setIsOpen }) => (
     <button onClick={() => setIsOpen(!isOpen)} className="btn">
-      <Icon spriteId="dots" className="icon icon_color_black" />
+      <Icon type="dots" className="icon icon_color_black" />
     </button>
   );
 

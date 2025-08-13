@@ -1,9 +1,10 @@
 import { memo, useCallback } from 'react';
 
-import './styles.scss';
 import { Dropdown } from '@components/Dropdown';
 import { Icon } from '@components/Icon';
 import { Avatar } from '@components/Avatar';
+
+import './styles.scss';
 
 export const AssigneesSelector = memo(({ currentAssigneesIds, onAssigneesSelect, availableAssignees }) => {
   const handleAssigneeToggle = useCallback(
@@ -14,7 +15,7 @@ export const AssigneesSelector = memo(({ currentAssigneesIds, onAssigneesSelect,
 
       onAssigneesSelect('assignees', newAssignees);
     },
-    [currentAssigneesIds, onAssigneesSelect]
+    [currentAssigneesIds, onAssigneesSelect],
   );
 
   const handleClearAll = useCallback(() => {
@@ -36,13 +37,13 @@ export const AssigneesSelector = memo(({ currentAssigneesIds, onAssigneesSelect,
           })
         ) : (
           <>
-            <Icon spriteId="plus" size={16} className="icon_color_grey icon_indentless" />
+            <Icon type="plus" size={16} className="icon_color_grey icon_indentless" />
             <span>Assignees</span>
           </>
         )}
       </button>
     ),
-    [availableAssignees, currentAssigneesIds, hasCurrentAssignees]
+    [availableAssignees, currentAssigneesIds, hasCurrentAssignees],
   );
 
   const renderContent = useCallback(
@@ -80,7 +81,7 @@ export const AssigneesSelector = memo(({ currentAssigneesIds, onAssigneesSelect,
         )}
       </>
     ),
-    [availableAssignees, currentAssigneesIds, handleAssigneeToggle, handleClearAll, hasCurrentAssignees]
+    [availableAssignees, currentAssigneesIds, handleAssigneeToggle, handleClearAll, hasCurrentAssignees],
   );
 
   return (

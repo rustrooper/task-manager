@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
+
 import './styles.scss';
 
 export const Dropdown = ({

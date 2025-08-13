@@ -1,9 +1,10 @@
 import { setColor } from './helpers';
 import { Icon } from '@components/Icon';
-import './styles.scss';
 import { memo } from 'react';
 
-export const Avatar = memo(({ user, className = 'avatar', size = 30 }) => {
+import './styles.scss';
+
+export const Avatar = memo(({ user, className = 'avatar', size = 'lg' }) => {
   if (user?.icon) return <Icon className={className} link={user.icon} size={size} />;
 
   const userColor = setColor(user);

@@ -1,9 +1,10 @@
 import { useDroppable } from '@dnd-kit/core';
 import { useEffect, useState, useCallback, memo } from 'react';
 
-import './styles.scss';
 import { Icon } from '@components/Icon';
 import { Dropdown } from '@components/Dropdown';
+
+import './styles.scss';
 
 export const Column = memo(({ column, onAddTask, onDeleteColumn, onUpdateColumn, children }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -37,12 +38,12 @@ export const Column = memo(({ column, onAddTask, onDeleteColumn, onUpdateColumn,
         handleEditSave();
       }
     },
-    [handleEditSave]
+    [handleEditSave],
   );
 
   const actionsTrigger = ({ isOpen, setIsOpen }) => (
     <button onClick={() => setIsOpen(!isOpen)} className="btn">
-      <Icon spriteId="dots" className="icon icon_color_black" />
+      <Icon type="dots" className="icon icon_color_black" />
     </button>
   );
 
@@ -76,7 +77,7 @@ export const Column = memo(({ column, onAddTask, onDeleteColumn, onUpdateColumn,
 
         <div className="column__buttons">
           <button onClick={onAddTask} className="btn">
-            <Icon spriteId="plus" size="16" className="icon icon_color_black icon_indentless" />
+            <Icon type="plus" size="16" className="icon icon_color_black icon_indentless" />
           </button>
           <Dropdown classNameWrapper="dropdown-menu" classNameContent="dropdown-menu__content" trigger={actionsTrigger}>
             {actionsContent}

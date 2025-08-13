@@ -1,6 +1,5 @@
 import { Column } from '@components/Column';
 import { Icon } from '@components/Icon';
-import './styles.scss';
 import '@styles/btn.scss';
 import { PeriodSelector } from '@components/PeriodSelector';
 import { SortableTaskCard } from '@components/SortableTaskCard';
@@ -12,6 +11,8 @@ import { LocalStorageService } from '@utils/localStorageService';
 import { useCallback, useEffect, useState } from 'react';
 import { filterTasks } from './helpers/filterTasks.js';
 import { useColumnsState } from './helpers/useColumnsState';
+
+import './styles.scss';
 
 export const Board = ({ searchTerm = '' }) => {
   const {
@@ -39,7 +40,7 @@ export const Board = ({ searchTerm = '' }) => {
       activationConstraint: {
         distance: 10,
       },
-    })
+    }),
   );
 
   const handleDragStart = ({ active }) => {
@@ -48,7 +49,7 @@ export const Board = ({ searchTerm = '' }) => {
 
   const memoizedFilterTasks = useCallback(
     () => filterTasks(columns, searchTerm, tasksPeriod),
-    [columns, searchTerm, tasksPeriod]
+    [columns, searchTerm, tasksPeriod],
   );
 
   const filteredColumns = memoizedFilterTasks();
@@ -91,7 +92,7 @@ export const Board = ({ searchTerm = '' }) => {
             </Column>
           ))}
           <button onClick={addNewColumn} className="btn btn_add-column">
-            <Icon spriteId="plus" size={24} className="icon icon_color_grey" />
+            <Icon type="plus" size="md" className="icon icon_color_grey" />
           </button>
         </div>
 

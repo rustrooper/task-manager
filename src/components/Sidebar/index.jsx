@@ -1,7 +1,8 @@
-import './styles.scss';
 import logo from '@assets/icons/logo.png';
 import { navigationData } from '@data/navigationData';
 import { Navigation } from '@components/Navigation';
+
+import './styles.scss';
 
 export const Sidebar = () => {
   return (
