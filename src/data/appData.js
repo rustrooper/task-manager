@@ -16,7 +16,7 @@ export const users = [
   {
     id: 2,
     name: 'alex',
-    lastname: 'sigeiev',
+    lastname: 'sigeev',
   },
   {
     id: 3,

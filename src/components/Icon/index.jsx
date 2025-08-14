@@ -3,31 +3,11 @@ import sprite from '@assets/icons/sprite.svg';
 
 import './styles.scss';
 
-export const Icon = memo(({ type, link, size = 'md', bgColor, className = 'icon', textContent }) => {
-  if (link)
-    return (
-      <img
-        className={`${className}${size ? ` icon_size_${size}` : ''}${
-          bgColor ? ` icon_bg-color_${bgColor}` : ''
-        }`.trim()}
-        src={link}
-      />
-    );
-
+export const Icon = memo(({ type, size = 'md', className = 'icon' }) => {
   if (type)
     return (
-      <svg
-        className={`${className}${size ? ` icon_size_${size}` : ''}${
-          bgColor ? ` icon_bg-color_${bgColor}` : ''
-        }`.trim()}>
+      <svg className={`${className}${size ? ` icon_size_${size}` : ''}`.trim()}>
         <use xlinkHref={`${sprite}#${type}`} />
       </svg>
     );
-
-  return (
-    <div
-      className={`${className}${size ? ` icon_size_${size}` : ''}${bgColor ? ` icon_bg-color_${bgColor}` : ''}`.trim()}>
-      {textContent}
-    </div>
-  );
 });

@@ -8,11 +8,11 @@ import { Settings } from '@pages/Settings';
 
 export const AppRoutes = ({ searchTerm }) => {
   const navigationRoutes = [
-    { path: '/', element: <Board searchTerm={searchTerm}></Board> },
-    { path: '/dashboard', element: <Dashboard></Dashboard> },
-    { path: '/analytics', element: <Analytics></Analytics> },
-    { path: '/settings', element: <Settings></Settings> },
-    { path: '*', element: <NoMatchPage></NoMatchPage> },
+    { path: '/', element: <Board searchTerm={searchTerm} /> },
+    { path: '/dashboard', element: <Dashboard /> },
+    { path: '/analytics', element: <Analytics /> },
+    { path: '/settings', element: <Settings /> },
+    { path: '*', element: <NoMatchPage /> },
   ];
   return (
     <Routes>

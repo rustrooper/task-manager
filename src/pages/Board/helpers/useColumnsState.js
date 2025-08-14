@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import { LocalStorageService } from '@utils/localStorageService';
 import { arrayMove } from '@dnd-kit/sortable';
 import { initialColumns } from '@data/appData';
@@ -9,12 +9,16 @@ export const useColumnsState = initialValue => {
     return savedColumns || initialValue || initialColumns;
   });
 
+  useEffect(() => {
+    LocalStorageService.set('taskBoardColumns', columns);
+  }, [columns]);
+
   const findColumn = useCallback(
     taskId => {
       const column = columns.find(column => column.tasks.some(task => task.id === taskId));
       return column?.id;
     },
-    [columns]
+    [columns],
   );
 
   const addNewColumn = useCallback(() => {
@@ -53,7 +57,7 @@ export const useColumnsState = initialValue => {
               ],
             }
           : column;
-      })
+      }),
     );
   }, []);
 
@@ -65,8 +69,8 @@ export const useColumnsState = initialValue => {
               ...column,
               tasks: column.tasks.filter(task => task.id !== taskId),
             }
-          : column
-      )
+          : column,
+      ),
     );
   }, []);
 
@@ -78,8 +82,8 @@ export const useColumnsState = initialValue => {
               ...column,
               tasks: column.tasks.map(task => (task.id === updatedTask.id ? updatedTask : task)),
             }
-          : column
-      )
+          : column,
+      ),
     );
   }, []);
 
@@ -101,11 +105,11 @@ export const useColumnsState = initialValue => {
               ...column,
               tasks: arrayMove(column.tasks, oldIndex, newIndex),
             };
-          })
+          }),
         );
       }
     },
-    [findColumn]
+    [findColumn],
   );
 
   const handleDragOver = useCallback(
@@ -139,7 +143,7 @@ export const useColumnsState = initialValue => {
         });
       });
     },
-    [findColumn]
+    [findColumn],
   );
 
   return {

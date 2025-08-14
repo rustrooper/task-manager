@@ -1,13 +1,17 @@
 import { setColor } from './helpers';
-import { Icon } from '@components/Icon';
 import { memo } from 'react';
 
 import './styles.scss';
 
 export const Avatar = memo(({ user, className = 'avatar', size = 'lg' }) => {
-  if (user?.icon) return <Icon className={className} link={user.icon} size={size} />;
+  if (user?.icon) return <img className={`${className}${size ? ` icon_size_${size}` : ''}`} src={user.icon} />;
 
   const userColor = setColor(user);
   const initials = [user.name?.[0], user.lastname?.[0]].join('').toUpperCase();
-  return <Icon className={className} size={size} bgColor={userColor} textContent={initials} />;
+  return (
+    <div
+      className={`${className}${size ? ` icon_size_${size}` : ''}${userColor ? ` icon_bg-color_${userColor}` : ''}`.trim()}>
+      {initials}
+    </div>
+  );
 });

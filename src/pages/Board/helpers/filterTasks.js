@@ -1,30 +1,14 @@
+import { isSameDay, isWithinInterval, startOfWeek, endOfWeek, subWeeks, subDays, isSameMonth } from 'date-fns';
+
 export const filterTasks = (columns, searchTerm, tasksPeriod) => {
   const now = new Date();
-  const nowDay = now.getDate();
-  const dayOfWeek = now.getDay();
-  const nowMonth = now.getMonth();
-  const nowYear = now.getFullYear();
-
-  const yesterday = new Date(now);
-  yesterday.setDate(nowDay - 1);
-
-  const yesterdayDate = yesterday.getDate();
-  const yesterdayMonth = yesterday.getMonth();
-  const yesterdayYear = yesterday.getFullYear();
-
-  const startOfWeek = new Date(now);
-  startOfWeek.setDate(nowDay - (dayOfWeek === 0 ? 6 : dayOfWeek - 1));
-  startOfWeek.setHours(0, 0, 0, 0);
-
-  const startOfLastWeek = new Date(now);
-  startOfLastWeek.setDate(nowDay - (dayOfWeek === 0 ? 13 : dayOfWeek + 6));
-  startOfLastWeek.setHours(0, 0, 0, 0);
-
-  const endOfLastWeek = new Date(startOfLastWeek);
-  endOfLastWeek.setDate(startOfLastWeek.getDate() + 6);
-  endOfLastWeek.setHours(23, 59, 59, 999);
-
   const trimmedSearchTerm = searchTerm.trim().toLowerCase();
+
+  const today = now;
+  const yesterday = subDays(now, 1);
+  const thisWeekStart = startOfWeek(now);
+  const lastWeekStart = startOfWeek(subWeeks(now, 1));
+  const lastWeekEnd = endOfWeek(subWeeks(now, 1));
 
   return columns.map(column => ({
     ...column,
@@ -37,29 +21,28 @@ export const filterTasks = (columns, searchTerm, tasksPeriod) => {
       if (!matchesSearch) return false;
 
       const taskDate = new Date(task.createdAt);
-      const taskDay = taskDate.getDate();
-      const taskMonth = taskDate.getMonth();
-      const taskYear = taskDate.getFullYear();
 
       switch (tasksPeriod.value) {
-        case 'today': {
-          return taskDay === nowDay && taskMonth === nowMonth && taskYear === nowYear;
-        }
-        case 'yesterday': {
-          return taskDay === yesterdayDate && taskMonth === yesterdayMonth && taskYear === yesterdayYear;
-        }
-        case 'thisWeek': {
-          return taskDate >= startOfWeek;
-        }
-        case 'lastWeek': {
-          return taskDate >= startOfLastWeek && taskDate <= endOfLastWeek;
-        }
-        case 'thisMonth': {
-          return taskMonth === nowMonth && taskYear === nowYear;
-        }
-        default: {
+        case 'today':
+          return isSameDay(taskDate, today);
+
+        case 'yesterday':
+          return isSameDay(taskDate, yesterday);
+
+        case 'thisWeek':
+          return taskDate >= thisWeekStart;
+
+        case 'lastWeek':
+          return isWithinInterval(taskDate, {
+            start: lastWeekStart,
+            end: lastWeekEnd,
+          });
+
+        case 'thisMonth':
+          return isSameMonth(taskDate, now);
+
+        default:
           return true;
-        }
       }
     }),
   }));

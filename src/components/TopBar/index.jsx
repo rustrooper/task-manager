@@ -5,7 +5,7 @@ import { users } from '@data/appData';
 
 import './styles.scss';
 
-export const TopBar = ({ searchTerm, onSearchChange }) => {
+export const Header = ({ searchTerm, onSearchChange }) => {
   return (
     <div className="topbar">
       <Search searchTerm={searchTerm} onSearchChange={onSearchChange} />

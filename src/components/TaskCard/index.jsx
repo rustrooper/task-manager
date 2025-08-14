@@ -10,14 +10,10 @@ import './styles.scss';
 export const TaskCard = memo(({ task, tags, assignees, onDeleteTask, onUpdateTask }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedTask, setEditedTask] = useState(task);
-  const [isElevated, setIsElevated] = useState(false);
+
   useEffect(() => {
     setEditedTask(task);
   }, [task]);
-
-  console.log('task', task);
-  console.log('Id задачи', task.id);
-  console.log('Теги задачи', task.tag);
 
   const handleEdit = useCallback(() => {
     if (!isEditing) setIsEditing(true);

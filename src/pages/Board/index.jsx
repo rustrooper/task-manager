@@ -29,9 +29,9 @@ export const Board = ({ searchTerm = '' }) => {
 
   const [activeTask, setActiveTask] = useState(null);
 
-  useEffect(() => {
-    LocalStorageService.set('taskBoardColumns', columns);
-  }, [columns]);
+  // useEffect(() => {
+  //   LocalStorageService.set('taskBoardColumns', columns);
+  // }, [columns]);
 
   const [tasksPeriod, setTasksPeriod] = useState(periodOptions[2]);
 
