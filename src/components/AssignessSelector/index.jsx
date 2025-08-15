@@ -15,7 +15,7 @@ export const AssigneesSelector = memo(({ currentAssigneesIds, onAssigneesSelect,
 
       onAssigneesSelect('assignees', newAssignees);
     },
-    [currentAssigneesIds, onAssigneesSelect]
+    [currentAssigneesIds, onAssigneesSelect],
   );
 
   const handleClearAll = useCallback(() => {
@@ -33,7 +33,7 @@ export const AssigneesSelector = memo(({ currentAssigneesIds, onAssigneesSelect,
           currentAssigneesIds.map(assigneeId => {
             const assignee = availableAssignees.find(a => a.id === assigneeId);
             if (!assignee) return null;
-            return <Avatar key={assignee.id} className="assignees-selector__user-icon" user={assignee} />;
+            return <Avatar key={assignee.id} className="assignees-selector__user" user={assignee} />;
           })
         ) : (
           <>
@@ -43,7 +43,7 @@ export const AssigneesSelector = memo(({ currentAssigneesIds, onAssigneesSelect,
         )}
       </button>
     ),
-    [availableAssignees, currentAssigneesIds, hasCurrentAssignees]
+    [availableAssignees, currentAssigneesIds, hasCurrentAssignees],
   );
 
   const renderContent = useCallback(
@@ -81,7 +81,7 @@ export const AssigneesSelector = memo(({ currentAssigneesIds, onAssigneesSelect,
         )}
       </>
     ),
-    [availableAssignees, currentAssigneesIds, handleAssigneeToggle, handleClearAll, hasCurrentAssignees]
+    [availableAssignees, currentAssigneesIds, handleAssigneeToggle, handleClearAll, hasCurrentAssignees],
   );
 
   return (

@@ -4,11 +4,10 @@ import '@styles/btn.scss';
 import { PeriodSelector } from '@components/PeriodSelector';
 import { SortableTaskCard } from '@components/SortableTaskCard';
 import { TaskCard } from '@components/TaskCard';
-import { periodOptions, users, tags, initialColumns } from '@data/appData';
+import { periodOptions, users, tags } from '@data/appData';
 import { DndContext, closestCorners, useSensor, useSensors, DragOverlay, MouseSensor } from '@dnd-kit/core';
-import { SortableContext, verticalListSortingStrategy, arrayMove } from '@dnd-kit/sortable';
-import { LocalStorageService } from '@utils/localStorageService';
-import { useCallback, useEffect, useState } from 'react';
+import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { useCallback, useState } from 'react';
 import { filterTasks } from './helpers/filterTasks.js';
 import { useColumnsState } from './helpers/useColumnsState';
 
@@ -28,10 +27,6 @@ export const Board = ({ searchTerm = '' }) => {
   } = useColumnsState();
 
   const [activeTask, setActiveTask] = useState(null);
-
-  // useEffect(() => {
-  //   LocalStorageService.set('taskBoardColumns', columns);
-  // }, [columns]);
 
   const [tasksPeriod, setTasksPeriod] = useState(periodOptions[2]);
 

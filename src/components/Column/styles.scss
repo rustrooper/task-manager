@@ -20,7 +20,7 @@
     margin-bottom: 1.5rem;
     background: vars.$color-grey-pale;
     position: relative;
-    z-index: 1;
+    // z-index: 1;
   }
 
   &__title {
@@ -53,6 +53,8 @@
     overflow-y: auto;
     display: flex;
     flex-direction: column;
+    z-index: 0;
+    position: relative;
     gap: 3rem;
     padding: 0;
     margin: 0;
@@ -62,5 +64,18 @@
     &::-webkit-scrollbar {
       display: none;
     }
+  }
+
+  &__dropdown-menu {
+    position: relative;
+    align-items: center;
+    max-height: 2.4rem;
+  }
+
+  &__dropdown-content {
+    position: absolute;
+    z-index: 200;
+    top: 2rem;
+    right: 0;
   }
 }

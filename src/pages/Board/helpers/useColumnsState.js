@@ -2,6 +2,7 @@ import { useCallback, useState, useEffect } from 'react';
 import { LocalStorageService } from '@utils/localStorageService';
 import { arrayMove } from '@dnd-kit/sortable';
 import { initialColumns } from '@data/appData';
+import { v4 as uuidv4 } from 'uuid';
 
 export const useColumnsState = initialValue => {
   const [columns, setColumns] = useState(() => {
@@ -25,7 +26,7 @@ export const useColumnsState = initialValue => {
     setColumns(prev => [
       ...prev,
       {
-        id: Date.now(),
+        id: uuidv4(),
         title: `New Column ${prev.length + 1}`,
         tasks: [],
       },
@@ -49,7 +50,7 @@ export const useColumnsState = initialValue => {
               tasks: [
                 ...column.tasks,
                 {
-                  id: Date.now(),
+                  id: uuidv4(),
                   title: 'Заголовок задачи',
                   description: 'Описание задачи',
                   createdAt: new Date().toISOString(),

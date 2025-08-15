@@ -1,9 +1,11 @@
+import { v4 as uuidv4 } from 'uuid';
+
 export const periodOptions = [
-  { id: 1, label: 'Today', value: 'today' },
-  { id: 2, label: 'Yesterday', value: 'yesterday' },
-  { id: 3, label: 'This Week', value: 'thisWeek' },
-  { id: 4, label: 'Last Week', value: 'lastWeek' },
-  { id: 5, label: 'This Month', value: 'thisMonth' },
+  { id: uuidv4(), label: 'Today', value: 'today' },
+  { id: uuidv4(), label: 'Yesterday', value: 'yesterday' },
+  { id: uuidv4(), label: 'This Week', value: 'thisWeek' },
+  { id: uuidv4(), label: 'Last Week', value: 'lastWeek' },
+  { id: uuidv4(), label: 'This Month', value: 'thisMonth' },
 ];
 
 export const users = [
@@ -29,11 +31,11 @@ export const tags = ['design system', 'development', 'testing', 'analytics'];
 
 export const initialColumns = [
   {
-    id: 1,
+    id: uuidv4(),
     title: 'To Do',
     tasks: [
       {
-        id: 11,
+        id: uuidv4(),
         title: 'Design Homepage',
         description: 'Create wireframes',
         createdAt: new Date().toISOString(),
@@ -41,11 +43,11 @@ export const initialColumns = [
     ],
   },
   {
-    id: 2,
+    id: uuidv4(),
     title: 'In Progress',
     tasks: [
       {
-        id: 22,
+        id: uuidv4(),
         title: 'API Integration',
         description: 'Connect backend',
         createdAt: new Date(Date.now() - 86400000).toISOString(),
