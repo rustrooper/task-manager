@@ -1,0 +1,17 @@
+@use '../../styles/variables.scss' as vars;
+
+.search {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  &__input {
+    width: 20rem;
+    font-size: vars.$size-h3;
+    color: vars.$color-grey;
+    font-weight: vars.$weight-regular;
+    border: none;
+    outline: none;
+    padding: 0 0.2rem;
+  }
+}

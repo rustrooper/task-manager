@@ -1,0 +1,23 @@
+@use '../../styles/variables.scss' as vars;
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  min-width: 22.4rem;
+  background-color: vars.$color-grey-pale;
+  box-shadow: 7px -1px 12px 0 rgba(0, 0, 0, 0.11);
+
+  &__top {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    margin-left: 3rem;
+  }
+
+  &__title {
+    font-size: vars.$size-h3;
+    font-weight: vars.$weight-bold;
+  }
+}
