@@ -88,6 +88,19 @@ export const useColumnsState = initialValue => {
     );
   }, []);
 
+  const reorderTasksInColumn = (prevColumns, columnId, activeId, overId) => {
+    return prevColumns.map(column => {
+      if (column.id !== columnId) return column;
+      const oldIndex = column.tasks.findIndex(task => task.id === activeId);
+      const newIndex = column.tasks.findIndex(task => task.id === overId);
+
+      return {
+        ...column,
+        tasks: arrayMove(column.tasks, oldIndex, newIndex),
+      };
+    });
+  };
+
   const handleDragEnd = useCallback(
     ({ active, over }) => {
       if (!over) return;
@@ -96,22 +109,35 @@ export const useColumnsState = initialValue => {
       if (!columnId) return;
 
       if (active.id !== over.id) {
-        setColumns(prev =>
-          prev.map(column => {
-            if (column.id !== columnId) return column;
-            const oldIndex = column.tasks.findIndex(task => task.id === active.id);
-            const newIndex = column.tasks.findIndex(task => task.id === over.id);
-
-            return {
-              ...column,
-              tasks: arrayMove(column.tasks, oldIndex, newIndex),
-            };
-          }),
-        );
+        setColumns(prev => reorderTasksInColumn(prev, columnId, active.id, over.id));
       }
     },
     [findColumn],
   );
+
+  const moveTaskToAnotherColumn = (columns, activeColumnId, overColumnId, taskId) => {
+    const sourceColumn = columns.find(col => col.id === activeColumnId);
+    if (!sourceColumn) return columns;
+
+    const taskToMove = sourceColumn.tasks.find(task => task.id === taskId);
+    if (!taskToMove) return columns;
+
+    return columns.map(column => {
+      if (column.id === activeColumnId) {
+        return {
+          ...column,
+          tasks: column.tasks.filter(task => task.id !== taskId),
+        };
+      }
+      if (column.id === overColumnId) {
+        return {
+          ...column,
+          tasks: [...column.tasks, taskToMove],
+        };
+      }
+      return column;
+    });
+  };
 
   const handleDragOver = useCallback(
     ({ active, over }) => {
@@ -121,28 +147,7 @@ export const useColumnsState = initialValue => {
 
       if (!activeColumn || !overColumn || activeColumn === overColumn) return;
 
-      setColumns(prev => {
-        const activeCol = prev.find(col => col.id === activeColumn);
-        if (!activeCol) return prev;
-        const activeTask = activeCol.tasks.find(task => task.id === active.id);
-        if (!activeTask) return prev;
-
-        return prev.map(col => {
-          if (col.id === activeColumn) {
-            return {
-              ...col,
-              tasks: col.tasks.filter(task => task.id !== active.id),
-            };
-          }
-          if (col.id === overColumn) {
-            return {
-              ...col,
-              tasks: [...col.tasks, activeTask],
-            };
-          }
-          return col;
-        });
-      });
+      setColumns(prev => moveTaskToAnotherColumn(prev, activeColumn, overColumn, active.id));
     },
     [findColumn],
   );
